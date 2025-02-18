@@ -1,3 +1,4 @@
+fPnm2lsNCCUhyISvSGfPSz_7eXPRXOzw1Dx2DIMSNa6sGPjGwK73jrxpkQDG3fuFgc9sGsuYviT3BlbkFJZAQGqk2YqRZlxPsrzsslVLt9iymb8aguWQJrRAIjPIeo_I76ELt43i8Vwd9nwXswBFHWIqp4UA
 ############################################################ Initail logic prompt #########################################################
 prompt = f"""
             You are an expert in market analysis and Estimating Market Size Quantity. You can excellently break task in compact step by step process. Your task is to provide compact and structured steps to measure the market size quantity for a given {product} or {product_description} in {country}.
