@@ -1,0 +1,192 @@
+############################################################ Initail logic prompt #########################################################
+prompt = f"""
+            You are an expert in market analysis and Estimating Market Size Quantity. You can excellently break task in compact step by step process. Your task is to provide compact and structured steps to measure the market size quantity for a given {product} or {product_description} in {country}.
+            - Use clear and concise language, breaking the process into logical, actionable steps.
+            - Follow the example output pattern strictly and give consize one liner five or six steps only. No extra Notes, lines other than steps.
+            Examples:
+
+            Text: Estimate the number of tennis balls in the air now?
+            Output:
+            Step 1: Estimate the number of tennis venues by continent. \n
+            Step 2: For each tennis venue, estimate the number of tennis courts. \n
+            Step 3: For the courts in each region, estimate their occupation rate. \n
+            Step 4: For each occupied court, estimate the number of players and the number of tennis balls in play. \n
+            Step 5: For each active player, estimate the number of tennis balls in play. \n
+            Step 6: Estimate the fraction of time tennis balls spend in the air during total playtime. \n
+
+            Text: {product_description}
+            Output:
+            """ 
+########################################################### Update logic based on user instructions######################################################
+        prompt = f"""
+        You are an expert in market analysis and Estimating Market Size Quantity. Your task is to refine given steps based on the instructions.
+        Provide compact and structured steps to measure the market size Quantity of {product} or {product_description} in {country} given initial steps and instructions.
+        - Use clear and concise language, breaking the process into logical, actionable steps.
+        - you are given initial steps: {original_output} and instruction :{user_input}.
+        - Refine steps based on the instructions provided
+        - Use clear and concise language, breaking the process into logical, actionable steps.
+        - Follow the example output pattern strictly and give consize one liner steps only. No extra Notes, lines other than steps.
+
+        Examples:
+        Text: Estimate the number of tennis balls in the air now?
+        Output:
+        Step 1: Estimate the number of tennis venues by continent. \n
+        Step 2: For each tennis venue, estimate the number of tennis courts.\n
+        Step 3: For the courts in each region, estimate their occupation rate. \n
+        Step 4: For each occupied court, estimate the number of players and the number of tennis balls in play. \n
+        Step 5: For each active player, estimate the number of tennis balls in play. \n
+        Step 6: Estimate the fraction of time tennis balls spend in the air during total playtime.\n
+
+        Text: Calculate the number of wheels in Germany for 2023, 2024, and 2025.
+        Output:
+        Step 1: Estimate the total number of vehicles by category (commercial, passenger, two-wheelers) in Germany. \n
+        Step 2: For each vehicle category, estimate the average number of wheels per vehicle. \n
+        Step 3: For the vehicles in use, estimate the annual wheel replacement rate.\n
+        Step 4: Estimate the number of new vehicle sales for each year.\n
+        Step 5: For each category, calculate the total demand for wheels based on replacement rates and new sales. \n
+        Step 6: Sum the values across all categories to determine the total number of wheel for each year.\n
+        """
+
+#################################################################### Prompt to fetch assumptions ########################################################
+        prompt = f"""
+        You are an expert in market analysis and Estimating Market Size Quantity. Your task is to estimate assumption parameters for computing market size quantity for the period {current_start_period} to {current_end_period} of year {current_year} given base scenario parameters for period {base_start_period} to {base_end_period} of year {base_year}, recent {past_scenario}
+        scenario parameters for period {past_start_period} to {past_end_period} of year {past_year} and formula to compute market size quantity in the given current period.
+        Ensure that the calculations reflect realistic trends and growth patterns relevant to the given parameters.
+        ### Base Parameters for period {base_start_period} to {base_end_period} of year {base_year}:
+        {
+            {str(assumption)},
+        }
+        ### recent {past_scenario} scenario Parameters for period {past_start_period} to {past_end_period} of year {past_year}:
+        {
+            {str(past_assumption_value)},
+        }
+        ### Formula to estimate market size:
+        {
+            {str(formula)},
+        }
+        ### Requirements:
+        - For each parameter, provide the **current value** for each parameters:
+        - consider probable trends, growth rates, or seasonal factors for the calculation.
+        - Respond in **JSON format** with the same structure as parameters:
+    
+        ### Instructions:
+        - Perform the calculation for the scenario: **{current_scenario}**.
+        - Take into account the impact of additional cases: **{additional_scenario}** with values: **{additional_scenario_value}**.
+        
+        Ensure the values reflect realistic economic of {product} in {country} and industry-specific trends.
+        
+        Example input parameters format:
+        {{ "parameters":{{
+        'Step 1 (Target Population Analysis)': {{'Middle_Income_Population (%)': 45.0,
+                                                'Environmental_Conscious_Buyers (%)': 42.0,
+                                                'Urban_Population (%)': 82.5,
+                                                'High_Income_Population (%)': 35.0,
+                                                'Total_Population (millions)': 335.5}},
+            'Step 2 (EV Adoption Potential)': {{'Market_Growth_Rate (%)': 28.5,
+                                                'EV_Penetration_Rate (%)': 12.5,
+                                                'High_Income_Population (%)': 35.0,
+                                                'Environmental_Conscious_Buyers (%)': 42.0}},
+            'Step 3 (Vehicle Market Analysis)': {{'Vehicle_Sales_Growth (%)': 3.2,
+                                                'Annual_Vehicle_Sales (millions)': 17.2,
+                                                'EV_Market_Share (%)': 8.5}},
+            'Step 4 (Segment-wise Market Distribution)': {{'Mid_Range_Segment_Share (%)': 45.0,
+                                                        'Economy_Segment_Share (%)': 40.0,
+                                                        'Luxury_Segment_Share (%)': 15.0}},
+
+            'Step 5 (Total Market Size)': {{'Charging_Infrastructure_Growth (%)': 25.0,
+                                        'GDP_Growth_Rate (%)': 2.3}}
+                }}
+            }}
+        Example formula format
+        {{
+        'Step 1 (Target Population Analysis)': ['High_Income_Market (millions) = Total_Population * High_Income_Population (%)', 'Middle_Income_Market (millions) = Total_Population * Middle_Income_Population (%)', 'Environmental_Conscious_Market (millions) = Total_Population * Environmental_Conscious_Buyers (%)', 'Urban_Market_Size (millions) = Total_Population * Urban_Population (%)'],
+        'Step 2 (EV Adoption Potential)': ['Projected_EV_Penetration_2026 (%) = EV_Penetration_Rate * (1 + Market_Growth_Rate (%))', 'Total_EV_Potential_Buyers (millions) = Urban_Market_Size * (High_Income_Population (%) + Middle_Income_Population (%) * 0.5) * Environmental_Conscious_Buyers (%)'],
+        'Step 3 (Vehicle Market Analysis)': ['Projected_Annual_Sales_2026 (millions) = Annual_Vehicle_Sales * (1 + Vehicle_Sales_Growth (%))', 'Expected_EV_Sales_2026 (millions) = Projected_Annual_Sales_2026 * EV_Market_Share (%)'],
+        'Step 4 (Segment-wise Market Distribution)': ['Luxury_EV_Sales (units) = Expected_EV_Sales_2026 * Luxury_Segment_Share (%)', 'Mid_Range_EV_Sales (units) = Expected_EV_Sales_2026 * Mid_Range_Segment_Share (%)', 'Economy_EV_Sales (units) = Expected_EV_Sales_2026 * Economy_Segment_Share (%)'],
+        'Step 5 (Total Market Size)': ['Base_Market_Size (millions) = Luxury_EV_Sales + Mid_Range_EV_Sales + Economy_EV_Sales', 'Adjusted_Market_Size (millions) = Base_Market_Size_2026 * (1 + GDP_Growth_Rate (%) + Charging_Infrastructure_Growth (%) * 0.1)']
+        }}
+
+        only Output parameter representing growth or decline percentage no extra text or explanation:
+        {{"parameters":{{
+        'Step 1 (Target Population Analysis)': {{'Middle_Income_Population (%)': 48,
+                                                'Environmental_Conscious_Buyers (%)': 44,
+                                                'Urban_Population (%)': 84,
+                                                'High_Income_Population (%)': 36,
+                                                'Total_Population (millions)': 360.2}},
+            'Step 2 (EV Adoption Potential)': {{'Market_Growth_Rate (%)': 30,
+                                                'EV_Penetration_Rate (%)': 13.5,
+                                                'High_Income_Population (%)': 37,
+                                                'Environmental_Conscious_Buyers (%)': 43.3}},
+            'Step 3 (Vehicle Market Analysis)': {{'Vehicle_Sales_Growth (%)': 3.6,
+                                                'Annual_Vehicle_Sales (millions)': 18.1,
+                                                'EV_Market_Share (%)': 9.2}},
+            'Step 4 (Segment-wise Market Distribution)': {{'Mid_Range_Segment_Share (%)': 46.8,
+                                                        'Economy_Segment_Share (%)': 37.4,
+                                                        'Luxury_Segment_Share (%)': 15.8}},
+            'Step 5 (Total Market Size)': {{'Charging_Infrastructure_Growth (%)': 26.4,
+                                        'GDP_Growth_Rate (%)': 2.8}}
+            }}
+        }}
+        ""
+################################################# prompt to Rectify formula based on user instructions ###################################################
+        prompt = f"""You are the expert in Financial modeling and estimating market size quantity. I need help rectifying a formula for estimating market sizing quantity step by step. Given assumption, key_values and step by step formula 
+        your job is to correct paramerters name and step by step formula. Formula should use only parameters used in given parameters and the variables need to be defined before using.
+        Output format should be as example shown.
+        
+        Input Data: Use only the parameters explicitly mentioned in the {data}
+        Input Formula steps: Use this given formula for refinement {formula_step} and mention proper units on the left hand side of equations.
+
+        Instruction!
+        - if a variable is not predefined, Define the variable given parameters.
+        - Use only the provided parameter names as they are, without adding units or any modifications to their names.
+        - Remove any units that appear on the formula on left side of equal too, within the formula during the rectification process.
+        - Ensure that each step logically validates the usage of the parameters and their role in the formula.
+
+        Rectification Steps:
+
+        Start by verifying if the current formula uses only the provided parameters or any predefined ones explicitly mentioned.
+        Remove any unnecessary or redundant elements from the formula.
+        Validate each step logically to ensure the formula aligns with the market sizing context.
+        Provide the corrected and final formula after reviewing all the steps.
+        Example output parameters and formula steps must have units with it as provided in example
+        
+        Example output parameters:
+
+            "assumptions": {{
+                "Total_Population (millions)": 83.2,
+                "Penetration_Rate (%)": 20,
+                "Total_Vehicle_Population (millions)": 340.5,
+                "Commercial_Vehicles (%)": 12.5,
+                "Passenger_Vehicles (%)": 15.8,
+                "Two_Wheelers (%)": 71.7,
+                "Replacement_Rate_per_Year": 1.2,
+                "GDP_Growth_Rate (%)": 7.5,
+                "Vehicle_Sales_Growth (%)": 12.5,
+                "Urbanization_Rate (%)": 36.5,
+            }},
+            "key_values": {{
+                "Average_Wheels_per_Commercial_Vehicle": 6,
+                "Average_Wheels_per_Passenger_Vehicle": 4,
+                "Average_Wheels_per_Two_Wheeler": 2,
+                "New_Vehicle_Sales_Forecast (millions)": 32.5,
+                "Import/Export_Ratio (%)": 15
+            }}
+            Example Output formula steps:
+            
+            "formula": {{
+            "Step 1 (Replacement Market)": [
+                "Commercial_Wheels_Replacement (millions) = Total_Vehicle_Population * Commercial_Vehicles / 100 * Average_Wheels_per_Commercial_Vehicle * Replacement_Rate_per_Year / 100",
+                "Passenger_Wheels_Replacement (millions)= Total_Vehicle_Population * Passenger_Vehicles / 100 * Average_Wheels_per_Passenger_Vehicle * Replacement_Rate_per_Year/ 100",
+                "Two_Wheeler_Wheels_Replacement (millions) = Total_Vehicle_Population * Two_Wheelers / 100 * Average_Wheels_per_Two_Wheeler * Replacement_Rate_per_Year/ 100 "],
+            "Step 2 (Growth Market)": [
+                "New_Commercial_Wheels (millions)= New_Vehicle_Sales_Forecast * Commercial_Vehicles /100 * Average_Wheels_per_Commercial_Vehicle",
+                "New_Passenger_Wheels (millions)= New_Vehicle_Sales_Forecast * Passenger_Vehicles / 100 * Average_Wheels_per_Passenger_Vehicle",
+                "New_Two_Wheeler_Wheels (millions)= New_Vehicle_Sales_Forecast * Two_Wheelers / 100 * Average_Wheels_per_Two_Wheeler" ],
+            "Step 3 (Number)": [
+                "Number_of_Commercial_Wheels (millions)= Commercial_Wheels_Replacement + New_Commercial_Wheels",
+                "Number_of_Passenger_Wheels (millions)= Passenger_Wheels_Replacement + New_Passenger_Wheels",
+                "Number_of_Two_Wheeler_Wheels (millions)= Two_Wheeler_Wheels_Replacement + New_Two_Wheeler_Wheels"],
+            "Step 4 (Market Size)": [
+                "Total_Market_Size (millions)= Number_of_Commercial_Wheels + Number_of_Passenger_Wheels + Number_of_Two_Wheeler_Wheels" ]
+            }}
+        """
