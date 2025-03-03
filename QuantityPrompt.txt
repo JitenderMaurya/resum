@@ -191,3 +191,24 @@ prompt = f"""
                 "Total_Market_Size (millions)= Number_of_Commercial_Wheels + Number_of_Passenger_Wheels + Number_of_Two_Wheeler_Wheels" ]
             }}
         """
+Prompt 1: 
+I want to set-up a financial model to estimate the business case of launching a new digital payments gateway for an airline. for that, what would be key is to have the ability to measure the incremental revenue achieved by continent versus the increase in cost of sales per pax. the period of the assessment is 5 years, with the need to include last 2 years of historicals to compare the per unit sales costs.
+
+In this prompt, we specify that we structure the user base sizing by continent which would impact the revenues which would as well be structured by continent. costs and other items do not matter here because it is a comparison on a total cost of sales basis as mentioned
+
+we however, do not specify the markets / continents of operation
+
+we do not provide an overview of what the new gateway is or to whom it appeals the most
+
+Prompt 2: 
+I want to set-up a financial model where i project the impact of adding a product on my baseline for the next 3 years. 
+
+we do not specify the product, we do not specify the market, we do not specify the country of operations. 
+
+follow-up questions? answers include:
+- in which market does your company operate? we sell tires
+- what is the new product? assume it is a new wheel product
+- which locations do you serve? we only work in india
+if the answer was only India, we need to ask about their coverage in India - i.e., tier 1 / tier 2 / tier 3 cities
+
+note: in instances like this where the term used "check impact on revenue baseline"- we typically have a scenario switch: New Product Launched, Without Product Launched
