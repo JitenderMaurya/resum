@@ -1,3 +1,86 @@
+Enhanced 6-Step User-Base Estimation Framework
+Step 1: Define the Total Addressable Market across the markets in scope 
+Step 2: Segment the Customer Base into the distinct customer segments
+Note: If we are having different countries, then take the different countries or continents as the breakers, under each let’s have the different customer segments. 
+Customer segments mean: 
+-	High income / Low Income / Medium Income. 
+-	Prepaid / post-paid / business
+-	Economy class / Business class / First class
+-	Standard / Premium
+For example: 
+India / Indian Subcontinent
+-	Prepaid
+-	Postpaid
+-	Business
+UK / UK and Europe 
+-	Prepaid
+-	Postpaid
+-	Business
+If only one market, then only the customer segments get retained thereafter in the format.
+In terms of continents, we only possess the following:
+-	North America
+-	Latin and Central America
+-	UK and Europe
+-	Middle East and Africa 
+-	Indian Subcontinent (i.e., India, Bangladesh, Pakistan, Nepal, Sri Lanka, Maldives, Bhutan)
+-	Asian Pacific (i.e., China, Japan, Australia, New Zealand, Malaysia, Indonesia, Philippines, Thailand, Vietnam, etc.)
+Step 3: Identify serviceable addressable market (SAM) 
+-	Multiply the output of Step #2 by an adoption factor to create SAM 
+Step 4: Identify the company acquisition rates
+-	Multiple the SAM with the acquisition rate YoY
+Step 5: Factor gains and losses of customers from and to competitors
+Here this step would include two pieces: 
+-	Factor from the total SAM, how many can the company gain from competitors (Adds)
+-	Factor of the acquired customers, how many churn per year (subtracts)
+Step 6: Calculate the total user base by customer segment
+-	Here this would be: 
+o	Output of Step 4 + the gain – the churn per segment
+o	Then total = Market A (segment 1 + segment 2 + segment N) + Market B ((segment 1 + segment 2 + segment N)
+
+
+User Base Estimation Standardization:
+Prompt 1 – Overview: I want a financial model which estimates the financial plan for a dog servicing business. The business is expected to have only operations in Dubai and is expected to provide 3 services. The financial plan should be for 4 years and should factor in the capex of setting up a dog hotel for one of the services.
+Prompt 1 – Follow-up: What revenue products should be factored into the financial model?
+The three services are: Dog Walking, Dog Grooming, Hotel Sleeping per night
+Prompt 1 – User Base Steps:
+Step 1: Define total addressable market in Dubai
+Step 2: Split the total addressable market into segments
+Step 3: Identify serviceable addressable market (SAM)
+Step 4: Identify the company acquisition rates
+Step 5: X
+Step 6: X
+Prompt 1 – User Base Formulae:
+Step 1: Define total addressable market in Dubai
+-	Total Population of Dubai = 4Mn
+-	Number of Households of Dubai = Total Population / households per population = 1Mn
+Step 2: Split the total addressable market into segments
+-	High Income segment TAM: Total households * share high income * high_income_dogs_per_household
+-	Medium Income segment TAM: Total households * share Mid income * Mid_income_dogs_per_household
+-	Low Income segment TAM: Total households * share low income * low_income_dogs_per_household
+Step 3: Identify serviceable addressable market (SAM)
+-	High-income SAM: High-income segment TAM * Highincome_Share where dogs would be serviced
+-	Mid-income SAM: Mid-income segment TAM * Mid income_Share where dogs would be serviced
+-	Low-income SAM: Low-income segment TAM * Low income_Share where dogs would be serviced
+Step 4: Identify the company acquisition rates
+-	High income acquisition: High income SAM * Highincome_Acquisition
+-	Mid income acquisition: Mid income SAM * Mid income_Acquisition
+-	Low income acquisition: Low income SAM * Low income_Acquisition
+Step 5: Factor gains and losses of customers from and to competitors
+-	High income gains: High Income SAM * High Income gain per annum
+-	High income Loss: High Income acquisition * High_Income Churn per annum
+-	Mid income gains: Mid Income SAM * Mid Income gain per annum
+-	Mid income Loss: Mid Income acquisition * Mid_Income Churn per annum
+-	Low income gains: Low Income SAM * Low Income gain per annum
+-	Low income Loss: Low Income acquisition * Low_Income Churn per annum
+Step 6: Calculate the total user base by customer segment
+High Income = acquisition + gains – losses
+Mid Income = acquisition + gains – losses
+Low Income = acquisition + gains - losses
+Total = High + Mid + Low
+
+
+
+
 fPnm2lsNCCUhyISvSGfPSz_7eXPRXOzw1Dx2DIMSNa6sGPjGwK73jrxpkQDG3fuFgc9sGsuYviT3BlbkFJZAQGqk2YqRZlxPsrzsslVLt9iymb8aguWQJrRAIjPIeo_I76ELt43i8Vwd9nwXswBFHWIqp4UA
 ############################################################ Initail logic prompt #########################################################
 prompt = f"""
