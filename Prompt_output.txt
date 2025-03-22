@@ -1,0 +1,486 @@
+{
+  "assumptions": {
+    "Total_Population_Dubai (million)": 3.5,
+    "Dog_Ownership_Rate (%)": 15,
+    "Dogs_Per_Dog_Owner": 1.2,
+    "Premium_Segment_Share (%)": 30,
+    "Standard_Segment_Share (%)": 45,
+    "Economy_Segment_Share (%)": 25,
+    "Walking_Service_Split (%)": 25,
+    "Grooming_Service_Split (%)": 35,
+    "Hotel_Service_Split (%)": 40,
+    "Premium_Service_Adoption_Rate (%)": 65,
+    "Standard_Service_Adoption_Rate (%)": 40,
+    "Economy_Service_Adoption_Rate (%)": 25,
+    "Market_Share_Walking (%)": 12,
+    "Market_Share_Grooming (%)": 15,
+    "Market_Share_Hotel (%)": 10,
+    "Premium_Customer_Gain_Rate (%)": 4,
+    "Standard_Customer_Gain_Rate (%)": 3.5,
+    "Economy_Customer_Gain_Rate (%)": 2.5,
+    "Premium_Customer_Churn_Rate (%)": 8,
+    "Standard_Customer_Churn_Rate (%)": 12,
+    "Economy_Customer_Churn_Rate (%)": 15,
+    "Cross_Service_Usage_Rate (%)": 25,
+    "Pet_Care_Industry_Growth_Rate (%)": 7,
+    "Dubai_Expatriate_Population (%)": 85
+  },
+  "formula": {
+    "Step 1: Define Total Addressable Market in Dubai": [
+      "Total_Dog_Owners = Total_Population_Dubai * 1000000 * Dog_Ownership_Rate / 100",
+      "Total_Dogs = Total_Dog_Owners * Dogs_Per_Dog_Owner",
+      "Total_Addressable_Market = Total_Dogs * (1 + Pet_Care_Industry_Growth_Rate / 100)"
+    ],
+    "Step 2: Segment the market by customer types": [
+      "Premium_Segment_TAM = Total_Addressable_Market * Premium_Segment_Share / 100",
+      "Standard_Segment_TAM = Total_Addressable_Market * Standard_Segment_Share / 100",
+      "Economy_Segment_TAM = Total_Addressable_Market * Economy_Segment_Share / 100",
+      "Walking_Premium_TAM = Premium_Segment_TAM * Walking_Service_Split / 100",
+      "Walking_Standard_TAM = Standard_Segment_TAM * Walking_Service_Split / 100",
+      "Walking_Economy_TAM = Economy_Segment_TAM * Walking_Service_Split / 100",
+      "Grooming_Premium_TAM = Premium_Segment_TAM * Grooming_Service_Split / 100",
+      "Grooming_Standard_TAM = Standard_Segment_TAM * Grooming_Service_Split / 100",
+      "Grooming_Economy_TAM = Economy_Segment_TAM * Grooming_Service_Split / 100",
+      "Hotel_Premium_TAM = Premium_Segment_TAM * Hotel_Service_Split / 100",
+      "Hotel_Standard_TAM = Standard_Segment_TAM * Hotel_Service_Split / 100",
+      "Hotel_Economy_TAM = Economy_Segment_TAM * Hotel_Service_Split / 100"
+    ],
+    "Step 3: Identify serviceable addressable market for each segment": [
+      "Walking_Premium_SAM = Walking_Premium_TAM * Premium_Service_Adoption_Rate / 100",
+      "Walking_Standard_SAM = Walking_Standard_TAM * Standard_Service_Adoption_Rate / 100",
+      "Walking_Economy_SAM = Walking_Economy_TAM * Economy_Service_Adoption_Rate / 100",
+      "Grooming_Premium_SAM = Grooming_Premium_TAM * Premium_Service_Adoption_Rate / 100",
+      "Grooming_Standard_SAM = Grooming_Standard_TAM * Standard_Service_Adoption_Rate / 100",
+      "Grooming_Economy_SAM = Grooming_Economy_TAM * Economy_Service_Adoption_Rate / 100",
+      "Hotel_Premium_SAM = Hotel_Premium_TAM * Premium_Service_Adoption_Rate / 100",
+      "Hotel_Standard_SAM = Hotel_Standard_TAM * Standard_Service_Adoption_Rate / 100",
+      "Hotel_Economy_SAM = Hotel_Economy_TAM * Economy_Service_Adoption_Rate / 100"
+    ],
+    "Step 4: Apply market share to determine initial user acquisition": [
+      "Walking_Premium_Users = Walking_Premium_SAM * Market_Share_Walking / 100",
+      "Walking_Standard_Users = Walking_Standard_SAM * Market_Share_Walking / 100",
+      "Walking_Economy_Users = Walking_Economy_SAM * Market_Share_Walking / 100",
+      "Grooming_Premium_Users = Grooming_Premium_SAM * Market_Share_Grooming / 100",
+      "Grooming_Standard_Users = Grooming_Standard_SAM * Market_Share_Grooming / 100",
+      "Grooming_Economy_Users = Grooming_Economy_SAM * Market_Share_Grooming / 100",
+      "Hotel_Premium_Users = Hotel_Premium_SAM * Market_Share_Hotel / 100",
+      "Hotel_Standard_Users = Hotel_Standard_SAM * Market_Share_Hotel / 100",
+      "Hotel_Economy_Users = Hotel_Economy_SAM * Market_Share_Hotel / 100"
+    ],
+    "Step 5: Factor user gains and losses": [
+      "Walking_Premium_Gains = Walking_Premium_SAM * Premium_Customer_Gain_Rate / 100",
+      "Walking_Premium_Losses = Walking_Premium_Users * Premium_Customer_Churn_Rate / 100",
+      "Walking_Standard_Gains = Walking_Standard_SAM * Standard_Customer_Gain_Rate / 100",
+      "Walking_Standard_Losses = Walking_Standard_Users * Standard_Customer_Churn_Rate / 100",
+      "Walking_Economy_Gains = Walking_Economy_SAM * Economy_Customer_Gain_Rate / 100",
+      "Walking_Economy_Losses = Walking_Economy_Users * Economy_Customer_Churn_Rate / 100",
+      "Grooming_Premium_Gains = Grooming_Premium_SAM * Premium_Customer_Gain_Rate / 100",
+      "Grooming_Premium_Losses = Grooming_Premium_Users * Premium_Customer_Churn_Rate / 100",
+      "Grooming_Standard_Gains = Grooming_Standard_SAM * Standard_Customer_Gain_Rate / 100",
+      "Grooming_Standard_Losses = Grooming_Standard_Users * Standard_Customer_Churn_Rate / 100",
+      "Grooming_Economy_Gains = Grooming_Economy_SAM * Economy_Customer_Gain_Rate / 100",
+      "Grooming_Economy_Losses = Grooming_Economy_Users * Economy_Customer_Churn_Rate / 100",
+      "Hotel_Premium_Gains = Hotel_Premium_SAM * Premium_Customer_Gain_Rate / 100",
+      "Hotel_Premium_Losses = Hotel_Premium_Users * Premium_Customer_Churn_Rate / 100",
+      "Hotel_Standard_Gains = Hotel_Standard_SAM * Standard_Customer_Gain_Rate / 100",
+      "Hotel_Standard_Losses = Hotel_Standard_Users * Standard_Customer_Churn_Rate / 100",
+      "Hotel_Economy_Gains = Hotel_Economy_SAM * Economy_Customer_Gain_Rate / 100",
+      "Hotel_Economy_Losses = Hotel_Economy_Users * Economy_Customer_Churn_Rate / 100"
+    ],
+    "Step 6: Calculate total user base by service and overall": [
+      "Walking_Premium_Total = Walking_Premium_Users + Walking_Premium_Gains - Walking_Premium_Losses",
+      "Walking_Standard_Total = Walking_Standard_Users + Walking_Standard_Gains - Walking_Standard_Losses",
+      "Walking_Economy_Total = Walking_Economy_Users + Walking_Economy_Gains - Walking_Economy_Losses",
+      "Grooming_Premium_Total = Grooming_Premium_Users + Grooming_Premium_Gains - Grooming_Premium_Losses",
+      "Grooming_Standard_Total = Grooming_Standard_Users + Grooming_Standard_Gains - Grooming_Standard_Losses",
+      "Grooming_Economy_Total = Grooming_Economy_Users + Grooming_Economy_Gains - Grooming_Economy_Losses",
+      "Hotel_Premium_Total = Hotel_Premium_Users + Hotel_Premium_Gains - Hotel_Premium_Losses",
+      "Hotel_Standard_Total = Hotel_Standard_Users + Hotel_Standard_Gains - Hotel_Standard_Losses",
+      "Hotel_Economy_Total = Hotel_Economy_Users + Hotel_Economy_Gains - Hotel_Economy_Losses",
+      "Walking_Service_Total = Walking_Premium_Total + Walking_Standard_Total + Walking_Economy_Total",
+      "Grooming_Service_Total = Grooming_Premium_Total + Grooming_Standard_Total + Grooming_Economy_Total",
+      "Hotel_Service_Total = Hotel_Premium_Total + Hotel_Standard_Total + Hotel_Economy_Total",
+      "Raw_Total_Users = Walking_Service_Total + Grooming_Service_Total + Hotel_Service_Total",
+      "Unique_User_Base = Raw_Total_Users * (1 - Cross_Service_Usage_Rate / 100)"
+    ]
+  }
+}
+```
+Another example based on 4 LLM subscriptions
+{
+  "assumptions": {
+    "Global_AI_Users (millions)": 500,
+    "North_America_Market_Share (%)": 35,
+    "Europe_Market_Share (%)": 30,
+    "Asia_Pacific_Market_Share (%)": 25,
+    "Latin_America_Market_Share (%)": 5,
+    "Middle_East_Africa_Market_Share (%)": 5,
+    "LLM_Annual_Growth_Rate (%)": 25,
+    "Basic_Tier_Percentage (%)": 40,
+    "Standard_Tier_Percentage (%)": 30,
+    "Premium_Tier_Percentage (%)": 20,
+    "Enterprise_Tier_Percentage (%)": 10,
+    "North_America_Tech_Adoption_Factor (%)": 75,
+    "Europe_Tech_Adoption_Factor (%)": 70,
+    "Asia_Pacific_Tech_Adoption_Factor (%)": 60,
+    "Latin_America_Tech_Adoption_Factor (%)": 45,
+    "Middle_East_Africa_Tech_Adoption_Factor (%)": 40,
+    "Initial_Market_Share (%)": 4,
+    "Annual_Customer_Gain_Rate (%)": 18,
+    "Basic_Tier_Annual_Churn_Rate (%)": 25,
+    "Standard_Tier_Annual_Churn_Rate (%)": 18,
+    "Premium_Tier_Annual_Churn_Rate (%)": 12,
+    "Enterprise_Tier_Annual_Churn_Rate (%)": 8
+  },
+  "formula": {
+    "Step 1: Define Total Addressable Market across continents": [
+      "North_America_TAM (millions) = Global_AI_Users * North_America_Market_Share / 100 * (1 + LLM_Annual_Growth_Rate / 100)",
+      "Europe_TAM (millions) = Global_AI_Users * Europe_Market_Share / 100 * (1 + LLM_Annual_Growth_Rate / 100)",
+      "Asia_Pacific_TAM (millions) = Global_AI_Users * Asia_Pacific_Market_Share / 100 * (1 + LLM_Annual_Growth_Rate / 100)",
+      "Latin_America_TAM (millions) = Global_AI_Users * Latin_America_Market_Share / 100 * (1 + LLM_Annual_Growth_Rate / 100)",
+      "Middle_East_Africa_TAM (millions) = Global_AI_Users * Middle_East_Africa_Market_Share / 100 * (1 + LLM_Annual_Growth_Rate / 100)"
+    ],
+    "Step 2: Breakdown TAM into subscription segments by continent": [
+      "North_America_Basic_TAM (millions) = North_America_TAM * Basic_Tier_Percentage / 100",
+      "North_America_Standard_TAM (millions) = North_America_TAM * Standard_Tier_Percentage / 100",
+      "North_America_Premium_TAM (millions) = North_America_TAM * Premium_Tier_Percentage / 100",
+      "North_America_Enterprise_TAM (millions) = North_America_TAM * Enterprise_Tier_Percentage / 100",
+      
+      "Europe_Basic_TAM (millions) = Europe_TAM * Basic_Tier_Percentage / 100",
+      "Europe_Standard_TAM (millions) = Europe_TAM * Standard_Tier_Percentage / 100",
+      "Europe_Premium_TAM (millions) = Europe_TAM * Premium_Tier_Percentage / 100",
+      "Europe_Enterprise_TAM (millions) = Europe_TAM * Enterprise_Tier_Percentage / 100",
+      
+      "Asia_Pacific_Basic_TAM (millions) = Asia_Pacific_TAM * Basic_Tier_Percentage / 100",
+      "Asia_Pacific_Standard_TAM (millions) = Asia_Pacific_TAM * Standard_Tier_Percentage / 100",
+      "Asia_Pacific_Premium_TAM (millions) = Asia_Pacific_TAM * Premium_Tier_Percentage / 100",
+      "Asia_Pacific_Enterprise_TAM (millions) = Asia_Pacific_TAM * Enterprise_Tier_Percentage / 100",
+      
+      "Latin_America_Basic_TAM (millions) = Latin_America_TAM * Basic_Tier_Percentage / 100",
+      "Latin_America_Standard_TAM (millions) = Latin_America_TAM * Standard_Tier_Percentage / 100",
+      "Latin_America_Premium_TAM (millions) = Latin_America_TAM * Premium_Tier_Percentage / 100",
+      "Latin_America_Enterprise_TAM (millions) = Latin_America_TAM * Enterprise_Tier_Percentage / 100",
+      
+      "Middle_East_Africa_Basic_TAM (millions) = Middle_East_Africa_TAM * Basic_Tier_Percentage / 100",
+      "Middle_East_Africa_Standard_TAM (millions) = Middle_East_Africa_TAM * Standard_Tier_Percentage / 100",
+      "Middle_East_Africa_Premium_TAM (millions) = Middle_East_Africa_TAM * Premium_Tier_Percentage / 100",
+      "Middle_East_Africa_Enterprise_TAM (millions) = Middle_East_Africa_TAM * Enterprise_Tier_Percentage / 100"
+    ],
+    "Step 3: Identify Serviceable Addressable Market by technology adoption factor": [
+      "North_America_Basic_SAM (millions) = North_America_Basic_TAM * North_America_Tech_Adoption_Factor / 100",
+      "North_America_Standard_SAM (millions) = North_America_Standard_TAM * North_America_Tech_Adoption_Factor / 100",
+      "North_America_Premium_SAM (millions) = North_America_Premium_TAM * North_America_Tech_Adoption_Factor / 100",
+      "North_America_Enterprise_SAM (millions) = North_America_Enterprise_TAM * North_America_Tech_Adoption_Factor / 100",
+      
+      "Europe_Basic_SAM (millions) = Europe_Basic_TAM * Europe_Tech_Adoption_Factor / 100",
+      "Europe_Standard_SAM (millions) = Europe_Standard_TAM * Europe_Tech_Adoption_Factor / 100",
+      "Europe_Premium_SAM (millions) = Europe_Premium_TAM * Europe_Tech_Adoption_Factor / 100",
+      "Europe_Enterprise_SAM (millions) = Europe_Enterprise_TAM * Europe_Tech_Adoption_Factor / 100",
+      
+      "Asia_Pacific_Basic_SAM (millions) = Asia_Pacific_Basic_TAM * Asia_Pacific_Tech_Adoption_Factor / 100",
+      "Asia_Pacific_Standard_SAM (millions) = Asia_Pacific_Standard_TAM * Asia_Pacific_Tech_Adoption_Factor / 100",
+      "Asia_Pacific_Premium_SAM (millions) = Asia_Pacific_Premium_TAM * Asia_Pacific_Tech_Adoption_Factor / 100",
+      "Asia_Pacific_Enterprise_SAM (millions) = Asia_Pacific_Enterprise_TAM * Asia_Pacific_Tech_Adoption_Factor / 100",
+      
+      "Latin_America_Basic_SAM (millions) = Latin_America_Basic_TAM * Latin_America_Tech_Adoption_Factor / 100",
+      "Latin_America_Standard_SAM (millions) = Latin_America_Standard_TAM * Latin_America_Tech_Adoption_Factor / 100",
+      "Latin_America_Premium_SAM (millions) = Latin_America_Premium_TAM * Latin_America_Tech_Adoption_Factor / 100",
+      "Latin_America_Enterprise_SAM (millions) = Latin_America_Enterprise_TAM * Latin_America_Tech_Adoption_Factor / 100",
+      
+      "Middle_East_Africa_Basic_SAM (millions) = Middle_East_Africa_Basic_TAM * Middle_East_Africa_Tech_Adoption_Factor / 100",
+      "Middle_East_Africa_Standard_SAM (millions) = Middle_East_Africa_Standard_TAM * Middle_East_Africa_Tech_Adoption_Factor / 100",
+      "Middle_East_Africa_Premium_SAM (millions) = Middle_East_Africa_Premium_TAM * Middle_East_Africa_Tech_Adoption_Factor / 100",
+      "Middle_East_Africa_Enterprise_SAM (millions) = Middle_East_Africa_Enterprise_TAM * Middle_East_Africa_Tech_Adoption_Factor / 100"
+    ],
+    "Step 4: Identify initial market share across tiers and continents": [
+      "North_America_Basic_Users (millions) = North_America_Basic_SAM * Initial_Market_Share / 100",
+      "North_America_Standard_Users (millions) = North_America_Standard_SAM * Initial_Market_Share / 100",
+      "North_America_Premium_Users (millions) = North_America_Premium_SAM * Initial_Market_Share / 100",
+      "North_America_Enterprise_Users (millions) = North_America_Enterprise_SAM * Initial_Market_Share / 100",
+      
+      "Europe_Basic_Users (millions) = Europe_Basic_SAM * Initial_Market_Share / 100",
+      "Europe_Standard_Users (millions) = Europe_Standard_SAM * Initial_Market_Share / 100",
+      "Europe_Premium_Users (millions) = Europe_Premium_SAM * Initial_Market_Share / 100",
+      "Europe_Enterprise_Users (millions) = Europe_Enterprise_SAM * Initial_Market_Share / 100",
+      
+      "Asia_Pacific_Basic_Users (millions) = Asia_Pacific_Basic_SAM * Initial_Market_Share / 100",
+      "Asia_Pacific_Standard_Users (millions) = Asia_Pacific_Standard_SAM * Initial_Market_Share / 100",
+      "Asia_Pacific_Premium_Users (millions) = Asia_Pacific_Premium_SAM * Initial_Market_Share / 100",
+      "Asia_Pacific_Enterprise_Users (millions) = Asia_Pacific_Enterprise_SAM * Initial_Market_Share / 100",
+      
+      "Latin_America_Basic_Users (millions) = Latin_America_Basic_SAM * Initial_Market_Share / 100",
+      "Latin_America_Standard_Users (millions) = Latin_America_Standard_SAM * Initial_Market_Share / 100",
+      "Latin_America_Premium_Users (millions) = Latin_America_Premium_SAM * Initial_Market_Share / 100",
+      "Latin_America_Enterprise_Users (millions) = Latin_America_Enterprise_SAM * Initial_Market_Share / 100",
+      
+      "Middle_East_Africa_Basic_Users (millions) = Middle_East_Africa_Basic_SAM * Initial_Market_Share / 100",
+      "Middle_East_Africa_Standard_Users (millions) = Middle_East_Africa_Standard_SAM * Initial_Market_Share / 100",
+      "Middle_East_Africa_Premium_Users (millions) = Middle_East_Africa_Premium_SAM * Initial_Market_Share / 100",
+      "Middle_East_Africa_Enterprise_Users (millions) = Middle_East_Africa_Enterprise_SAM * Initial_Market_Share / 100"
+    ],
+    "Step 5: Factor customer gains and losses by tier and continent": [
+      "North_America_Basic_Gains (millions) = North_America_Basic_SAM * Annual_Customer_Gain_Rate / 100",
+      "North_America_Basic_Losses (millions) = North_America_Basic_Users * Basic_Tier_Annual_Churn_Rate / 100",
+      "North_America_Standard_Gains (millions) = North_America_Standard_SAM * Annual_Customer_Gain_Rate / 100",
+      "North_America_Standard_Losses (millions) = North_America_Standard_Users * Standard_Tier_Annual_Churn_Rate / 100",
+      "North_America_Premium_Gains (millions) = North_America_Premium_SAM * Annual_Customer_Gain_Rate / 100",
+      "North_America_Premium_Losses (millions) = North_America_Premium_Users * Premium_Tier_Annual_Churn_Rate / 100",
+      "North_America_Enterprise_Gains (millions) = North_America_Enterprise_SAM * Annual_Customer_Gain_Rate / 100",
+      "North_America_Enterprise_Losses (millions) = North_America_Enterprise_Users * Enterprise_Tier_Annual_Churn_Rate / 100",
+      
+      "Europe_Basic_Gains (millions) = Europe_Basic_SAM * Annual_Customer_Gain_Rate / 100",
+      "Europe_Basic_Losses (millions) = Europe_Basic_Users * Basic_Tier_Annual_Churn_Rate / 100",
+      "Europe_Standard_Gains (millions) = Europe_Standard_SAM * Annual_Customer_Gain_Rate / 100",
+      "Europe_Standard_Losses (millions) = Europe_Standard_Users * Standard_Tier_Annual_Churn_Rate / 100",
+      "Europe_Premium_Gains (millions) = Europe_Premium_SAM * Annual_Customer_Gain_Rate / 100",
+      "Europe_Premium_Losses (millions) = Europe_Premium_Users * Premium_Tier_Annual_Churn_Rate / 100",
+      "Europe_Enterprise_Gains (millions) = Europe_Enterprise_SAM * Annual_Customer_Gain_Rate / 100",
+      "Europe_Enterprise_Losses (millions) = Europe_Enterprise_Users * Enterprise_Tier_Annual_Churn_Rate / 100",
+      
+      "Asia_Pacific_Basic_Gains (millions) = Asia_Pacific_Basic_SAM * Annual_Customer_Gain_Rate / 100",
+      "Asia_Pacific_Basic_Losses (millions) = Asia_Pacific_Basic_Users * Basic_Tier_Annual_Churn_Rate / 100",
+      "Asia_Pacific_Standard_Gains (millions) = Asia_Pacific_Standard_SAM * Annual_Customer_Gain_Rate / 100",
+      "Asia_Pacific_Standard_Losses (millions) = Asia_Pacific_Standard_Users * Standard_Tier_Annual_Churn_Rate / 100",
+      "Asia_Pacific_Premium_Gains (millions) = Asia_Pacific_Premium_SAM * Annual_Customer_Gain_Rate / 100",
+      "Asia_Pacific_Premium_Losses (millions) = Asia_Pacific_Premium_Users * Premium_Tier_Annual_Churn_Rate / 100",
+      "Asia_Pacific_Enterprise_Gains (millions) = Asia_Pacific_Enterprise_SAM * Annual_Customer_Gain_Rate / 100",
+      "Asia_Pacific_Enterprise_Losses (millions) = Asia_Pacific_Enterprise_Users * Enterprise_Tier_Annual_Churn_Rate / 100",
+      
+      "Latin_America_Basic_Gains (millions) = Latin_America_Basic_SAM * Annual_Customer_Gain_Rate / 100",
+      "Latin_America_Basic_Losses (millions) = Latin_America_Basic_Users * Basic_Tier_Annual_Churn_Rate / 100",
+      "Latin_America_Standard_Gains (millions) = Latin_America_Standard_SAM * Annual_Customer_Gain_Rate / 100",
+      "Latin_America_Standard_Losses (millions) = Latin_America_Standard_Users * Standard_Tier_Annual_Churn_Rate / 100",
+      "Latin_America_Premium_Gains (millions) = Latin_America_Premium_SAM * Annual_Customer_Gain_Rate / 100",
+      "Latin_America_Premium_Losses (millions) = Latin_America_Premium_Users * Premium_Tier_Annual_Churn_Rate / 100",
+      "Latin_America_Enterprise_Gains (millions) = Latin_America_Enterprise_SAM * Annual_Customer_Gain_Rate / 100",
+      "Latin_America_Enterprise_Losses (millions) = Latin_America_Enterprise_Users * Enterprise_Tier_Annual_Churn_Rate / 100",
+      
+      "Middle_East_Africa_Basic_Gains (millions) = Middle_East_Africa_Basic_SAM * Annual_Customer_Gain_Rate / 100",
+      "Middle_East_Africa_Basic_Losses (millions) = Middle_East_Africa_Basic_Users * Basic_Tier_Annual_Churn_Rate / 100",
+      "Middle_East_Africa_Standard_Gains (millions) = Middle_East_Africa_Standard_SAM * Annual_Customer_Gain_Rate / 100",
+      "Middle_East_Africa_Standard_Losses (millions) = Middle_East_Africa_Standard_Users * Standard_Tier_Annual_Churn_Rate / 100",
+      "Middle_East_Africa_Premium_Gains (millions) = Middle_East_Africa_Premium_SAM * Annual_Customer_Gain_Rate / 100",
+      "Middle_East_Africa_Premium_Losses (millions) = Middle_East_Africa_Premium_Users * Premium_Tier_Annual_Churn_Rate / 100",
+      "Middle_East_Africa_Enterprise_Gains (millions) = Middle_East_Africa_Enterprise_SAM * Annual_Customer_Gain_Rate / 100",
+      "Middle_East_Africa_Enterprise_Losses (millions) = Middle_East_Africa_Enterprise_Users * Enterprise_Tier_Annual_Churn_Rate / 100"
+    ],
+    "Step 6: Calculate total user base by subscription tier and continent": [
+      "North_America_Basic_Net_Users (millions) = North_America_Basic_Users + North_America_Basic_Gains - North_America_Basic_Losses",
+      "North_America_Standard_Net_Users (millions) = North_America_Standard_Users + North_America_Standard_Gains - North_America_Standard_Losses",
+      "North_America_Premium_Net_Users (millions) = North_America_Premium_Users + North_America_Premium_Gains - North_America_Premium_Losses",
+      "North_America_Enterprise_Net_Users (millions) = North_America_Enterprise_Users + North_America_Enterprise_Gains - North_America_Enterprise_Losses",
+      "North_America_Total_Users (millions) = North_America_Basic_Net_Users + North_America_Standard_Net_Users + North_America_Premium_Net_Users + North_America_Enterprise_Net_Users",
+      
+      "Europe_Basic_Net_Users (millions) = Europe_Basic_Users + Europe_Basic_Gains - Europe_Basic_Losses",
+      "Europe_Standard_Net_Users (millions) = Europe_Standard_Users + Europe_Standard_Gains - Europe_Standard_Losses",
+      "Europe_Premium_Net_Users (millions) = Europe_Premium_Users + Europe_Premium_Gains - Europe_Premium_Losses",
+      "Europe_Enterprise_Net_Users (millions) = Europe_Enterprise_Users + Europe_Enterprise_Gains - Europe_Enterprise_Losses",
+      "Europe_Total_Users (millions) = Europe_Basic_Net_Users + Europe_Standard_Net_Users + Europe_Premium_Net_Users + Europe_Enterprise_Net_Users",
+      
+      "Asia_Pacific_Basic_Net_Users (millions) = Asia_Pacific_Basic_Users + Asia_Pacific_Basic_Gains - Asia_Pacific_Basic_Losses",
+      "Asia_Pacific_Standard_Net_Users (millions) = Asia_Pacific_Standard_Users + Asia_Pacific_Standard_Gains - Asia_Pacific_Standard_Losses",
+      "Asia_Pacific_Premium_Net_Users (millions) = Asia_Pacific_Premium_Users + Asia_Pacific_Premium_Gains - Asia_Pacific_Premium_Losses",
+      "Asia_Pacific_Enterprise_Net_Users (millions) = Asia_Pacific_Enterprise_Users + Asia_Pacific_Enterprise_Gains - Asia_Pacific_Enterprise_Losses",
+      "Asia_Pacific_Total_Users (millions) = Asia_Pacific_Basic_Net_Users + Asia_Pacific_Standard_Net_Users + Asia_Pacific_Premium_Net_Users + Asia_Pacific_Enterprise_Net_Users",
+      
+      "Latin_America_Basic_Net_Users (millions) = Latin_America_Basic_Users + Latin_America_Basic_Gains - Latin_America_Basic_Losses",
+      "Latin_America_Standard_Net_Users (millions) = Latin_America_Standard_Users + Latin_America_Standard_Gains - Latin_America_Standard_Losses",
+      "Latin_America_Premium_Net_Users (millions) = Latin_America_Premium_Users + Latin_America_Premium_Gains - Latin_America_Premium_Losses",
+      "Latin_America_Enterprise_Net_Users (millions) = Latin_America_Enterprise_Users + Latin_America_Enterprise_Gains - Latin_America_Enterprise_Losses",
+      "Latin_America_Total_Users (millions) = Latin_America_Basic_Net_Users + Latin_America_Standard_Net_Users + Latin_America_Premium_Net_Users + Latin_America_Enterprise_Net_Users",
+      
+      "Middle_East_Africa_Basic_Net_Users (millions) = Middle_East_Africa_Basic_Users + Middle_East_Africa_Basic_Gains - Middle_East_Africa_Basic_Losses",
+      "Middle_East_Africa_Standard_Net_Users (millions) = Middle_East_Africa_Standard_Users + Middle_East_Africa_Standard_Gains - Middle_East_Africa_Standard_Losses",
+      "Middle_East_Africa_Premium_Net_Users (millions) = Middle_East_Africa_Premium_Users + Middle_East_Africa_Premium_Gains - Middle_East_Africa_Premium_Losses",
+      "Middle_East_Africa_Enterprise_Net_Users (millions) = Middle_East_Africa_Enterprise_Users + Middle_East_Africa_Enterprise_Gains - Middle_East_Africa_Enterprise_Losses",
+      "Middle_East_Africa_Total_Users (millions) = Middle_East_Africa_Basic_Net_Users + Middle_East_Africa_Standard_Net_Users + Middle_East_Africa_Premium_Net_Users + Middle_East_Africa_Enterprise_Net_Users",
+      
+      "Global_Total_User_Base (millions) = North_America_Total_Users + Europe_Total_Users + Asia_Pacific_Total_Users + Latin_America_Total_Users + Middle_East_Africa_Total_Users"
+    ]
+  }
+}
+```
+Another example on new IT company
+{
+  "assumptions": {
+    "IT_services_TAM_North_America (million)": 350,
+    "IT_services_TAM_Latin_America (million)": 120,
+    "IT_services_TAM_Europe (million)": 280,
+    "IT_services_TAM_Middle_East_Africa (million)": 100,
+    "IT_services_TAM_Asia_Pacific (million)": 400,
+    "IT_market_growth_rate (%)": 7,
+    "Enterprise_segment_share (%)": 35,
+    "SMB_segment_share (%)": 45,
+    "Startup_segment_share (%)": 20,
+    "Consulting_service_share (%)": 25,
+    "Development_service_share (%)": 30,
+    "Managed_services_share (%)": 20,
+    "Cloud_services_share (%)": 15,
+    "Cybersecurity_share (%)": 10,
+    "Enterprise_adoption_factor (%)": 40,
+    "SMB_adoption_factor (%)": 25,
+    "Startup_adoption_factor (%)": 15,
+    "North_America_market_share (%)": 8,
+    "Latin_America_market_share (%)": 12,
+    "Europe_market_share (%)": 9,
+    "Middle_East_Africa_market_share (%)": 14,
+    "Asia_Pacific_market_share (%)": 11,
+    "Enterprise_client_acquisition (%)": 30,
+    "Enterprise_client_churn (%)": 10,
+    "SMB_client_acquisition (%)": 35,
+    "SMB_client_churn (%)": 15,
+    "Startup_client_acquisition (%)": 40,
+    "Startup_client_churn (%)": 20,
+    "Month_adjustment_factor": 0.833
+  },
+  "formula": {
+    "Step 1: Define the Total Addressable Market across continents": [
+      "North_America_TAM (clients) = IT_services_TAM_North_America * 1000000 * (1 + IT_market_growth_rate / 100)",
+      "Latin_America_TAM (clients) = IT_services_TAM_Latin_America * 1000000 * (1 + IT_market_growth_rate / 100)",
+      "Europe_TAM (clients) = IT_services_TAM_Europe * 1000000 * (1 + IT_market_growth_rate / 100)",
+      "Middle_East_Africa_TAM (clients) = IT_services_TAM_Middle_East_Africa * 1000000 * (1 + IT_market_growth_rate / 100)",
+      "Asia_Pacific_TAM (clients) = IT_services_TAM_Asia_Pacific * 1000000 * (1 + IT_market_growth_rate / 100)"
+    ],
+    "Step 2: Segment breakdown by business size and service type": [
+      "North_America_Enterprise_TAM (clients) = North_America_TAM * Enterprise_segment_share / 100",
+      "North_America_SMB_TAM (clients) = North_America_TAM * SMB_segment_share / 100",
+      "North_America_Startup_TAM (clients) = North_America_TAM * Startup_segment_share / 100",
+      
+      "Latin_America_Enterprise_TAM (clients) = Latin_America_TAM * Enterprise_segment_share / 100",
+      "Latin_America_SMB_TAM (clients) = Latin_America_TAM * SMB_segment_share / 100",
+      "Latin_America_Startup_TAM (clients) = Latin_America_TAM * Startup_segment_share / 100",
+      
+      "Europe_Enterprise_TAM (clients) = Europe_TAM * Enterprise_segment_share / 100",
+      "Europe_SMB_TAM (clients) = Europe_TAM * SMB_segment_share / 100",
+      "Europe_Startup_TAM (clients) = Europe_TAM * Startup_segment_share / 100",
+      
+      "Middle_East_Africa_Enterprise_TAM (clients) = Middle_East_Africa_TAM * Enterprise_segment_share / 100",
+      "Middle_East_Africa_SMB_TAM (clients) = Middle_East_Africa_TAM * SMB_segment_share / 100",
+      "Middle_East_Africa_Startup_TAM (clients) = Middle_East_Africa_TAM * Startup_segment_share / 100",
+      
+      "Asia_Pacific_Enterprise_TAM (clients) = Asia_Pacific_TAM * Enterprise_segment_share / 100",
+      "Asia_Pacific_SMB_TAM (clients) = Asia_Pacific_TAM * SMB_segment_share / 100",
+      "Asia_Pacific_Startup_TAM (clients) = Asia_Pacific_TAM * Startup_segment_share / 100"
+    ],
+    "Step 3: Identify Serviceable Addressable Market by applying adoption factors": [
+      "North_America_Enterprise_SAM (clients) = North_America_Enterprise_TAM * Enterprise_adoption_factor / 100",
+      "North_America_SMB_SAM (clients) = North_America_SMB_TAM * SMB_adoption_factor / 100",
+      "North_America_Startup_SAM (clients) = North_America_Startup_TAM * Startup_adoption_factor / 100",
+      
+      "Latin_America_Enterprise_SAM (clients) = Latin_America_Enterprise_TAM * Enterprise_adoption_factor / 100",
+      "Latin_America_SMB_SAM (clients) = Latin_America_SMB_TAM * SMB_adoption_factor / 100",
+      "Latin_America_Startup_SAM (clients) = Latin_America_Startup_TAM * Startup_adoption_factor / 100",
+      
+      "Europe_Enterprise_SAM (clients) = Europe_Enterprise_TAM * Enterprise_adoption_factor / 100",
+      "Europe_SMB_SAM (clients) = Europe_SMB_TAM * SMB_adoption_factor / 100",
+      "Europe_Startup_SAM (clients) = Europe_Startup_TAM * Startup_adoption_factor / 100",
+      
+      "Middle_East_Africa_Enterprise_SAM (clients) = Middle_East_Africa_Enterprise_TAM * Enterprise_adoption_factor / 100",
+      "Middle_East_Africa_SMB_SAM (clients) = Middle_East_Africa_SMB_TAM * SMB_adoption_factor / 100",
+      "Middle_East_Africa_Startup_SAM (clients) = Middle_East_Africa_Startup_TAM * Startup_adoption_factor / 100",
+      
+      "Asia_Pacific_Enterprise_SAM (clients) = Asia_Pacific_Enterprise_TAM * Enterprise_adoption_factor / 100",
+      "Asia_Pacific_SMB_SAM (clients) = Asia_Pacific_SMB_TAM * SMB_adoption_factor / 100",
+      "Asia_Pacific_Startup_SAM (clients) = Asia_Pacific_Startup_TAM * Startup_adoption_factor / 100"
+    ],
+    "Step 4: Estimate initial market share across segments in each continent": [
+      "North_America_Enterprise_Base (clients) = North_America_Enterprise_SAM * North_America_market_share / 100 * Month_adjustment_factor",
+      "North_America_SMB_Base (clients) = North_America_SMB_SAM * North_America_market_share / 100 * Month_adjustment_factor",
+      "North_America_Startup_Base (clients) = North_America_Startup_SAM * North_America_market_share / 100 * Month_adjustment_factor",
+      
+      "Latin_America_Enterprise_Base (clients) = Latin_America_Enterprise_SAM * Latin_America_market_share / 100 * Month_adjustment_factor",
+      "Latin_America_SMB_Base (clients) = Latin_America_SMB_SAM * Latin_America_market_share / 100 * Month_adjustment_factor",
+      "Latin_America_Startup_Base (clients) = Latin_America_Startup_SAM * Latin_America_market_share / 100 * Month_adjustment_factor",
+      
+      "Europe_Enterprise_Base (clients) = Europe_Enterprise_SAM * Europe_market_share / 100 * Month_adjustment_factor",
+      "Europe_SMB_Base (clients) = Europe_SMB_SAM * Europe_market_share / 100 * Month_adjustment_factor",
+      "Europe_Startup_Base (clients) = Europe_Startup_SAM * Europe_market_share / 100 * Month_adjustment_factor",
+      
+      "Middle_East_Africa_Enterprise_Base (clients) = Middle_East_Africa_Enterprise_SAM * Middle_East_Africa_market_share / 100 * Month_adjustment_factor",
+      "Middle_East_Africa_SMB_Base (clients) = Middle_East_Africa_SMB_SAM * Middle_East_Africa_market_share / 100 * Month_adjustment_factor",
+      "Middle_East_Africa_Startup_Base (clients) = Middle_East_Africa_Startup_SAM * Middle_East_Africa_market_share / 100 * Month_adjustment_factor",
+      
+      "Asia_Pacific_Enterprise_Base (clients) = Asia_Pacific_Enterprise_SAM * Asia_Pacific_market_share / 100 * Month_adjustment_factor",
+      "Asia_Pacific_SMB_Base (clients) = Asia_Pacific_SMB_SAM * Asia_Pacific_market_share / 100 * Month_adjustment_factor",
+      "Asia_Pacific_Startup_Base (clients) = Asia_Pacific_Startup_SAM * Asia_Pacific_market_share / 100 * Month_adjustment_factor"
+    ],
+    "Step 5: Factor gains and losses across customer segments": [
+      "North_America_Enterprise_Gains (clients) = North_America_Enterprise_SAM * Enterprise_client_acquisition / 100 * Month_adjustment_factor",
+      "North_America_Enterprise_Losses (clients) = North_America_Enterprise_Base * Enterprise_client_churn / 100 * Month_adjustment_factor",
+      "North_America_SMB_Gains (clients) = North_America_SMB_SAM * SMB_client_acquisition / 100 * Month_adjustment_factor",
+      "North_America_SMB_Losses (clients) = North_America_SMB_Base * SMB_client_churn / 100 * Month_adjustment_factor",
+      "North_America_Startup_Gains (clients) = North_America_Startup_SAM * Startup_client_acquisition / 100 * Month_adjustment_factor",
+      "North_America_Startup_Losses (clients) = North_America_Startup_Base * Startup_client_churn / 100 * Month_adjustment_factor",
+      
+      "Latin_America_Enterprise_Gains (clients) = Latin_America_Enterprise_SAM * Enterprise_client_acquisition / 100 * Month_adjustment_factor",
+      "Latin_America_Enterprise_Losses (clients) = Latin_America_Enterprise_Base * Enterprise_client_churn / 100 * Month_adjustment_factor",
+      "Latin_America_SMB_Gains (clients) = Latin_America_SMB_SAM * SMB_client_acquisition / 100 * Month_adjustment_factor",
+      "Latin_America_SMB_Losses (clients) = Latin_America_SMB_Base * SMB_client_churn / 100 * Month_adjustment_factor",
+      "Latin_America_Startup_Gains (clients) = Latin_America_Startup_SAM * Startup_client_acquisition / 100 * Month_adjustment_factor",
+      "Latin_America_Startup_Losses (clients) = Latin_America_Startup_Base * Startup_client_churn / 100 * Month_adjustment_factor",
+      
+      "Europe_Enterprise_Gains (clients) = Europe_Enterprise_SAM * Enterprise_client_acquisition / 100 * Month_adjustment_factor",
+      "Europe_Enterprise_Losses (clients) = Europe_Enterprise_Base * Enterprise_client_churn / 100 * Month_adjustment_factor",
+      "Europe_SMB_Gains (clients) = Europe_SMB_SAM * SMB_client_acquisition / 100 * Month_adjustment_factor",
+      "Europe_SMB_Losses (clients) = Europe_SMB_Base * SMB_client_churn / 100 * Month_adjustment_factor",
+      "Europe_Startup_Gains (clients) = Europe_Startup_SAM * Startup_client_acquisition / 100 * Month_adjustment_factor",
+      "Europe_Startup_Losses (clients) = Europe_Startup_Base * Startup_client_churn / 100 * Month_adjustment_factor",
+      
+      "Middle_East_Africa_Enterprise_Gains (clients) = Middle_East_Africa_Enterprise_SAM * Enterprise_client_acquisition / 100 * Month_adjustment_factor",
+      "Middle_East_Africa_Enterprise_Losses (clients) = Middle_East_Africa_Enterprise_Base * Enterprise_client_churn / 100 * Month_adjustment_factor",
+      "Middle_East_Africa_SMB_Gains (clients) = Middle_East_Africa_SMB_SAM * SMB_client_acquisition / 100 * Month_adjustment_factor",
+      "Middle_East_Africa_SMB_Losses (clients) = Middle_East_Africa_SMB_Base * SMB_client_churn / 100 * Month_adjustment_factor",
+      "Middle_East_Africa_Startup_Gains (clients) = Middle_East_Africa_Startup_SAM * Startup_client_acquisition / 100 * Month_adjustment_factor",
+      "Middle_East_Africa_Startup_Losses (clients) = Middle_East_Africa_Startup_Base * Startup_client_churn / 100 * Month_adjustment_factor",
+      
+      "Asia_Pacific_Enterprise_Gains (clients) = Asia_Pacific_Enterprise_SAM * Enterprise_client_acquisition / 100 * Month_adjustment_factor",
+      "Asia_Pacific_Enterprise_Losses (clients) = Asia_Pacific_Enterprise_Base * Enterprise_client_churn / 100 * Month_adjustment_factor",
+      "Asia_Pacific_SMB_Gains (clients) = Asia_Pacific_SMB_SAM * SMB_client_acquisition / 100 * Month_adjustment_factor",
+      "Asia_Pacific_SMB_Losses (clients) = Asia_Pacific_SMB_Base * SMB_client_churn / 100 * Month_adjustment_factor",
+      "Asia_Pacific_Startup_Gains (clients) = Asia_Pacific_Startup_SAM * Startup_client_acquisition / 100 * Month_adjustment_factor",
+      "Asia_Pacific_Startup_Losses (clients) = Asia_Pacific_Startup_Base * Startup_client_churn / 100 * Month_adjustment_factor"
+    ],
+    "Step 6: Calculate total user base by continent and service type": [
+      "North_America_Enterprise_Users (clients) = North_America_Enterprise_Base + North_America_Enterprise_Gains - North_America_Enterprise_Losses",
+      "North_America_SMB_Users (clients) = North_America_SMB_Base + North_America_SMB_Gains - North_America_SMB_Losses",
+      "North_America_Startup_Users (clients) = North_America_Startup_Base + North_America_Startup_Gains - North_America_Startup_Losses",
+      "North_America_Total_Users (clients) = North_America_Enterprise_Users + North_America_SMB_Users + North_America_Startup_Users",
+      
+      "Latin_America_Enterprise_Users (clients) = Latin_America_Enterprise_Base + Latin_America_Enterprise_Gains - Latin_America_Enterprise_Losses",
+      "Latin_America_SMB_Users (clients) = Latin_America_SMB_Base + Latin_America_SMB_Gains - Latin_America_SMB_Losses",
+      "Latin_America_Startup_Users (clients) = Latin_America_Startup_Base + Latin_America_Startup_Gains - Latin_America_Startup_Losses",
+      "Latin_America_Total_Users (clients) = Latin_America_Enterprise_Users + Latin_America_SMB_Users + Latin_America_Startup_Users",
+      
+      "Europe_Enterprise_Users (clients) = Europe_Enterprise_Base + Europe_Enterprise_Gains - Europe_Enterprise_Losses",
+      "Europe_SMB_Users (clients) = Europe_SMB_Base + Europe_SMB_Gains - Europe_SMB_Losses",
+      "Europe_Startup_Users (clients) = Europe_Startup_Base + Europe_Startup_Gains - Europe_Startup_Losses",
+      "Europe_Total_Users (clients) = Europe_Enterprise_Users + Europe_SMB_Users + Europe_Startup_Users",
+      
+      "Middle_East_Africa_Enterprise_Users (clients) = Middle_East_Africa_Enterprise_Base + Middle_East_Africa_Enterprise_Gains - Middle_East_Africa_Enterprise_Losses",
+      "Middle_East_Africa_SMB_Users (clients) = Middle_East_Africa_SMB_Base + Middle_East_Africa_SMB_Gains - Middle_East_Africa_SMB_Losses",
+      "Middle_East_Africa_Startup_Users (clients) = Middle_East_Africa_Startup_Base + Middle_East_Africa_Startup_Gains - Middle_East_Africa_Startup_Losses",
+      "Middle_East_Africa_Total_Users (clients) = Middle_East_Africa_Enterprise_Users + Middle_East_Africa_SMB_Users + Middle_East_Africa_Startup_Users",
+      
+      "Asia_Pacific_Enterprise_Users (clients) = Asia_Pacific_Enterprise_Base + Asia_Pacific_Enterprise_Gains - Asia_Pacific_Enterprise_Losses",
+      "Asia_Pacific_SMB_Users (clients) = Asia_Pacific_SMB_Base + Asia_Pacific_SMB_Gains - Asia_Pacific_SMB_Losses",
+      "Asia_Pacific_Startup_Users (clients) = Asia_Pacific_Startup_Base + Asia_Pacific_Startup_Gains - Asia_Pacific_Startup_Losses",
+      "Asia_Pacific_Total_Users (clients) = Asia_Pacific_Enterprise_Users + Asia_Pacific_SMB_Users + Asia_Pacific_Startup_Users",
+      
+      "Total_User_Base (clients) = North_America_Total_Users + Latin_America_Total_Users + Europe_Total_Users + Middle_East_Africa_Total_Users + Asia_Pacific_Total_Users"
+    ]
+  }
+}
+```
+
+This is how steps should look like '
+
+
+Step 3: Identify serviceable addressable market (SAM) 
+-	Multiply the output of Step #2 by an adoption factor to create SAM 
+
+
+Example:
+    "Step 3: Identify serviceable addressable market (SAM)":["High_income_SAM = High_Income_segment_TAM * High_income_Share_where_dogs_would_be_serviced /100",
+"Mid_income_SAM = Mid_income_segment_TAM * Mid_income_Share_where_dogs_would_be_serviced/100",
+"Low_income_SAM = Low_income_segment_TAM * Low_income_Share_where_dogs_would_be_serviced/100"],
+   
