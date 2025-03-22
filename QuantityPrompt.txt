@@ -295,3 +295,20 @@ follow-up questions? answers include:
 if the answer was only India, we need to ask about their coverage in India - i.e., tier 1 / tier 2 / tier 3 cities
 
 note: in instances like this where the term used "check impact on revenue baseline"- we typically have a scenario switch: New Product Launched, Without Product Launched
+
+I want to open a new third mobile network operator in Oman to compete with Omantel and Ooredoo. The financial plan should estimate the size of the opportunity and its expected return as investors won’t invest for a rate of return which is less than 9.5%. The financial plan should be for 5 years. 
+Prompt 3 – Follow-up: What revenue products should be factored into the financial model?
+SIM Cards, Voice and Data pay-as-you-go, and Mobile re-selling
+
+Prompt 4 – Overview: I want to open a new fintech start-up, namely a digital bank with two type of services: cards and loans. I want to assess the opportunity of launching from Riyadh, mainly serving the domestic market as well as the GCC captive market. The financial model should be for three years.
+Prompt 4 – Follow-up: What revenue products should be factored into the financial model?
+Two types of Cards: Standard and Premium, and Islamic loans as required
+
+[22/03, 8:36 am] Yahya El Ali: Prompt 5 – Overview: I want to open a car tires sales business; I need to understand the feasibility of it for a three year period.
+Prompt 5 – Follow-up: Where would the business operate?
+India
+[22/03, 8:36 am] Yahya El Ali: Prompt NEW:
+I want to open a B2B business with four tiers of service for micro, small, medium and large enterprises. I want to test feasibility of launching the company and return
+[22/03, 8:38 am] Yahya El Ali: Prompt NEW2:
+
+I need to do the business case for potentially dropping the first class from the airline seat LOPA. I need to assess the financial sustainability of the first class and decide for Oman Air
