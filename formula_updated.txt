@@ -1,0 +1,344 @@
+{
+  "assumptions": {
+    "Total_Indian_Passengers_Annual (million)": 150,
+    "Asia_Share (%)": 75,
+    "Europe_Share (%)": 12,
+    "North_America_Share (%)": 8,
+    "Middle_East_Share (%)": 5,
+    "Current_Digital_Payment_Adoption_Rate_Asia (%)": 45,
+    "Current_Digital_Payment_Adoption_Rate_Europe (%)": 60,
+    "Current_Digital_Payment_Adoption_Rate_North_America (%)": 65,
+    "Current_Digital_Payment_Adoption_Rate_Middle_East (%)": 40,
+    "Business_Travelers_Share (%)": 30,
+    "Leisure_Travelers_Share (%)": 70,
+    "Premium_Economy_Upgrade_Rate_Business (%)": 25,
+    "Economy_Only_Rate_Business (%)": 75,
+    "Premium_Economy_Upgrade_Rate_Leisure (%)": 10,
+    "Economy_Only_Rate_Leisure (%)": 90,
+    "Business_Segment_Growth_Rate (%)": 5.2,
+    "Leisure_Segment_Growth_Rate (%)": 7.8,
+    "Monthly_Seasonality_Factor_Peak": 1.35,
+    "Monthly_Seasonality_Factor_Low": 0.75,
+    "Digital_Payment_Gateway_Adoption_Rate (%)": 60,
+    "User_Retention_Rate (%)": 85,
+    "Recurring_Usage_Rate (%)": 70
+  },
+  "formula": {
+    "Step 1: Identify the size of the population in scope": [
+      "Asia_Passengers (million) = Total_Indian_Passengers_Annual * (Asia_Share / 100)",
+      "Europe_Passengers (million) = Total_Indian_Passengers_Annual * (Europe_Share / 100)",
+      "North_America_Passengers (million) = Total_Indian_Passengers_Annual * (North_America_Share / 100)",
+      "Middle_East_Passengers (million) = Total_Indian_Passengers_Annual * (Middle_East_Share / 100)",
+      "Asia_Business_Travelers (million) = Asia_Passengers * (Business_Travelers_Share / 100)",
+      "Asia_Leisure_Travelers (million) = Asia_Passengers * (Leisure_Travelers_Share / 100)",
+      "Europe_Business_Travelers (million) = Europe_Passengers * (Business_Travelers_Share / 100)",
+      "Europe_Leisure_Travelers (million) = Europe_Passengers * (Leisure_Travelers_Share / 100)",
+      "North_America_Business_Travelers (million) = North_America_Passengers * (Business_Travelers_Share / 100)",
+      "North_America_Leisure_Travelers (million) = North_America_Passengers * (Leisure_Travelers_Share / 100)",
+      "Middle_East_Business_Travelers (million) = Middle_East_Passengers * (Business_Travelers_Share / 100)",
+      "Middle_East_Leisure_Travelers (million) = Middle_East_Passengers * (Leisure_Travelers_Share / 100)"
+    ],
+    "Step 2: Identify the growth rate of the segment": [
+      "Asia_Business_Travelers_Growth (million) = Asia_Business_Travelers * (1 + Business_Segment_Growth_Rate / 100)",
+      "Asia_Leisure_Travelers_Growth (million) = Asia_Leisure_Travelers * (1 + Leisure_Segment_Growth_Rate / 100)",
+      "Europe_Business_Travelers_Growth (million) = Europe_Business_Travelers * (1 + Business_Segment_Growth_Rate / 100)",
+      "Europe_Leisure_Travelers_Growth (million) = Europe_Leisure_Travelers * (1 + Leisure_Segment_Growth_Rate / 100)",
+      "North_America_Business_Travelers_Growth (million) = North_America_Business_Travelers * (1 + Business_Segment_Growth_Rate / 100)",
+      "North_America_Leisure_Travelers_Growth (million) = North_America_Leisure_Travelers * (1 + Leisure_Segment_Growth_Rate / 100)",
+      "Middle_East_Business_Travelers_Growth (million) = Middle_East_Business_Travelers * (1 + Business_Segment_Growth_Rate / 100)",
+      "Middle_East_Leisure_Travelers_Growth (million) = Middle_East_Leisure_Travelers * (1 + Leisure_Segment_Growth_Rate / 100)"
+    ],
+    "Step 3: Digital payment adoption market": [
+      "Asia_Business_Addressable_Market (million) = Asia_Business_Travelers_Growth * (Current_Digital_Payment_Adoption_Rate_Asia / 100)",
+      "Asia_Leisure_Addressable_Market (million) = Asia_Leisure_Travelers_Growth * (Current_Digital_Payment_Adoption_Rate_Asia / 100)",
+      "Europe_Business_Addressable_Market (million) = Europe_Business_Travelers_Growth * (Current_Digital_Payment_Adoption_Rate_Europe / 100)",
+      "Europe_Leisure_Addressable_Market (million) = Europe_Leisure_Travelers_Growth * (Current_Digital_Payment_Adoption_Rate_Europe / 100)",
+      "North_America_Business_Addressable_Market (million) = North_America_Business_Travelers_Growth * (Current_Digital_Payment_Adoption_Rate_North_America / 100)",
+      "North_America_Leisure_Addressable_Market (million) = North_America_Leisure_Travelers_Growth * (Current_Digital_Payment_Adoption_Rate_North_America / 100)",
+      "Middle_East_Business_Addressable_Market (million) = Middle_East_Business_Travelers_Growth * (Current_Digital_Payment_Adoption_Rate_Middle_East / 100)",
+      "Middle_East_Leisure_Addressable_Market (million) = Middle_East_Leisure_Travelers_Growth * (Current_Digital_Payment_Adoption_Rate_Middle_East / 100)"
+    ],
+    "Step 4: Factor in seasonality and user retention": [
+      "Asia_Business_Seasonal_Adjusted (million) = Asia_Business_Addressable_Market * Monthly_Seasonality_Factor_Peak",
+      "Asia_Leisure_Seasonal_Adjusted (million) = Asia_Leisure_Addressable_Market * Monthly_Seasonality_Factor_Low",
+      "Europe_Business_Seasonal_Adjusted (million) = Europe_Business_Addressable_Market * Monthly_Seasonality_Factor_Peak",
+      "Europe_Leisure_Seasonal_Adjusted (million) = Europe_Leisure_Addressable_Market * Monthly_Seasonality_Factor_Low",
+      "North_America_Business_Seasonal_Adjusted (million) = North_America_Business_Addressable_Market * Monthly_Seasonality_Factor_Peak",
+      "North_America_Leisure_Seasonal_Adjusted (million) = North_America_Leisure_Addressable_Market * Monthly_Seasonality_Factor_Low",
+      "Middle_East_Business_Seasonal_Adjusted (million) = Middle_East_Business_Addressable_Market * Monthly_Seasonality_Factor_Peak",
+      "Middle_East_Leisure_Seasonal_Adjusted (million) = Middle_East_Leisure_Addressable_Market * Monthly_Seasonality_Factor_Low",
+      "Asia_Business_User_Retention (million) = Asia_Business_Seasonal_Adjusted * (User_Retention_Rate / 100)",
+      "Asia_Leisure_User_Retention (million) = Asia_Leisure_Seasonal_Adjusted * (User_Retention_Rate / 100)",
+      "Europe_Business_User_Retention (million) = Europe_Business_Seasonal_Adjusted * (User_Retention_Rate / 100)",
+      "Europe_Leisure_User_Retention (million) = Europe_Leisure_Seasonal_Adjusted * (User_Retention_Rate / 100)",
+      "North_America_Business_User_Retention (million) = North_America_Business_Seasonal_Adjusted * (User_Retention_Rate / 100)",
+      "North_America_Leisure_User_Retention (million) = North_America_Leisure_Seasonal_Adjusted * (User_Retention_Rate / 100)",
+      "Middle_East_Business_User_Retention (million) = Middle_East_Business_Seasonal_Adjusted * (User_Retention_Rate / 100)",
+      "Middle_East_Leisure_User_Retention (million) = Middle_East_Leisure_Seasonal_Adjusted * (User_Retention_Rate / 100)"
+    ],
+    "Step 5: Total user base": [
+      "Asia_Business_Users (million) = Asia_Business_User_Retention",
+      "Asia_Leisure_Users (million) = Asia_Leisure_User_Retention",
+      "Europe_Business_Users (million) = Europe_Business_User_Retention",
+      "Europe_Leisure_Users (million) = Europe_Leisure_User_Retention",
+      "North_America_Business_Users (million) = North_America_Business_User_Retention",
+      "North_America_Leisure_Users (million) = North_America_Leisure_User_Retention",
+      "Middle_East_Business_Users (million) = Middle_East_Business_User_Retention",
+      "Middle_East_Leisure_Users (million) = Middle_East_Leisure_User_Retention",
+      "Total_Asia_Users (million) = Asia_Business_Users + Asia_Leisure_Users",
+      "Total_Europe_Users (million) = Europe_Business_Users + Europe_Leisure_Users",
+      "Total_North_America_Users (million) = North_America_Business_Users + North_America_Leisure_Users",
+      "Total_Middle_East_Users (million) = Middle_East_Business_Users + Middle_East_Leisure_Users",
+      "Total_User_Base (million) = Total_Asia_Users + Total_Europe_Users + Total_North_America_Users + Total_Middle_East_Users"
+    ]
+  }
+}
+
+
+
+........................................................................................................................................................
+
+  "assumptions": {
+    "Total_Population_UAE (million)": 9.99,
+    "Total_Population_KSA (million)": 36.41,
+    "Total_Population_Qatar (million)": 2.93,
+    "Total_Population_Kuwait (million)": 4.27,
+    "Total_Population_Bahrain (million)": 1.46,
+    "Total_Population_Oman (million)": 4.53,
+    "Households_per_population_UAE": 4.2,
+    "Households_per_population_KSA": 5.5,
+    "Households_per_population_Qatar": 4.7,
+    "Households_per_population_Kuwait": 5.1,
+    "Households_per_population_Bahrain": 4.8,
+    "Households_per_population_Oman": 5.3,
+    "High_income_share_UAE (%)": 30,
+    "Mid_income_share_UAE (%)": 45,
+    "Low_income_share_UAE (%)": 25,
+    "High_income_share_KSA (%)": 25,
+    "Mid_income_share_KSA (%)": 40,
+    "Low_income_share_KSA (%)": 35,
+    "High_income_share_Other_GCC (%)": 28,
+    "Mid_income_share_Other_GCC (%)": 42,
+    "Low_income_share_Other_GCC (%)": 30,
+    "High_income_dogs_per_household_UAE": 1.8,
+    "Mid_income_dogs_per_household_UAE": 1.2,
+    "Low_income_dogs_per_household_UAE": 0.6,
+    "High_income_dogs_per_household_KSA": 1.5,
+    "Mid_income_dogs_per_household_KSA": 1.0,
+    "Low_income_dogs_per_household_KSA": 0.4,
+    "High_income_dogs_per_household_Other_GCC": 1.6,
+    "Mid_income_dogs_per_household_Other_GCC": 1.1,
+    "Low_income_dogs_per_household_Other_GCC": 0.5,
+    "High_Income_segment_growth_rate_UAE (%)": 2.8,
+    "Mid_Income_segment_growth_rate_UAE (%)": 2.2,
+    "Low_Income_segment_growth_rate_UAE (%)": 1.6,
+    "High_Income_segment_growth_rate_KSA (%)": 2.5,
+    "Mid_Income_segment_growth_rate_KSA (%)": 2.0,
+    "Low_Income_segment_growth_rate_KSA (%)": 1.4,
+    "High_Income_segment_growth_rate_Other_GCC (%)": 2.6,
+    "Mid_Income_segment_growth_rate_Other_GCC (%)": 2.1,
+    "Low_Income_segment_growth_rate_Other_GCC (%)": 1.5,
+    "Market_share_UAE (%)": 18,
+    "Market_share_KSA (%)": 12,
+    "Market_share_Other_GCC (%)": 14,
+    "High_Income_Churn_per_annum_UAE (%)": 15,
+    "Mid_Income_Churn_per_annum_UAE (%)": 12,
+    "Low_Income_Churn_per_annum_UAE (%)": 10,
+    "High_Income_Churn_per_annum_KSA (%)": 18,
+    "Mid_Income_Churn_per_annum_KSA (%)": 14,
+    "Low_Income_Churn_per_annum_KSA (%)": 12,
+    "High_Income_Churn_per_annum_Other_GCC (%)": 17,
+    "Mid_Income_Churn_per_annum_Other_GCC (%)": 13,
+    "Low_Income_Churn_per_annum_Other_GCC (%)": 11
+  },
+  "formula": {
+    "Step 1: Identify the size of the population in scope": [
+      "Total_Population_UAE_Actual = Total_Population_UAE * 1000000",
+      "Total_Population_KSA_Actual = Total_Population_KSA * 1000000",
+      "Total_Population_Qatar_Actual = Total_Population_Qatar * 1000000",
+      "Total_Population_Kuwait_Actual = Total_Population_Kuwait * 1000000",
+      "Total_Population_Bahrain_Actual = Total_Population_Bahrain * 1000000",
+      "Total_Population_Oman_Actual = Total_Population_Oman * 1000000",
+      "Number_of_Households_UAE = Total_Population_UAE_Actual / Households_per_population_UAE",
+      "Number_of_Households_KSA = Total_Population_KSA_Actual / Households_per_population_KSA",
+      "Number_of_Households_Qatar = Total_Population_Qatar_Actual / Households_per_population_Qatar",
+      "Number_of_Households_Kuwait = Total_Population_Kuwait_Actual / Households_per_population_Kuwait",
+      "Number_of_Households_Bahrain = Total_Population_Bahrain_Actual / Households_per_population_Bahrain",
+      "Number_of_Households_Oman = Total_Population_Oman_Actual / Households_per_population_Oman",
+      "Number_of_Households_Other_GCC = Number_of_Households_Qatar + Number_of_Households_Kuwait + Number_of_Households_Bahrain + Number_of_Households_Oman",
+      "High_Income_segment_UAE = Number_of_Households_UAE * High_income_share_UAE / 100 * High_income_dogs_per_household_UAE",
+      "Mid_Income_segment_UAE = Number_of_Households_UAE * Mid_income_share_UAE / 100 * Mid_income_dogs_per_household_UAE",
+      "Low_Income_segment_UAE = Number_of_Households_UAE * Low_income_share_UAE / 100 * Low_income_dogs_per_household_UAE",
+      "High_Income_segment_KSA = Number_of_Households_KSA * High_income_share_KSA / 100 * High_income_dogs_per_household_KSA",
+      "Mid_Income_segment_KSA = Number_of_Households_KSA * Mid_income_share_KSA / 100 * Mid_income_dogs_per_household_KSA",
+      "Low_Income_segment_KSA = Number_of_Households_KSA * Low_income_share_KSA / 100 * Low_income_dogs_per_household_KSA",
+      "High_Income_segment_Other_GCC = Number_of_Households_Other_GCC * High_income_share_Other_GCC / 100 * High_income_dogs_per_household_Other_GCC",
+      "Mid_Income_segment_Other_GCC = Number_of_Households_Other_GCC * Mid_income_share_Other_GCC / 100 * Mid_income_dogs_per_household_Other_GCC",
+      "Low_Income_segment_Other_GCC = Number_of_Households_Other_GCC * Low_income_share_Other_GCC / 100 * Low_income_dogs_per_household_Other_GCC"
+    ],
+    "Step 2: Identify the growth rate of the segment": [
+      "Total_High_Income_segment_UAE = High_Income_segment_UAE * (1 + High_Income_segment_growth_rate_UAE / 100)",
+      "Total_Mid_Income_segment_UAE = Mid_Income_segment_UAE * (1 + Mid_Income_segment_growth_rate_UAE / 100)",
+      "Total_Low_Income_segment_UAE = Low_Income_segment_UAE * (1 + Low_Income_segment_growth_rate_UAE / 100)",
+      "Total_High_Income_segment_KSA = High_Income_segment_KSA * (1 + High_Income_segment_growth_rate_KSA / 100)",
+      "Total_Mid_Income_segment_KSA = Mid_Income_segment_KSA * (1 + Mid_Income_segment_growth_rate_KSA / 100)",
+      "Total_Low_Income_segment_KSA = Low_Income_segment_KSA * (1 + Low_Income_segment_growth_rate_KSA / 100)",
+      "Total_High_Income_segment_Other_GCC = High_Income_segment_Other_GCC * (1 + High_Income_segment_growth_rate_Other_GCC / 100)",
+      "Total_Mid_Income_segment_Other_GCC = Mid_Income_segment_Other_GCC * (1 + Mid_Income_segment_growth_rate_Other_GCC / 100)",
+      "Total_Low_Income_segment_Other_GCC = Low_Income_segment_Other_GCC * (1 + Low_Income_segment_growth_rate_Other_GCC / 100)"
+    ],
+    "Step 3: Company market share": [
+      "High_Income_segment_addressable_market_UAE = Total_High_Income_segment_UAE * (Market_share_UAE / 100)",
+      "Mid_Income_segment_addressable_market_UAE = Total_Mid_Income_segment_UAE * (Market_share_UAE / 100)",
+      "Low_Income_segment_addressable_market_UAE = Total_Low_Income_segment_UAE * (Market_share_UAE / 100)",
+      "High_Income_segment_addressable_market_KSA = Total_High_Income_segment_KSA * (Market_share_KSA / 100)",
+      "Mid_Income_segment_addressable_market_KSA = Total_Mid_Income_segment_KSA * (Market_share_KSA / 100)",
+      "Low_Income_segment_addressable_market_KSA = Total_Low_Income_segment_KSA * (Market_share_KSA / 100)",
+      "High_Income_segment_addressable_market_Other_GCC = Total_High_Income_segment_Other_GCC * (Market_share_Other_GCC / 100)",
+      "Mid_Income_segment_addressable_market_Other_GCC = Total_Mid_Income_segment_Other_GCC * (Market_share_Other_GCC / 100)",
+      "Low_Income_segment_addressable_market_Other_GCC = Total_Low_Income_segment_Other_GCC * (Market_share_Other_GCC / 100)"
+    ],
+    "Step 4: Factor losses of customers from and to competitors": [
+      "High_Income_loss_UAE = High_Income_segment_addressable_market_UAE * High_Income_Churn_per_annum_UAE / 100",
+      "Mid_Income_loss_UAE = Mid_Income_segment_addressable_market_UAE * Mid_Income_Churn_per_annum_UAE / 100",
+      "Low_Income_loss_UAE = Low_Income_segment_addressable_market_UAE * Low_Income_Churn_per_annum_UAE / 100",
+      "High_Income_loss_KSA = High_Income_segment_addressable_market_KSA * High_Income_Churn_per_annum_KSA / 100",
+      "Mid_Income_loss_KSA = Mid_Income_segment_addressable_market_KSA * Mid_Income_Churn_per_annum_KSA / 100",
+      "Low_Income_loss_KSA = Low_Income_segment_addressable_market_KSA * Low_Income_Churn_per_annum_KSA / 100",
+      "High_Income_loss_Other_GCC = High_Income_segment_addressable_market_Other_GCC * High_Income_Churn_per_annum_Other_GCC / 100",
+      "Mid_Income_loss_Other_GCC = Mid_Income_segment_addressable_market_Other_GCC * Mid_Income_Churn_per_annum_Other_GCC / 100",
+      "Low_Income_loss_Other_GCC = Low_Income_segment_addressable_market_Other_GCC * Low_Income_Churn_per_annum_Other_GCC / 100"
+    ],
+    "Step 5: Total User base": [
+      "High_Income_UAE = High_Income_segment_addressable_market_UAE - High_Income_loss_UAE",
+      "Mid_Income_UAE = Mid_Income_segment_addressable_market_UAE - Mid_Income_loss_UAE",
+      "Low_Income_UAE = Low_Income_segment_addressable_market_UAE - Low_Income_loss_UAE",
+      "High_Income_KSA = High_Income_segment_addressable_market_KSA - High_Income_loss_KSA",
+      "Mid_Income_KSA = Mid_Income_segment_addressable_market_KSA - Mid_Income_loss_KSA",
+      "Low_Income_KSA = Low_Income_segment_addressable_market_KSA - Low_Income_loss_KSA",
+      "High_Income_Other_GCC = High_Income_segment_addressable_market_Other_GCC - High_Income_loss_Other_GCC",
+      "Mid_Income_Other_GCC = Mid_Income_segment_addressable_market_Other_GCC - Mid_Income_loss_Other_GCC",
+      "Low_Income_Other_GCC = Low_Income_segment_addressable_market_Other_GCC - Low_Income_loss_Other_GCC",
+      "Total_user_base_UAE = High_Income_UAE + Mid_Income_UAE + Low_Income_UAE",
+      "Total_user_base_KSA = High_Income_KSA + Mid_Income_KSA + Low_Income_KSA",
+      "Total_user_base_Other_GCC = High_Income_Other_GCC + Mid_Income_Other_GCC + Low_Income_Other_GCC",
+      "Total_user_base = Total_user_base_UAE + Total_user_base_KSA + Total_user_base_Other_GCC"
+    ]
+  }
+}
+```
+
+...........................................................................................................................
+ "assumptions": {
+    "India_Total_Addressable_Market (million)": 50,
+    "Dubai_Total_Addressable_Market (million)": 2.5,
+    "London_Total_Addressable_Market (million)": 10,
+    
+    "Basic_Tier_Adoption_Rate (%)": 60,
+    "Standard_Tier_Adoption_Rate (%)": 25,
+    "Premium_Tier_Adoption_Rate (%)": 10,
+    "Enterprise_Tier_Adoption_Rate (%)": 5,
+    
+    "India_OpenAI_Market_Share (%)": 45,
+    "Dubai_OpenAI_Market_Share (%)": 40,
+    "London_OpenAI_Market_Share (%)": 55,
+    
+    "India_Tech_Infrastructure_Factor": 0.8,
+    "Dubai_Tech_Infrastructure_Factor": 0.95,
+    "London_Tech_Infrastructure_Factor": 0.98,
+    
+    "Basic_Tier_Growth_Rate (%)": 15,
+    "Standard_Tier_Growth_Rate (%)": 20,
+    "Premium_Tier_Growth_Rate (%)": 25,
+    "Enterprise_Tier_Growth_Rate (%)": 18,
+    
+    "Basic_Tier_Churn_Rate (%)": 12,
+    "Standard_Tier_Churn_Rate (%)": 8,
+    "Premium_Tier_Churn_Rate (%)": 5,
+    "Enterprise_Tier_Churn_Rate (%)": 3,
+    
+    "Target_Market_Share (%)": 12
+  },
+  "formula": {
+    "Step 1: Determine regional addressable markets": [
+      "India_Market (users) = India_Total_Addressable_Market * 1000000",
+      "Dubai_Market (users) = Dubai_Total_Addressable_Market * 1000000",
+      "London_Market (users) = London_Total_Addressable_Market * 1000000"
+    ],
+    "Step 2: Identify the growth rate of the segment": [
+      "India_Basic_Users = India_Market * Basic_Tier_Adoption_Rate / 100 * (1 + Basic_Tier_Growth_Rate / 100)",
+      "India_Standard_Users = India_Market * Standard_Tier_Adoption_Rate / 100 * (1 + Standard_Tier_Growth_Rate / 100)",
+      "India_Premium_Users = India_Market * Premium_Tier_Adoption_Rate / 100 * (1 + Premium_Tier_Growth_Rate / 100)",
+      "India_Enterprise_Users = India_Market * Enterprise_Tier_Adoption_Rate / 100 * (1 + Enterprise_Tier_Growth_Rate / 100)",
+      
+      "Dubai_Basic_Users = Dubai_Market * Basic_Tier_Adoption_Rate / 100 * (1 + Basic_Tier_Growth_Rate / 100)",
+      "Dubai_Standard_Users = Dubai_Market * Standard_Tier_Adoption_Rate / 100 * (1 + Standard_Tier_Growth_Rate / 100)",
+      "Dubai_Premium_Users = Dubai_Market * Premium_Tier_Adoption_Rate / 100 * (1 + Premium_Tier_Growth_Rate / 100)",
+      "Dubai_Enterprise_Users = Dubai_Market * Enterprise_Tier_Adoption_Rate / 100 * (1 + Enterprise_Tier_Growth_Rate / 100)",
+      
+      "London_Basic_Users = London_Market * Basic_Tier_Adoption_Rate / 100 * (1 + Basic_Tier_Growth_Rate / 100)",
+      "London_Standard_Users = London_Market * Standard_Tier_Adoption_Rate / 100 * (1 + Standard_Tier_Growth_Rate / 100)",
+      "London_Premium_Users = London_Market * Premium_Tier_Adoption_Rate / 100 * (1 + Premium_Tier_Growth_Rate / 100)",
+      "London_Enterprise_Users = London_Market * Enterprise_Tier_Adoption_Rate / 100 * (1 + Enterprise_Tier_Growth_Rate / 100)"
+    ],
+    "Step 3: Company market share": [
+      "India_Basic_Addressable = India_Basic_Users * (1 - India_OpenAI_Market_Share / 100) * Target_Market_Share / 100 * India_Tech_Infrastructure_Factor",
+      "India_Standard_Addressable = India_Standard_Users * (1 - India_OpenAI_Market_Share / 100) * Target_Market_Share / 100 * India_Tech_Infrastructure_Factor",
+      "India_Premium_Addressable = India_Premium_Users * (1 - India_OpenAI_Market_Share / 100) * Target_Market_Share / 100 * India_Tech_Infrastructure_Factor",
+      "India_Enterprise_Addressable = India_Enterprise_Users * (1 - India_OpenAI_Market_Share / 100) * Target_Market_Share / 100 * India_Tech_Infrastructure_Factor",
+      
+      "Dubai_Basic_Addressable = Dubai_Basic_Users * (1 - Dubai_OpenAI_Market_Share / 100) * Target_Market_Share / 100 * Dubai_Tech_Infrastructure_Factor",
+      "Dubai_Standard_Addressable = Dubai_Standard_Users * (1 - Dubai_OpenAI_Market_Share / 100) * Target_Market_Share / 100 * Dubai_Tech_Infrastructure_Factor",
+      "Dubai_Premium_Addressable = Dubai_Premium_Users * (1 - Dubai_OpenAI_Market_Share / 100) * Target_Market_Share / 100 * Dubai_Tech_Infrastructure_Factor",
+      "Dubai_Enterprise_Addressable = Dubai_Enterprise_Users * (1 - Dubai_OpenAI_Market_Share / 100) * Target_Market_Share / 100 * Dubai_Tech_Infrastructure_Factor",
+      
+      "London_Basic_Addressable = London_Basic_Users * (1 - London_OpenAI_Market_Share / 100) * Target_Market_Share / 100 * London_Tech_Infrastructure_Factor",
+      "London_Standard_Addressable = London_Standard_Users * (1 - London_OpenAI_Market_Share / 100) * Target_Market_Share / 100 * London_Tech_Infrastructure_Factor",
+      "London_Premium_Addressable = London_Premium_Users * (1 - London_OpenAI_Market_Share / 100) * Target_Market_Share / 100 * London_Tech_Infrastructure_Factor",
+      "London_Enterprise_Addressable = London_Enterprise_Users * (1 - London_OpenAI_Market_Share / 100) * Target_Market_Share / 100 * London_Tech_Infrastructure_Factor"
+    ],
+    "Step 4: Factor losses of customers from and to competitors": [
+      "India_Basic_Churn = India_Basic_Addressable * Basic_Tier_Churn_Rate / 100",
+      "India_Standard_Churn = India_Standard_Addressable * Standard_Tier_Churn_Rate / 100",
+      "India_Premium_Churn = India_Premium_Addressable * Premium_Tier_Churn_Rate / 100",
+      "India_Enterprise_Churn = India_Enterprise_Addressable * Enterprise_Tier_Churn_Rate / 100",
+      
+      "Dubai_Basic_Churn = Dubai_Basic_Addressable * Basic_Tier_Churn_Rate / 100",
+      "Dubai_Standard_Churn = Dubai_Standard_Addressable * Standard_Tier_Churn_Rate / 100",
+      "Dubai_Premium_Churn = Dubai_Premium_Addressable * Premium_Tier_Churn_Rate / 100",
+      "Dubai_Enterprise_Churn = Dubai_Enterprise_Addressable * Enterprise_Tier_Churn_Rate / 100",
+      
+      "London_Basic_Churn = London_Basic_Addressable * Basic_Tier_Churn_Rate / 100",
+      "London_Standard_Churn = London_Standard_Addressable * Standard_Tier_Churn_Rate / 100",
+      "London_Premium_Churn = London_Premium_Addressable * Premium_Tier_Churn_Rate / 100",
+      "London_Enterprise_Churn = London_Enterprise_Addressable * Enterprise_Tier_Churn_Rate / 100"
+    ],
+    "Step 5: Total User base": [
+      "India_Basic_Users_Final = India_Basic_Addressable - India_Basic_Churn",
+      "India_Standard_Users_Final = India_Standard_Addressable - India_Standard_Churn",
+      "India_Premium_Users_Final = India_Premium_Addressable - India_Premium_Churn",
+      "India_Enterprise_Users_Final = India_Enterprise_Addressable - India_Enterprise_Churn",
+      
+      "Dubai_Basic_Users_Final = Dubai_Basic_Addressable - Dubai_Basic_Churn",
+      "Dubai_Standard_Users_Final = Dubai_Standard_Addressable - Dubai_Standard_Churn",
+      "Dubai_Premium_Users_Final = Dubai_Premium_Addressable - Dubai_Premium_Churn",
+      "Dubai_Enterprise_Users_Final = Dubai_Enterprise_Addressable - Dubai_Enterprise_Churn",
+      
+      "London_Basic_Users_Final = London_Basic_Addressable - London_Basic_Churn",
+      "London_Standard_Users_Final = London_Standard_Addressable - London_Standard_Churn",
+      "London_Premium_Users_Final = London_Premium_Addressable - London_Premium_Churn",
+      "London_Enterprise_Users_Final = London_Enterprise_Addressable - London_Enterprise_Churn",
+      
+      "Total_Basic_Users = India_Basic_Users_Final + Dubai_Basic_Users_Final + London_Basic_Users_Final",
+      "Total_Standard_Users = India_Standard_Users_Final + Dubai_Standard_Users_Final + London_Standard_Users_Final",
+      "Total_Premium_Users = India_Premium_Users_Final + Dubai_Premium_Users_Final + London_Premium_Users_Final",
+      "Total_Enterprise_Users = India_Enterprise_Users_Final + Dubai_Enterprise_Users_Final + London_Enterprise_Users_Final",
+      
+      "Total_India_Users = India_Basic_Users_Final + India_Standard_Users_Final + India_Premium_Users_Final + India_Enterprise_Users_Final",
+      "Total_Dubai_Users = Dubai_Basic_Users_Final + Dubai_Standard_Users_Final + Dubai_Premium_Users_Final + Dubai_Enterprise_Users_Final",
+      "Total_London_Users = London_Basic_Users_Final + London_Standard_Users_Final + London_Premium_Users_Final + London_Enterprise_Users_Final",
+      
+      "Total_User_Base = Total_Basic_Users + Total_Standard_Users + Total_Premium_Users + Total_Enterprise_Users"
+    ]
+  }
+}
