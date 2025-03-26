@@ -1,0 +1,311 @@
+    step1_prompt = f""" You are professional Financial modeling expert. Given description: {User_descriptions} your task is to Identify the size of the population in scope, such as number of total households, number of total enterprises, number of total seats, number of adopters. The objective of this step is to gauge the each sample space of the demand side for a certain service across the distinct customer dimensions such as low-income / Mid-income / High-income.  If the calculation is structured by continent and the company operates only in specific countries, make sure that only the continents corresponding to these countries are only considered in writing formula.
+    The calculation should only use the mathematical operations. Define each step clearly, provide the formula for intermediate calculations, and explain how each step contributes to the estimation of the size of the population in scope. Ensure each step's resultant variable have proper unit (e.g., "User_base (millions) = ...").
+    Provide a step by step formula for estimating the size of the population in scope for the period from {user_base_start_month_init} to {user_base_end_month_init} in the year {user_base_year_init}, ensuring both months are considered.
+    you have to only write first step for user base estimation, in this we want to Identify the size of the population in each scope.
+    
+
+    you have to follow this directions for first Step of User-Base Estimation Framework to write formula
+    Step 1: Identify the size of the population in scope, such as number of total households, number of total enterprises, number of total seats, number of total masts. The objective of this step is to gauge the total sample space of the demand side for a certain service across the distinct customer dimensions such as low-income / Mid-income / High-income.
+    Example: 
+    1.	If we are to open a dog servicing business and we need to identify the sample size of dogs: 
+      a) this step would get to the total number of population households
+      b) then, the households get broken down by the income groups, i.e., low, mid, and income
+      c) then, for each income group, we multiply the number of dogs owned by income group
+    2.	If we are to open a B2C LLM subscriptions Business
+      a) this step would get to identify the total global population
+      b) then, segment population by LLM/AI adoption levels, i.e., not adopters, low, medium, high
+    3.	If we are to open a car tires sales enterprise:
+      a) this step would get to the total number of population households
+      b) then, the households get broken down by the income groups, i.e., low, mid, and income
+      c) then, for each income group, we multiply the number of cars owned and their tires by income group
+    4.	If we are to open a digital bank which provides cards and loans
+      a) This step would get to the total number of population
+      b) then, the population gets broken down by age group 
+      c) then, for each age group, we identify the percentage adoption
+    5.	If we are to launch a premium economy business line
+      a) This step would get to the size the total population
+      b) Then breakdown down by income group
+      c) Then breakdown each income group by which class of service they opt for, i.e., business, economy, first
+      d) Then breakdown likelihood to open for premium economy
+    
+    Requirements: 
+    -	Maintain the breakdown to be by market (e.g., continent, country of operation such as UK, UAE). if only one market, then only the customer segments get retained thereafter in the format. 
+    -   If the calculations are structured by continent and the company operates in specific countries, ensure that the continents corresponding to these countries are only included.
+    -	Make sure to Follow this below example
+    If we have multiple continents
+        North America
+        â€¢	Low Income Group 
+        â€¢	Mid Income Group 
+        â€¢	High Income Group 
+        Latin and Central America
+        â€¢	Low Income Group 
+        â€¢	Mid Income Group 
+        â€¢	High Income Group 
+    If we have only one continent
+    â€¢	Low Income Group 
+    â€¢	Mid Income Group 
+    â€¢	High Income Group 
+    In terms of continents, we only possess the following:
+    -	North America
+    -	Latin and Central America
+    -	UK and Europe
+    -	Middle East and Africa 
+    -	Indian Subcontinent (i.e., India, Bangladesh, Pakistan, Nepal, Sri Lanka, Maldives, Bhutan)
+    -	Asian Pacific (i.e., China, Japan, Australia, New Zealand, Malaysia, Indonesia, Philippines, Thailand, Vietnam, etc.)
+
+    ## Requirements
+    - Respond in JSON format and ensure to shows measurement units of each key values.
+    - When writing the step-by-step formula, please represent numbers without commas (e.g., use 1000000 instead of 1,000,000).
+    - Don't use year or month name in assigning any key names in formula 
+    - Make sure that the step names do not use keywords such as numeric year(eg: 2025, 2026 etc), "monthly", "explore", "calculate" or "apply."
+    - Make sure that the formula should be designed to compute for the entire period specified in one go, rather than breaking it into separate subperiods.
+    - Make sure the calculations are structured by continent and if the company operates in specific countries, ensure that the continents corresponding to these countries are only included.
+    - Includes clear intermediate steps for calculating key values with proper units on the left hand side of the equations
+    - Follow the example output format provided below
+    
+    Example Output format:
+        {{ "assumptions":{{
+            "Total_Population (million)" : 4,
+            "households_per_population" : 4,
+            "High_income_share (%)":25,
+            "Mid_income_share (%)":35,
+            "Low_income_share (%)": 40, 
+            "high_income_dogs_per_household": 2.5,
+            "Mid_income_dogs_per_household": 1.25,
+            "low_income_dogs_per_household": 0.75,                  
+        }}
+        "formula": {{
+    "Step 1: Identify the size of the population in scope":[ "Total_Population_of_Dubai = Total_Population * 1000000",
+    "Number_of_Households_of_Dubai = Total_Population_of_Dubai / households_per_population","High_Income_segment: Number_of_Households_of_Dubai * High_income_share/100 * high_income_dogs_per_household",
+    "Medium_Income_segment = Number_of_Households_of_Dubai * Mid_income_share /100 * Mid_income_dogs_per_household",
+    "Low_Income_segment = Number_of_Households_of_Dubai * Low_income_share/100 * low_income_dogs_per_household"],
+        }}
+    }}
+    """
+
+
+    Step2_prompt = f""" You are professional Financial modeling expert. Given description: {User_descriptions} and Step 1 assumption and formula {step1} to Identify the size of the population in scope, such as number of total households, number of total enterprises, number of total seats, number of adopters. Your task is to Identify the growth rate of the sample population across the years.
+    To do this add step 2 assumption and add step 2 in formula. You can rectify formula, if it doesn't follow example output. 
+    The calculation should only use the mathematical operations. Define each step clearly, provide the formula for intermediate calculations, and explain how each step contributes to the estimation of the size of the population in scope. Ensure each step's resultant variable have proper unit (e.g., "User_base (millions) = ...").
+    Provide a step by step formula for Identify the growth rate of the each segment of sample population for the period from {user_base_start_month_init} to {user_base_end_month_init} in the year {user_base_year_init}, ensuring both months are considered.
+    you have to only write second step for user base estimation, in this we want to Identify the growth rate of the each segments sample population.
+    
+    you have to follow this directions for Second Step of User-Base Estimation Framework to write formula
+    Step 2: Identify the growth rate of the each segment 
+    Example: 
+    f.	If the global population was referenced, then total growth rate would be as per global historical data
+    g.	If the global enterprises were referenced, then total growth rate would be as per global historical data
+    h.	If the seats are referenced, then would be considered flat. Model the growth rate but assume it to be zero
+    Note: Growth rate would typically range between 2-3% year-on-year
+    As such, Step 2 would have the output of the total demand side including the growth rate.
+
+    ## Requirements
+    - Respond in JSON format and ensure to shows measurement units of each key values.
+    - When writing the step-by-step formula, please represent numbers without commas (e.g., use 1000000 instead of 1,000,000).
+    - Don't use year or month name in assigning any key names in formula 
+    - Make sure that the step names do not use keywords such as numeric year(eg: 2025, 2026 etc), "monthly", "explore", "calculate" or "apply."
+    - Make sure that the formula should be designed to compute for the entire period in one go, rather than breaking it into separate subperiods.
+    - Make sure the calculations are structured by continent and if the company operates in specific countries, ensure that the continents corresponding to these countries are only included.
+    - Includes clear intermediate steps for calculating key values with proper units on the left hand side of the equations
+    - Follow the example output format provided below
+    
+    Example Output format:
+        {{ "assumptions":{{
+            "Total_Population (million)" : 4,
+            "households_per_population" : 4,
+            "High_income_share (%)":25,
+            "Mid_income_share (%)":35,
+            "Low_income_share (%)": 40, 
+            "high_income_dogs_per_household": 2.5,
+            "Mid_income_dogs_per_household": 1.25,
+            "low_income_dogs_per_household": 0.75, 
+            "household_growth_rate": 1.75,
+        }}
+        "formula": {{
+    "Step 1: Identify the size of the population in scope":[ "Total_Population_of_Dubai = Total_Population * 1000000",
+    "Number_of_Households_of_Dubai = Total_Population_of_Dubai / households_per_population","High_Income_segment: Number_of_Households_of_Dubai * High_income_share/100 * high_income_dogs_per_household",
+    "Medium_Income_segment = Number_of_Households_of_Dubai * Mid_income_share /100 * Mid_income_dogs_per_household",
+    "Low_Income_segment = Number_of_Households_of_Dubai * Low_income_share/100 * low_income_dogs_per_household"],
+    "Step 2: Identify the growth rate of the segment":[ Total_High_Income_segment = High_Income_segment * (1 + household_growth_rate /100) , Total_Mid_Income_segment = Mid_Income_segment * (1 + household_growth_rate /100),
+    Total_Low_Income_segment = Low_Income_segment * (1 + household_growth_rate /100)] 
+        }}
+    }}
+    """
+
+    Step3_prompt = f""" You are professional Financial modeling expert. Given description: {User_descriptions} and Step 1 and step 2 assumption and formula {step2} to Identify the size of the population in scope, such as number of total households, number of total enterprises, number of total seats, number of adopters. Your task is to Identify the growth rate of the sample population across the years.
+    To do this add step 3 assumption and add step 3 in formula. You can rectify formula, if it doesn't follow example output. 
+    The calculation should only use the mathematical operations. Define each step clearly, provide the formula for intermediate calculations, and explain how each step contributes to the estimation of the size of the population in scope. Ensure each step's resultant variable have proper unit (e.g., "User_base (millions) = ...").
+    Provide a step by step formula for Identify the growth rate of the each segment of sample population for the period from {user_base_start_month_init} to {user_base_end_month_init} in the year {user_base_year_init}, ensuring both months are considered.
+    you have to only write second step for user base estimation, in this we want to Identify the growth rate of the each segments sample population.
+    
+    you have to follow this directions for Third Step of User-Base Estimation Framework to write formula
+    Step 3: Define the company market share of how its growth would shape up in terms of acquisition across the net demand identified post step 2. The objective is to size the competitive position from the demand side of the idea at hand.
+    Example: 
+    1)	If we are to open a dog servicing business, and we have identified in step 2 the net demand to be 1Mn dogs across each of the three income groups, then we need to multiply the market share for each income group to identify the size of the market adoption required. Such as,
+    2)	A: Low Income Dogs: 1,000,000
+    3)	B: Medium Income Dogs: 1,000,000
+    4)	C: High Income Dogs: 1,000,000
+    Then multiply each of those segments with the market share adoption rate
+    5)	Low Income Dogs adoption: A * (low_income capture rate)
+    6)	Medium Income Dogs: B * (Medium_income capture rate)
+    7)	High Income Dogs: C * (High_income capture rate)
+
+    j.	If we are to open a B2C LLM subs Business, and we have identified in step 2 the net demand to be 10Mn people across each of the four adoption levels, then we need to multiply the market share for each level to identify the size of the market adoption required. Such as,
+    i.	A: Low Adopters: 10,000,000
+    ii.	B: Medium Adopters: 10,000,000
+    iii. C: High Adopters: 10,000,000
+    Then multiply each of those segments with the market share adoption rate
+    iv.	Low Adopters: A * (Low_level capture rate)
+    v.	Medium Adopters: B * (Medium_level capture rate)
+    vi.	High Adopters: C * (High_level capture rate)
+    Note: captured demand = (total demand * capture rate)
+
+
+    ## Requirements
+    - Respond in JSON format and ensure to shows measurement units of each key values.
+    - When writing the step-by-step formula, please represent numbers without commas (e.g., use 1000000 instead of 1,000,000).
+    - Don't use year or month name in assigning any key names in formula 
+    - Make sure that the step names do not use keywords such as numeric year(eg: 2025, 2026 etc), "monthly", "explore", "calculate" or "apply."
+    - Make sure that the formula should be designed to compute for the entire period in one go, rather than breaking it into separate subperiods.
+    - Make sure the calculations are structured by continent and if the company operates in specific countries, ensure that the continents corresponding to these countries are only included.
+    - Includes clear intermediate steps for calculating key values with proper units on the left hand side of the equations
+    - Follow the example output format provided below
+    
+    Example Output format:
+        {{ "assumptions":{{
+            "Total_Population (million)" : 4,
+            "households_per_population" : 4,
+            "High_income_share (%)":25,
+            "Mid_income_share (%)":35,
+            "Low_income_share (%)": 40, 
+            "high_income_dogs_per_household": 2.5,
+            "Mid_income_dogs_per_household": 1.25,
+            "low_income_dogs_per_household": 0.75, 
+            "household_growth_rate": 1.75,
+            "market_share"= 26                  
+        }}
+        "formula": {{
+    "Step 1: Identify the size of the population in scope":[ "Total_Population_of_Dubai = Total_Population * 1000000",
+    "Number_of_Households_of_Dubai = Total_Population_of_Dubai / households_per_population","High_Income_segment: Number_of_Households_of_Dubai * High_income_share/100 * high_income_dogs_per_household",
+    "Medium_Income_segment = Number_of_Households_of_Dubai * Mid_income_share /100 * Mid_income_dogs_per_household",
+    "Low_Income_segment = Number_of_Households_of_Dubai * Low_income_share/100 * low_income_dogs_per_household"],
+    "Step 2: Identify the growth rate of the segment":[ Total_High_Income_segment = High_Income_segment * (1 + household_growth_rate/100) , Total_Mid_Income_segment = Mid_Income_segment * (1 + household_growth_rate /100),
+    Total_Low_Income_segment = Low_Income_segment * (1 + household_growth_rate /100)] 
+    "Step 3: Company market share":[High_Income_segment_addressable_market = Total_High_Income_segment * (market_share / 100), Mid_Income_segment_addressable_market = Total_Mid_Income_segment * (market_share / 100),
+    Low_Income_segment_addressable_market = Total_Low_Income_segment * (market_share / 100)]
+        }}
+    }}
+    """
+
+    Step4_prompt = f""" You are professional Financial modeling expert. Given description: {User_descriptions} and Step 1, Step 2 and step 3 assumption and formula {step3} to Identify the size of the population in scope, such as number of total households, number of total enterprises, number of total seats, number of adopters. Your task is to Identify the growth rate of the sample population across the years .
+    To do this add step 4 assumption and add step 4 in formula. You can rectify formula, if it doesn't follow example output. 
+    The calculation should only use the mathematical operations. Define each step clearly, provide the formula for intermediate calculations, and explain how each step contributes to the estimation of the size of the population in scope. Ensure each step's resultant variable have proper unit (e.g., "User_base (millions) = ...").
+    Provide a step by step formula for Identify the growth rate of the each segment of sample population for the period from {user_base_start_month_init} to {user_base_end_month_init} in the year {user_base_year_init}, ensuring both months are considered.
+    you have to only write second step for user base estimation, in this we want to Identify the growth rate of the each segments sample population.
+    
+    you have to follow this directions for Fourth Step of User-Base Estimation Framework to write formula
+    Step 4: Factor in the gain and churn from the captured market share. Here I am interested in identifying in every period the loss of product users due to lower competitive advantage or to bad quality of service. This would eventually be subtracted from the outcome of step 3 where the formula would be: captured demand * (1-churn rate). The analysis should be broken down by demand group, as such
+    -	For each Low / Medium / High Income group: Net captured demand = captured demand * (1-churn)
+    -	For each Low / Medium / High adopters: Net captured demand = captured demand * (1-churn)
+    Note1: Always in the start period, there wonâ€™t be churn. If the start period is M, then churn would start from M+1.
+
+    ## Requirements
+    - Respond in JSON format and ensure to shows measurement units of each key values.
+    - When writing the step-by-step formula, please represent numbers without commas (e.g., use 1000000 instead of 1,000,000).
+    - Don't use year or month name in assigning any key names in formula 
+    - Make sure that the step names do not use keywords such as numeric year(eg: 2025, 2026 etc), "monthly", "calculate" or "apply."
+    - Make sure that the formula should be designed to compute for the entire period in one go, rather than breaking it into separate subperiods.
+    - Make sure the calculations are structured by continent and if the company operates in specific countries, ensure that the continents corresponding to these countries are only included.
+    - Includes clear intermediate steps for calculating key values with proper units on the left hand side of the equations
+    - Follow the example output format provided below
+    
+    Example Output format:
+        {{ "assumptions":{{
+            "Total_Population (million)" : 4,
+            "households_per_population" : 4,
+            "High_income_share (%)":25,
+            "Mid_income_share (%)":35,
+            "Low_income_share (%)": 40, 
+            "high_income_dogs_per_household": 2.5,
+            "Mid_income_dogs_per_household": 1.25,
+            "low_income_dogs_per_household": 0.75, 
+            "household_growth_rate": 1.75,
+            "market_share"= 26,
+            "High_Income_Churn_per_annum (%)":12, 
+            "Mid_Income_Churn_per_annum (%)":8, 
+            "Low_Income_Churn_per_annum (%)":6,                   
+        }}
+        "formula": {{
+    "Step 1: Identify the size of the population in scope":[ "Total_Population_of_Dubai = Total_Population * 1000000",
+    "Number_of_Households_of_Dubai = Total_Population_of_Dubai / households_per_population","High_Income_segment: Number_of_Households_of_Dubai * High_income_share/100 * high_income_dogs_per_household",
+    "Medium_Income_segment = Number_of_Households_of_Dubai * Mid_income_share /100 * Mid_income_dogs_per_household",
+    "Low_Income_segment = Number_of_Households_of_Dubai * Low_income_share/100 * low_income_dogs_per_household"],
+    "Step 2: Identify the growth rate of the segment":[ Total_High_Income_segment = High_Income_segment * (1 + household_growth_rate /100) , Total_Mid_Income_segment = Mid_Income_segment * (1 + household_growth_rate /100),
+    Total_Low_Income_segment = Low_Income_segment * (1 + household_growth_rate /100)] 
+    "Step 3: Company market share":[High_Income_segment_addressable_market = Total_High_Income_segment * (market_share / 100), Mid_Income_segment_addressable_market = Total_Mid_Income_segment * (market_share / 100),
+    Low_Income_segment_addressable_market = Total_Low_Income_segment * (market_share / 100)]
+    "Step 4: Factor gains and losses of customers from and to competitors":[ "High_income_loss= High_Income_segment_addressable_market * High_Income_Churn_per_annum/100",
+    "Mid_income_loss= Mid_Income_segment_addressable_market * Mid_Income_Churn_per_annum/100",
+    "Low_income_loss= Low_Income_segment_addressable_market * Low_Income_Churn_per_annum/100" ]}}
+    }}
+    """
+    return prompt
+
+
+
+
+    Step5_prompt = f""" You are professional Financial modeling expert. Given description: {User_descriptions} and Step 1, Step 2, Step 3 and step 4 assumption and formula {step4} to Identify the size of the population in scope, such as number of total households, number of total enterprises, number of total seats, number of adopters. Your task is to write user base estimation formula, you can use given logic {User_Base_logic} to update formula,  Accordingly update assumptions.
+    To do this add step 5 assumption and add step 5 in formula. You can rectify formula, if it doesn't follow example output. 
+    The calculation should only use the mathematical operations. Define each step clearly, provide the formula for intermediate calculations, and explain how each step contributes to the estimation of the size of the population in scope. Ensure each step's resultant variable have proper unit (e.g., "User_base (millions) = ...").
+    Provide a step by step formula for Identify the growth rate of the each segment of sample population for the period from {user_base_start_month_init} to {user_base_end_month_init} in the year {user_base_year_init}, ensuring both months are considered.
+    you have to only write second step for user base estimation, in this we want to Identify the growth rate of the each segments sample population.
+    
+    you have to follow this directions for Fourth Step of User-Base Estimation Framework to write formula
+    you have to follow this directions for Fourth Step of User-Base Estimation Framework to write formula
+    Step 5: Total user base. Here we will sum user base addressable segment in step 3 and sum gain and subtract churn obtained in step 4. No other factor should be included in step 5. It should only sum output of previous steps.
+
+    ## Requirements
+    - Respond in JSON format and ensure to shows measurement units of each key values.
+    - When writing the step-by-step formula, please represent numbers without commas (e.g., use 1000000 instead of 1,000,000).
+    - Make sure to not use any year or month name in assigning any key names in formula 
+    - Make sure that the step names do not use keywords such as numeric year(eg: 2025, 2026 etc), "monthly", "calculate" or "apply."
+    - Make sure that the formula should be designed to compute for the entire period in one go, rather than breaking it into separate subperiods.
+    - Make sure the calculations are structured by continent and if the company operates in specific countries, ensure that the continents corresponding to these countries are only included.
+    - Includes clear intermediate steps for calculating key values with proper units on the left hand side of the equations
+    - Follow the example output format provided below
+    
+    Example Output format:
+        {{ "assumptions":{{
+            "Total_Population (million)" : 4,
+            "households_per_population" : 4,
+            "High_income_share (%)":25,
+            "Mid_income_share (%)":35,
+            "Low_income_share (%)": 40, 
+            "high_income_dogs_per_household": 2.5,
+            "Mid_income_dogs_per_household": 1.25,
+            "low_income_dogs_per_household": 0.75, 
+            "household_growth_rate": 1.75,
+            "market_share"= 26,
+            "High_Income_Churn_per_annum (%)":12, 
+            "Mid_Income_Churn_per_annum (%)":8, 
+            "Low_Income_Churn_per_annum (%)":6,                   
+        }}
+        "formula": {{
+    "Step 1: Identify the size of the population in scope":[ "Total_Population_of_Dubai = Total_Population * 1000000",
+    "Number_of_Households_of_Dubai = Total_Population_of_Dubai / households_per_population","High_Income_segment: Number_of_Households_of_Dubai * High_income_share/100 * high_income_dogs_per_household",
+    "Medium_Income_segment = Number_of_Households_of_Dubai * Mid_income_share /100 * Mid_income_dogs_per_household",
+    "Low_Income_segment = Number_of_Households_of_Dubai * Low_income_share/100 * low_income_dogs_per_household"],
+    "Step 2: Identify the growth rate of the segment":[ Total_High_Income_segment = High_Income_segment * (1 + Household_growth_rate /100) , Total_Mid_Income_segment = Mid_Income_segment * (1 + Household_growth_rate /100),
+    Total_Low_Income_segment = Low_Income_segment * (1 + Household_growth_rate /100)] 
+    "Step 3: Company market share":[High_Income_segment_addressable_market = Total_High_Income_segment * (market_share / 100), Mid_Income_segment_addressable_market = Total_Mid_Income_segment * (market_share / 100),
+    Low_Income_segment_addressable_market = Total_Low_Income_segment * (market_share / 100)]
+    "Step 4: Factor gains and losses of customers from and to competitors":[ "High_income_loss: High_Income_segment_addressable_market * High_Income_Churn_per_annum/100",
+    "Mid_income_loss: Mid_Income_segment_addressable_market * Mid_Income_Churn_per_annum/100",
+    "Low_income_loss: Low_Income_segment_addressable_market * Low_Income_Churn_per_annum/100"]
+    "Step 5: Total User base":["High_Income = High_Income_segment_addressable_market â€“ High_income_Loss"
+    "Mid_Income = Mid_Income_segment_addressable_market â€“ Mid_income_loss"
+    "Low_Income = Low_Income_segment_addressable_market - Low_income_loss"
+    "Total_user_base = Low_Income + Mid_Income + High_Income"]}}
+    }}
+    """
+    return prompt
