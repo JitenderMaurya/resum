@@ -1,0 +1,79 @@
+Revenue_prompt = f""" You are successful investment banker, expert in Financial modeling and revenue calculation.
+    Company's user base is split across various services/product i.e {Revenue_sources_splits.keys()} is offered by it.
+    You will be provided with user base consituents as {Total_user} and its split across split across various services/product i.e {Revenue_sources_splits} is offered by it.
+    Write detailed step by step formula to compute revenue considering billing cycle of each product/servie if applicable.
+    We want compute revenue for {interval} period only and billing cycle for each product is according to {billing}.
+    if there is additional revenue source {Additional_revenue}.
+    
+    Task
+    - Determine the realistic assumption, considering industry benchmarks, competition, market demand, and affordability.
+    - Ensure the pricing aligns with the expected value proposition and competitive positioning.
+    - Write step by step formula to compute revene in financial model in {currency}.
+    - Make sure to write formula to compute revenue for {interval} period only.
+    - Make sure to include service/product user base split {Revenue_sources_splits} and price {price} as it is in assumption. This user base and price for complete {interval} period.
+    - If there is additional revenue sources, make sure to calculate it in a separate step. First, compute the revenue from core products/services, then calculate additional revenue (e.g., upsells, ads, partnerships). Finally, sum both components to derive the total revenue.
+   
+    Output Requirement:
+    Respond assumptions and formula in JSON format without any additional commentary.
+    user "_" to connect words in keys.
+    Avoid using keywords such as "calculate","period","year", "apply", "monthly", any_month name or specific numeric years (e.g., 2025, 2026) in the step names.
+    Presents each equation with the proper unit on the left-hand side (e.g., "Total_revenue (millions) = ...").
+    Don't include user base consituents in assumption it will be provided separately.
+    
+    Follow example output format for output
+    
+    Example output format:
+        {{  "assumption": {{
+            User_A (%) = 76,
+            User_B (%) = 24,
+            Billing_cycle_product_A = 2,
+            Billing_cycle_product_B = 4,
+            price_A ({currency}) = 5
+            Price_B ({currency})= 9
+            Additional_Revenue_Contribution (%) = 5
+            }},
+            
+            "formula":{{
+                Product_A_Revenue (million) = User_A (%)/100 * price_A * Billing_cycle_product_A,
+                Product_B_Revenue (million) = User_B (%)/100 * price_B * Billing_cycle_product_B,
+                Revenue_product (million) = Product_A_Revenue + Product_B_Revenue,
+                Additional_revenue (million) = Revenue_product (million) * Additional_Revenue_Contribution/100,
+                Total_Revenue (million) = Revenue_product (million) * Additional_revenue (million),
+            }}
+        }}
+        Let's think step-by-step. Do not solve equations, only write step-by-step formula. Keep only those parameters in assumption which is used in formula.
+    """
+    return prompt
+#....................................................................................................................................................
+  "assumption": {
+    "LLM_Subscription_Basic (%)": "40",
+    "LLM_Subscription_Standard (%)": "30",
+    "LLM_Subscription_Pro (%)": "20",
+    "LLM_Subscription_Enterprise (%)": "10",
+    "LLM_Subscription_Basic_Price (USD)": "10",
+    "LLM_Subscription_Standard_Price (USD)": "20",
+    "LLM_Subscription_Pro_Price (USD)": "40",
+    "LLM_Subscription_Enterprise_Price (USD)": "120",
+    "Basic_Billing_Cycles_Per_Year": "2",
+    "Other_Billing_Cycles_Per_Year": "1",
+    "Additional_Revenue_Contribution (%)": "5"
+  },
+  
+  "formula": {
+    "Basic_Consumer_Users (million)": "Total_Consumer_Net_Users (million) * LLM_Subscription_Basic (%)/100",
+    "Standard_Consumer_Users (million)": "Total_Consumer_Net_Users (million) * LLM_Subscription_Standard (%)/100",
+    "Pro_Consumer_Users (million)": "Total_Consumer_Net_Users (million) * LLM_Subscription_Pro (%)/100",
+    "Enterprise_Users (million)": "Total_Enterprise_Net_Users (million) * LLM_Subscription_Enterprise (%)/100",
+    
+    "Basic_Revenue (million USD)": "Basic_Consumer_Users (million) * LLM_Subscription_Basic_Price (USD) * Basic_Billing_Cycles_Per_Year",
+    "Standard_Revenue (million USD)": "Standard_Consumer_Users (million) * LLM_Subscription_Standard_Price (USD) * Other_Billing_Cycles_Per_Year",
+    "Pro_Revenue (million USD)": "Pro_Consumer_Users (million) * LLM_Subscription_Pro_Price (USD) * Other_Billing_Cycles_Per_Year",
+    "Enterprise_Revenue (million USD)": "Enterprise_Users (million) * LLM_Subscription_Enterprise_Price (USD) * Other_Billing_Cycles_Per_Year",
+    
+    "Subscription_Revenue (million USD)": "Basic_Revenue (million USD) + Standard_Revenue (million USD) + Pro_Revenue (million USD) + Enterprise_Revenue (million USD)",
+    
+    "Additional_Revenue (million USD)": "Subscription_Revenue (million USD) * Additional_Revenue_Contribution (%)/100",
+    
+    "Total_Revenue (million USD)": "Subscription_Revenue (million USD) + Additional_Revenue (million USD)"
+  }
+
