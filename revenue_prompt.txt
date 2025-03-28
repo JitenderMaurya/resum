@@ -1,4 +1,302 @@
-Revenue_prompt = f""" You are successful investment banker, expert in Financial modeling and revenue calculation.
+####Prompt
+I want to open a competitor for OpenAI which provides 4 LLM subscriptions. I want to build a financial model which tests the feasibility and the overall return of this. i want to structure the model per subscription model, and want to have the model for 5 years straight, starting from 2026 January. I want to operate in both India, Dubai and London
+
+##### USER BASE OUTPUT#####
+Step 1: Identify the size of the population in scope
+
+London_Individual_Users_Low_Total (million) = London_Individual_Users_Low
+
+London_Individual_Users_Medium_Total (million) = London_Individual_Users_Medium
+
+London_Individual_Users_High_Total (million) = London_Individual_Users_High
+
+Dubai_Individual_Users_Low_Total (million) = Dubai_Individual_Users_Low
+
+Dubai_Individual_Users_Medium_Total (million) = Dubai_Individual_Users_Medium
+
+Dubai_Individual_Users_High_Total (million) = Dubai_Individual_Users_High
+
+India_Individual_Users_Low_Total (million) = India_Individual_Users_Low
+
+India_Individual_Users_Medium_Total (million) = India_Individual_Users_Medium
+
+India_Individual_Users_High_Total (million) = India_Individual_Users_High
+
+London_Business_Users_Low_Total (million) = London_Business_Users_Low
+
+London_Business_Users_Medium_Total (million) = London_Business_Users_Medium
+
+London_Business_Users_High_Total (million) = London_Business_Users_High
+
+Dubai_Business_Users_Low_Total (million) = Dubai_Business_Users_Low
+
+Dubai_Business_Users_Medium_Total (million) = Dubai_Business_Users_Medium
+
+Dubai_Business_Users_High_Total (million) = Dubai_Business_Users_High
+
+India_Business_Users_Low_Total (million) = India_Business_Users_Low
+
+India_Business_Users_Medium_Total (million) = India_Business_Users_Medium
+
+India_Business_Users_High_Total (million) = India_Business_Users_High
+
+Step 2: Identify the growth rate of each segment
+
+London_Individual_Users_Low_With_Growth (million) = London_Individual_Users_Low_Total * (1 + Individual_Growth_Rate_London_Low / 100)
+
+London_Individual_Users_Medium_With_Growth (million) = London_Individual_Users_Medium_Total * (1 + Individual_Growth_Rate_London_Medium / 100)
+
+London_Individual_Users_High_With_Growth (million) = London_Individual_Users_High_Total * (1 + Individual_Growth_Rate_London_High / 100)
+
+Dubai_Individual_Users_Low_With_Growth (million) = Dubai_Individual_Users_Low_Total * (1 + Individual_Growth_Rate_Dubai_Low / 100)
+
+Dubai_Individual_Users_Medium_With_Growth (million) = Dubai_Individual_Users_Medium_Total * (1 + Individual_Growth_Rate_Dubai_Medium / 100)
+
+Dubai_Individual_Users_High_With_Growth (million) = Dubai_Individual_Users_High_Total * (1 + Individual_Growth_Rate_Dubai_High / 100)
+
+India_Individual_Users_Low_With_Growth (million) = India_Individual_Users_Low_Total * (1 + Individual_Growth_Rate_India_Low / 100)
+
+India_Individual_Users_Medium_With_Growth (million) = India_Individual_Users_Medium_Total * (1 + Individual_Growth_Rate_India_Medium / 100)
+
+India_Individual_Users_High_With_Growth (million) = India_Individual_Users_High_Total * (1 + Individual_Growth_Rate_India_High / 100)
+
+London_Business_Users_Low_With_Growth (million) = London_Business_Users_Low_Total * (1 + Business_Growth_Rate_London_Low / 100)
+
+London_Business_Users_Medium_With_Growth (million) = London_Business_Users_Medium_Total * (1 + Business_Growth_Rate_London_Medium / 100)
+
+London_Business_Users_High_With_Growth (million) = London_Business_Users_High_Total * (1 + Business_Growth_Rate_London_High / 100)
+
+Dubai_Business_Users_Low_With_Growth (million) = Dubai_Business_Users_Low_Total * (1 + Business_Growth_Rate_Dubai_Low / 100)
+
+Dubai_Business_Users_Medium_With_Growth (million) = Dubai_Business_Users_Medium_Total * (1 + Business_Growth_Rate_Dubai_Medium / 100)
+
+Dubai_Business_Users_High_With_Growth (million) = Dubai_Business_Users_High_Total * (1 + Business_Growth_Rate_Dubai_High / 100)
+
+India_Business_Users_Low_With_Growth (million) = India_Business_Users_Low_Total * (1 + Business_Growth_Rate_India_Low / 100)
+
+India_Business_Users_Medium_With_Growth (million) = India_Business_Users_Medium_Total * (1 + Business_Growth_Rate_India_Medium / 100)
+
+India_Business_Users_High_With_Growth (million) = India_Business_Users_High_Total * (1 + Business_Growth_Rate_India_High / 100)
+
+Step 3: Company market share
+
+London_Individual_Low_Addressable_Market (million) = London_Individual_Users_Low_With_Growth * Individual_Market_Share_London_Low / 100
+
+London_Individual_Medium_Addressable_Market (million) = London_Individual_Users_Medium_With_Growth * Individual_Market_Share_London_Medium / 100
+
+London_Individual_High_Addressable_Market (million) = London_Individual_Users_High_With_Growth * Individual_Market_Share_London_High / 100
+
+Dubai_Individual_Low_Addressable_Market (million) = Dubai_Individual_Users_Low_With_Growth * Individual_Market_Share_Dubai_Low / 100
+
+Dubai_Individual_Medium_Addressable_Market (million) = Dubai_Individual_Users_Medium_With_Growth * Individual_Market_Share_Dubai_Medium / 100
+
+Dubai_Individual_High_Addressable_Market (million) = Dubai_Individual_Users_High_With_Growth * Individual_Market_Share_Dubai_High / 100
+
+India_Individual_Low_Addressable_Market (million) = India_Individual_Users_Low_With_Growth * Individual_Market_Share_India_Low / 100
+
+India_Individual_Medium_Addressable_Market (million) = India_Individual_Users_Medium_With_Growth * Individual_Market_Share_India_Medium / 100
+
+India_Individual_High_Addressable_Market (million) = India_Individual_Users_High_With_Growth * Individual_Market_Share_India_High / 100
+
+London_Business_Low_Addressable_Market (million) = London_Business_Users_Low_With_Growth * Business_Market_Share_London_Low / 100
+
+London_Business_Medium_Addressable_Market (million) = London_Business_Users_Medium_With_Growth * Business_Market_Share_London_Medium / 100
+
+London_Business_High_Addressable_Market (million) = London_Business_Users_High_With_Growth * Business_Market_Share_London_High / 100
+
+Dubai_Business_Low_Addressable_Market (million) = Dubai_Business_Users_Low_With_Growth * Business_Market_Share_Dubai_Low / 100
+
+Dubai_Business_Medium_Addressable_Market (million) = Dubai_Business_Users_Medium_With_Growth * Business_Market_Share_Dubai_Medium / 100
+
+Dubai_Business_High_Addressable_Market (million) = Dubai_Business_Users_High_With_Growth * Business_Market_Share_Dubai_High / 100
+
+India_Business_Low_Addressable_Market (million) = India_Business_Users_Low_With_Growth * Business_Market_Share_India_Low / 100
+
+India_Business_Medium_Addressable_Market (million) = India_Business_Users_Medium_With_Growth * Business_Market_Share_India_Medium / 100
+
+India_Business_High_Addressable_Market (million) = India_Business_Users_High_With_Growth * Business_Market_Share_India_High / 100
+
+Total_Individual_Addressable_Market_London (million) = London_Individual_Low_Addressable_Market + London_Individual_Medium_Addressable_Market + London_Individual_High_Addressable_Market
+
+Total_Individual_Addressable_Market_Dubai (million) = Dubai_Individual_Low_Addressable_Market + Dubai_Individual_Medium_Addressable_Market + Dubai_Individual_High_Addressable_Market
+
+Total_Individual_Addressable_Market_India (million) = India_Individual_Low_Addressable_Market + India_Individual_Medium_Addressable_Market + India_Individual_High_Addressable_Market
+
+Total_Business_Addressable_Market_London (million) = London_Business_Low_Addressable_Market + London_Business_Medium_Addressable_Market + London_Business_High_Addressable_Market
+
+Total_Business_Addressable_Market_Dubai (million) = Dubai_Business_Low_Addressable_Market + Dubai_Business_Medium_Addressable_Market + Dubai_Business_High_Addressable_Market
+
+Total_Business_Addressable_Market_India (million) = India_Business_Low_Addressable_Market + India_Business_Medium_Addressable_Market + India_Business_High_Addressable_Market
+
+Total_Addressable_Market (million) = Total_Individual_Addressable_Market_London + Total_Individual_Addressable_Market_Dubai + Total_Individual_Addressable_Market_India + Total_Business_Addressable_Market_London + Total_Business_Addressable_Market_Dubai + Total_Business_Addressable_Market_India
+
+Step 4: Factor in the churn from the captured market share
+
+London_Individual_Low_Churn (million) = London_Individual_Low_Addressable_Market * Individual_Churn_London_Low / 100
+
+London_Individual_Medium_Churn (million) = London_Individual_Medium_Addressable_Market * Individual_Churn_London_Medium / 100
+
+London_Individual_High_Churn (million) = London_Individual_High_Addressable_Market * Individual_Churn_London_High / 100
+
+Dubai_Individual_Low_Churn (million) = Dubai_Individual_Low_Addressable_Market * Individual_Churn_Dubai_Low / 100
+
+Dubai_Individual_Medium_Churn (million) = Dubai_Individual_Medium_Addressable_Market * Individual_Churn_Dubai_Medium / 100
+
+Dubai_Individual_High_Churn (million) = Dubai_Individual_High_Addressable_Market * Individual_Churn_Dubai_High / 100
+
+India_Individual_Low_Churn (million) = India_Individual_Low_Addressable_Market * Individual_Churn_India_Low / 100
+
+India_Individual_Medium_Churn (million) = India_Individual_Medium_Addressable_Market * Individual_Churn_India_Medium / 100
+
+India_Individual_High_Churn (million) = India_Individual_High_Addressable_Market * Individual_Churn_India_High / 100
+
+London_Business_Low_Churn (million) = London_Business_Low_Addressable_Market * Business_Churn_London_Low / 100
+
+London_Business_Medium_Churn (million) = London_Business_Medium_Addressable_Market * Business_Churn_London_Medium / 100
+
+London_Business_High_Churn (million) = London_Business_High_Addressable_Market * Business_Churn_London_High / 100
+
+Dubai_Business_Low_Churn (million) = Dubai_Business_Low_Addressable_Market * Business_Churn_Dubai_Low / 100
+
+Dubai_Business_Medium_Churn (million) = Dubai_Business_Medium_Addressable_Market * Business_Churn_Dubai_Medium / 100
+
+Dubai_Business_High_Churn (million) = Dubai_Business_High_Addressable_Market * Business_Churn_Dubai_High / 100
+
+India_Business_Low_Churn (million) = India_Business_Low_Addressable_Market * Business_Churn_India_Low / 100
+
+India_Business_Medium_Churn (million) = India_Business_Medium_Addressable_Market * Business_Churn_India_Medium / 100
+
+India_Business_High_Churn (million) = India_Business_High_Addressable_Market * Business_Churn_India_High / 100
+
+Step 5: Total user base
+
+London_Individual_Low_Net_Users (million) = London_Individual_Low_Addressable_Market - London_Individual_Low_Churn
+
+London_Individual_Medium_Net_Users (million) = London_Individual_Medium_Addressable_Market - London_Individual_Medium_Churn
+
+London_Individual_High_Net_Users (million) = London_Individual_High_Addressable_Market - London_Individual_High_Churn
+
+Dubai_Individual_Low_Net_Users (million) = Dubai_Individual_Low_Addressable_Market - Dubai_Individual_Low_Churn
+
+Dubai_Individual_Medium_Net_Users (million) = Dubai_Individual_Medium_Addressable_Market - Dubai_Individual_Medium_Churn
+
+Dubai_Individual_High_Net_Users (million) = Dubai_Individual_High_Addressable_Market - Dubai_Individual_High_Churn
+
+India_Individual_Low_Net_Users (million) = India_Individual_Low_Addressable_Market - India_Individual_Low_Churn
+
+India_Individual_Medium_Net_Users (million) = India_Individual_Medium_Addressable_Market - India_Individual_Medium_Churn
+
+India_Individual_High_Net_Users (million) = India_Individual_High_Addressable_Market - India_Individual_High_Churn
+
+London_Business_Low_Net_Users (million) = London_Business_Low_Addressable_Market - London_Business_Low_Churn
+
+London_Business_Medium_Net_Users (million) = London_Business_Medium_Addressable_Market - London_Business_Medium_Churn
+
+London_Business_High_Net_Users (million) = London_Business_High_Addressable_Market - London_Business_High_Churn
+
+Dubai_Business_Low_Net_Users (million) = Dubai_Business_Low_Addressable_Market - Dubai_Business_Low_Churn
+
+Dubai_Business_Medium_Net_Users (million) = Dubai_Business_Medium_Addressable_Market - Dubai_Business_Medium_Churn
+
+Dubai_Business_High_Net_Users (million) = Dubai_Business_High_Addressable_Market - Dubai_Business_High_Churn
+
+India_Business_Low_Net_Users (million) = India_Business_Low_Addressable_Market - India_Business_Low_Churn
+
+India_Business_Medium_Net_Users (million) = India_Business_Medium_Addressable_Market - India_Business_Medium_Churn
+
+India_Business_High_Net_Users (million) = India_Business_High_Addressable_Market - India_Business_High_Churn
+
+Total_Individual_Net_Users_London (million) = London_Individual_Low_Net_Users + London_Individual_Medium_Net_Users + London_Individual_High_Net_Users
+
+Total_Individual_Net_Users_Dubai (million) = Dubai_Individual_Low_Net_Users + Dubai_Individual_Medium_Net_Users + Dubai_Individual_High_Net_Users
+
+Total_Individual_Net_Users_India (million) = India_Individual_Low_Net_Users + India_Individual_Medium_Net_Users + India_Individual_High_Net_Users
+
+Total_Business_Net_Users_London (million) = London_Business_Low_Net_Users + London_Business_Medium_Net_Users + London_Business_High_Net_Users
+
+Total_Business_Net_Users_Dubai (million) = Dubai_Business_Low_Net_Users + Dubai_Business_Medium_Net_Users + Dubai_Business_High_Net_Users
+
+Total_Business_Net_Users_India (million) = India_Business_Low_Net_Users + India_Business_Medium_Net_Users + India_Business_High_Net_Users
+
+Total_Net_Users_London (million) = Total_Individual_Net_Users_London + Total_Business_Net_Users_London
+
+Total_Net_Users_Dubai (million) = Total_Individual_Net_Users_Dubai + Total_Business_Net_Users_Dubai
+
+Total_Net_Users_India (million) = Total_Individual_Net_Users_India + Total_Business_Net_Users_India
+
+Total_User_Base (million) = Total_Net_Users_London + Total_Net_Users_Dubai + Total_Net_Users_India
+
+
+
+#### REVENUE OUTPUT
+Basic_Users_London (thousand) = Total_Net_Users_London (thousand) * LLM_Subscription_Basic_Percentage / 100
+
+Basic_Users_Dubai (thousand) = Total_Net_Users_Dubai (thousand) * LLM_Subscription_Basic_Percentage / 100
+
+Basic_Users_India (thousand) = Total_Net_Users_India (thousand) * LLM_Subscription_Basic_Percentage / 100
+
+Standard_Users_London (thousand) = Total_Net_Users_London (thousand) * LLM_Subscription_Standard_Percentage / 100
+
+Standard_Users_Dubai (thousand) = Total_Net_Users_Dubai (thousand) * LLM_Subscription_Standard_Percentage / 100
+
+Standard_Users_India (thousand) = Total_Net_Users_India (thousand) * LLM_Subscription_Standard_Percentage / 100
+
+Premium_Users_London (thousand) = Total_Net_Users_London (thousand) * LLM_Subscription_Premium_Percentage / 100
+
+Premium_Users_Dubai (thousand) = Total_Net_Users_Dubai (thousand) * LLM_Subscription_Premium_Percentage / 100
+
+Premium_Users_India (thousand) = Total_Net_Users_India (thousand) * LLM_Subscription_Premium_Percentage / 100
+
+Enterprise_Users_London (thousand) = Total_Net_Users_London (thousand) * LLM_Subscription_Enterprise_Percentage / 100
+
+Enterprise_Users_Dubai (thousand) = Total_Net_Users_Dubai (thousand) * LLM_Subscription_Enterprise_Percentage / 100
+
+Enterprise_Users_India (thousand) = Total_Net_Users_India (thousand) * LLM_Subscription_Enterprise_Percentage / 100
+
+Basic_Revenue_London (USD) = Basic_Users_London (thousand) * 1000 * LLM_Subscription_Basic_USD_London * Basic_Subscription_Billing_Factor
+
+Basic_Revenue_Dubai (USD) = Basic_Users_Dubai (thousand) * 1000 * LLM_Subscription_Basic_USD_Dubai * Basic_Subscription_Billing_Factor
+
+Basic_Revenue_India (USD) = Basic_Users_India (thousand) * 1000 * LLM_Subscription_Basic_USD_India * Basic_Subscription_Billing_Factor
+
+Standard_Revenue_London (USD) = Standard_Users_London (thousand) * 1000 * LLM_Subscription_Standard_USD_London * Standard_Subscription_Billing_Factor
+
+Standard_Revenue_Dubai (USD) = Standard_Users_Dubai (thousand) * 1000 * LLM_Subscription_Standard_USD_Dubai * Standard_Subscription_Billing_Factor
+
+Standard_Revenue_India (USD) = Standard_Users_India (thousand) * 1000 * LLM_Subscription_Standard_USD_India * Standard_Subscription_Billing_Factor
+
+Premium_Revenue_London (USD) = Premium_Users_London (thousand) * 1000 * LLM_Subscription_Premium_USD_London * Premium_Subscription_Billing_Factor
+
+Premium_Revenue_Dubai (USD) = Premium_Users_Dubai (thousand) * 1000 * LLM_Subscription_Premium_USD_Dubai * Premium_Subscription_Billing_Factor
+
+Premium_Revenue_India (USD) = Premium_Users_India (thousand) * 1000 * LLM_Subscription_Premium_USD_India * Premium_Subscription_Billing_Factor
+
+Enterprise_Revenue_London (USD) = Enterprise_Users_London (thousand) * 1000 * LLM_Subscription_Enterprise_USD_London * Enterprise_Subscription_Billing_Factor
+
+Enterprise_Revenue_Dubai (USD) = Enterprise_Users_Dubai (thousand) * 1000 * LLM_Subscription_Enterprise_USD_Dubai * Enterprise_Subscription_Billing_Factor
+
+Enterprise_Revenue_India (USD) = Enterprise_Users_India (thousand) * 1000 * LLM_Subscription_Enterprise_USD_India * Enterprise_Subscription_Billing_Factor
+
+Total_Basic_Revenue (USD) = Basic_Revenue_London (USD) + Basic_Revenue_Dubai (USD) + Basic_Revenue_India (USD)
+
+Total_Standard_Revenue (USD) = Standard_Revenue_London (USD) + Standard_Revenue_Dubai (USD) + Standard_Revenue_India (USD)
+
+Total_Premium_Revenue (USD) = Premium_Revenue_London (USD) + Premium_Revenue_Dubai (USD) + Premium_Revenue_India (USD)
+
+Total_Enterprise_Revenue (USD) = Enterprise_Revenue_London (USD) + Enterprise_Revenue_Dubai (USD) + Enterprise_Revenue_India (USD)
+
+Total_Subscription_Revenue (USD) = Total_Basic_Revenue (USD) + Total_Standard_Revenue (USD) + Total_Premium_Revenue (USD) + Total_Enterprise_Revenue (USD)
+
+Additional_Revenue (USD) = Total_Subscription_Revenue (USD) * Additional_Revenue_Percentage / 100
+
+Total_Revenue (USD) = Total_Subscription_Revenue (USD) + Additional_Revenue (USD)
+
+Total_Revenue (million USD) = Total_Revenue (USD) / 1000000
+
+
+
+### Revenue Prompt
+prompt = f""" You are successful investment banker, expert in Financial modeling and revenue calculation.
     Company's user base is split across various services/product i.e {Revenue_sources_splits.keys()} is offered by it.
     You will be provided with user base consituents as {Total_user} and its split across split across various services/product i.e {Revenue_sources_splits} is offered by it.
     Write detailed step by step formula to compute revenue considering billing cycle of each product/servie if applicable.
@@ -43,37 +341,3 @@ Revenue_prompt = f""" You are successful investment banker, expert in Financial 
         }}
         Let's think step-by-step. Do not solve equations, only write step-by-step formula. Keep only those parameters in assumption which is used in formula.
     """
-    return prompt
-#....................................................................................................................................................
-  "assumption": {
-    "LLM_Subscription_Basic (%)": "40",
-    "LLM_Subscription_Standard (%)": "30",
-    "LLM_Subscription_Pro (%)": "20",
-    "LLM_Subscription_Enterprise (%)": "10",
-    "LLM_Subscription_Basic_Price (USD)": "10",
-    "LLM_Subscription_Standard_Price (USD)": "20",
-    "LLM_Subscription_Pro_Price (USD)": "40",
-    "LLM_Subscription_Enterprise_Price (USD)": "120",
-    "Basic_Billing_Cycles_Per_Year": "2",
-    "Other_Billing_Cycles_Per_Year": "1",
-    "Additional_Revenue_Contribution (%)": "5"
-  },
-  
-  "formula": {
-    "Basic_Consumer_Users (million)": "Total_Consumer_Net_Users (million) * LLM_Subscription_Basic (%)/100",
-    "Standard_Consumer_Users (million)": "Total_Consumer_Net_Users (million) * LLM_Subscription_Standard (%)/100",
-    "Pro_Consumer_Users (million)": "Total_Consumer_Net_Users (million) * LLM_Subscription_Pro (%)/100",
-    "Enterprise_Users (million)": "Total_Enterprise_Net_Users (million) * LLM_Subscription_Enterprise (%)/100",
-    
-    "Basic_Revenue (million USD)": "Basic_Consumer_Users (million) * LLM_Subscription_Basic_Price (USD) * Basic_Billing_Cycles_Per_Year",
-    "Standard_Revenue (million USD)": "Standard_Consumer_Users (million) * LLM_Subscription_Standard_Price (USD) * Other_Billing_Cycles_Per_Year",
-    "Pro_Revenue (million USD)": "Pro_Consumer_Users (million) * LLM_Subscription_Pro_Price (USD) * Other_Billing_Cycles_Per_Year",
-    "Enterprise_Revenue (million USD)": "Enterprise_Users (million) * LLM_Subscription_Enterprise_Price (USD) * Other_Billing_Cycles_Per_Year",
-    
-    "Subscription_Revenue (million USD)": "Basic_Revenue (million USD) + Standard_Revenue (million USD) + Pro_Revenue (million USD) + Enterprise_Revenue (million USD)",
-    
-    "Additional_Revenue (million USD)": "Subscription_Revenue (million USD) * Additional_Revenue_Contribution (%)/100",
-    
-    "Total_Revenue (million USD)": "Subscription_Revenue (million USD) + Additional_Revenue (million USD)"
-  }
-
