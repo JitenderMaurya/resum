@@ -1,0 +1,320 @@
+UK_high_income_segment (million) = UK_population * High_income_share_UK / 100
+
+UK_mid_income_segment (million) = UK_population * Mid_income_share_UK / 100
+
+UK_low_income_segment (million) = UK_population * Low_income_share_UK / 100
+
+UAE_high_income_segment (million) = UAE_population * High_income_share_UAE / 100
+
+UAE_mid_income_segment (million) = UAE_population * Mid_income_share_UAE / 100
+
+UAE_low_income_segment (million) = UAE_population * Low_income_share_UAE / 100
+
+India_high_income_segment (million) = India_population * High_income_share_India / 100
+
+India_mid_income_segment (million) = India_population * Mid_income_share_India / 100
+
+India_low_income_segment (million) = India_population * Low_income_share_India / 100
+
+UK_high_income_digital_users (million) = UK_high_income_segment * Digital_literacy_UK / 100 * Tech_adoption_factor_UK / 100 * Regional_AI_familiarity_UK / 100
+
+UK_mid_income_digital_users (million) = UK_mid_income_segment * Digital_literacy_UK / 100 * Tech_adoption_factor_UK / 100 * Regional_AI_familiarity_UK / 100
+
+UK_low_income_digital_users (million) = UK_low_income_segment * Digital_literacy_UK / 100 * Tech_adoption_factor_UK / 100 * Regional_AI_familiarity_UK / 100
+
+UAE_high_income_digital_users (million) = UAE_high_income_segment * Digital_literacy_UAE / 100 * Tech_adoption_factor_UAE / 100 * Regional_AI_familiarity_UAE / 100
+
+UAE_mid_income_digital_users (million) = UAE_mid_income_segment * Digital_literacy_UAE / 100 * Tech_adoption_factor_UAE / 100 * Regional_AI_familiarity_UAE / 100
+
+UAE_low_income_digital_users (million) = UAE_low_income_segment * Digital_literacy_UAE / 100 * Tech_adoption_factor_UAE / 100 * Regional_AI_familiarity_UAE / 100
+
+India_high_income_digital_users (million) = India_high_income_segment * Digital_literacy_India / 100 * Tech_adoption_factor_India / 100 * Regional_AI_familiarity_India / 100
+
+India_mid_income_digital_users (million) = India_mid_income_segment * Digital_literacy_India / 100 * Tech_adoption_factor_India / 100 * Regional_AI_familiarity_India / 100
+
+India_low_income_digital_users (million) = India_low_income_segment * Digital_literacy_India / 100 * Tech_adoption_factor_India / 100 * Regional_AI_familiarity_India / 100
+
+UK_high_income_LLM_potential_users (million) = UK_high_income_digital_users * AI_adoption_high_income / 100
+
+UK_mid_income_LLM_potential_users (million) = UK_mid_income_digital_users * AI_adoption_mid_income / 100
+
+UK_low_income_LLM_potential_users (million) = UK_low_income_digital_users * AI_adoption_low_income / 100
+
+UAE_high_income_LLM_potential_users (million) = UAE_high_income_digital_users * AI_adoption_high_income / 100
+
+UAE_mid_income_LLM_potential_users (million) = UAE_mid_income_digital_users * AI_adoption_mid_income / 100
+
+UAE_low_income_LLM_potential_users (million) = UAE_low_income_digital_users * AI_adoption_low_income / 100
+
+India_high_income_LLM_potential_users (million) = India_high_income_digital_users * AI_adoption_high_income / 100
+
+India_mid_income_LLM_potential_users (million) = India_mid_income_digital_users * AI_adoption_mid_income / 100
+
+India_low_income_LLM_potential_users (million) = India_low_income_digital_users * AI_adoption_low_income / 100
+
+UK_business_LLM_potential_users (million) = Business_users_UK * Business_AI_adoption / 100 * Tech_adoption_factor_UK / 100 * Regional_AI_familiarity_UK / 100
+
+UAE_business_LLM_potential_users (million) = Business_users_UAE * Business_AI_adoption / 100 * Tech_adoption_factor_UAE / 100 * Regional_AI_familiarity_UAE / 100
+
+India_business_LLM_potential_users (million) = Business_users_India * Business_AI_adoption / 100 * Tech_adoption_factor_India / 100 * Regional_AI_familiarity_India / 100
+
+Step 2: Identify the growth rate of the segment
+
+UK_high_income_segment_growth (million) = UK_high_income_segment * (1 + UK_population_growth_rate / 100)
+
+UK_mid_income_segment_growth (million) = UK_mid_income_segment * (1 + UK_population_growth_rate / 100)
+
+UK_low_income_segment_growth (million) = UK_low_income_segment * (1 + UK_population_growth_rate / 100)
+
+UAE_high_income_segment_growth (million) = UAE_high_income_segment * (1 + UAE_population_growth_rate / 100)
+
+UAE_mid_income_segment_growth (million) = UAE_mid_income_segment * (1 + UAE_population_growth_rate / 100)
+
+UAE_low_income_segment_growth (million) = UAE_low_income_segment * (1 + UAE_population_growth_rate / 100)
+
+India_high_income_segment_growth (million) = India_high_income_segment * (1 + India_population_growth_rate / 100)
+
+India_mid_income_segment_growth (million) = India_mid_income_segment * (1 + India_population_growth_rate / 100)
+
+India_low_income_segment_growth (million) = India_low_income_segment * (1 + India_population_growth_rate / 100)
+
+UK_business_segment_growth (million) = Business_users_UK * (1 + UK_business_growth_rate / 100)
+
+UAE_business_segment_growth (million) = Business_users_UAE * (1 + UAE_business_growth_rate / 100)
+
+India_business_segment_growth (million) = Business_users_India * (1 + India_business_growth_rate / 100)
+
+UK_high_income_digital_users_growth (million) = UK_high_income_segment_growth * Digital_literacy_UK / 100 * Tech_adoption_factor_UK / 100 * Regional_AI_familiarity_UK / 100
+
+UK_mid_income_digital_users_growth (million) = UK_mid_income_segment_growth * Digital_literacy_UK / 100 * Tech_adoption_factor_UK / 100 * Regional_AI_familiarity_UK / 100
+
+UK_low_income_digital_users_growth (million) = UK_low_income_segment_growth * Digital_literacy_UK / 100 * Tech_adoption_factor_UK / 100 * Regional_AI_familiarity_UK / 100
+
+UAE_high_income_digital_users_growth (million) = UAE_high_income_segment_growth * Digital_literacy_UAE / 100 * Tech_adoption_factor_UAE / 100 * Regional_AI_familiarity_UAE / 100
+
+UAE_mid_income_digital_users_growth (million) = UAE_mid_income_segment_growth * Digital_literacy_UAE / 100 * Tech_adoption_factor_UAE / 100 * Regional_AI_familiarity_UAE / 100
+
+UAE_low_income_digital_users_growth (million) = UAE_low_income_segment_growth * Digital_literacy_UAE / 100 * Tech_adoption_factor_UAE / 100 * Regional_AI_familiarity_UAE / 100
+
+India_high_income_digital_users_growth (million) = India_high_income_segment_growth * Digital_literacy_India / 100 * Tech_adoption_factor_India / 100 * Regional_AI_familiarity_India / 100
+
+India_mid_income_digital_users_growth (million) = India_mid_income_segment_growth * Digital_literacy_India / 100 * Tech_adoption_factor_India / 100 * Regional_AI_familiarity_India / 100
+
+India_low_income_digital_users_growth (million) = India_low_income_segment_growth * Digital_literacy_India / 100 * Tech_adoption_factor_India / 100 * Regional_AI_familiarity_India / 100
+
+UK_high_income_LLM_potential_users_growth (million) = UK_high_income_digital_users_growth * AI_adoption_high_income / 100 * (1 + AI_adoption_growth_high_income / 100)
+
+UK_mid_income_LLM_potential_users_growth (million) = UK_mid_income_digital_users_growth * AI_adoption_mid_income / 100 * (1 + AI_adoption_growth_mid_income / 100)
+
+UK_low_income_LLM_potential_users_growth (million) = UK_low_income_digital_users_growth * AI_adoption_low_income / 100 * (1 + AI_adoption_growth_low_income / 100)
+
+UAE_high_income_LLM_potential_users_growth (million) = UAE_high_income_digital_users_growth * AI_adoption_high_income / 100 * (1 + AI_adoption_growth_high_income / 100)
+
+UAE_mid_income_LLM_potential_users_growth (million) = UAE_mid_income_digital_users_growth * AI_adoption_mid_income / 100 * (1 + AI_adoption_growth_mid_income / 100)
+
+UAE_low_income_LLM_potential_users_growth (million) = UAE_low_income_digital_users_growth * AI_adoption_low_income / 100 * (1 + AI_adoption_growth_low_income / 100)
+
+India_high_income_LLM_potential_users_growth (million) = India_high_income_digital_users_growth * AI_adoption_high_income / 100 * (1 + AI_adoption_growth_high_income / 100)
+
+India_mid_income_LLM_potential_users_growth (million) = India_mid_income_digital_users_growth * AI_adoption_mid_income / 100 * (1 + AI_adoption_growth_mid_income / 100)
+
+India_low_income_LLM_potential_users_growth (million) = India_low_income_digital_users_growth * AI_adoption_low_income / 100 * (1 + AI_adoption_growth_low_income / 100)
+
+UK_business_LLM_potential_users_growth (million) = UK_business_segment_growth * Business_AI_adoption / 100 * (1 + Business_AI_adoption_growth / 100) * Tech_adoption_factor_UK / 100 * Regional_AI_familiarity_UK / 100
+
+UAE_business_LLM_potential_users_growth (million) = UAE_business_segment_growth * Business_AI_adoption / 100 * (1 + Business_AI_adoption_growth / 100) * Tech_adoption_factor_UAE / 100 * Regional_AI_familiarity_UAE / 100
+
+India_business_LLM_potential_users_growth (million) = India_business_segment_growth * Business_AI_adoption / 100 * (1 + Business_AI_adoption_growth / 100) * Tech_adoption_factor_India / 100 * Regional_AI_familiarity_India / 100
+
+Step 3: Company market share
+
+UK_high_income_addressable_market (million) = UK_high_income_LLM_potential_users_growth * Market_share_high_income_UK / 100
+
+UK_mid_income_addressable_market (million) = UK_mid_income_LLM_potential_users_growth * Market_share_mid_income_UK / 100
+
+UK_low_income_addressable_market (million) = UK_low_income_LLM_potential_users_growth * Market_share_low_income_UK / 100
+
+UK_business_addressable_market (million) = UK_business_LLM_potential_users_growth * Market_share_business_UK / 100
+
+UAE_high_income_addressable_market (million) = UAE_high_income_LLM_potential_users_growth * Market_share_high_income_UAE / 100
+
+UAE_mid_income_addressable_market (million) = UAE_mid_income_LLM_potential_users_growth * Market_share_mid_income_UAE / 100
+
+UAE_low_income_addressable_market (million) = UAE_low_income_LLM_potential_users_growth * Market_share_low_income_UAE / 100
+
+UAE_business_addressable_market (million) = UAE_business_LLM_potential_users_growth * Market_share_business_UAE / 100
+
+India_high_income_addressable_market (million) = India_high_income_LLM_potential_users_growth * Market_share_high_income_India / 100
+
+India_mid_income_addressable_market (million) = India_mid_income_LLM_potential_users_growth * Market_share_mid_income_India / 100
+
+India_low_income_addressable_market (million) = India_low_income_LLM_potential_users_growth * Market_share_low_income_India / 100
+
+India_business_addressable_market (million) = India_business_LLM_potential_users_growth * Market_share_business_India / 100
+
+Step 4: Factor in customer churn
+
+UK_high_income_churn (million) = UK_high_income_addressable_market * Churn_rate_high_income_UK / 100
+
+UK_mid_income_churn (million) = UK_mid_income_addressable_market * Churn_rate_mid_income_UK / 100
+
+UK_low_income_churn (million) = UK_low_income_addressable_market * Churn_rate_low_income_UK / 100
+
+UK_business_churn (million) = UK_business_addressable_market * Churn_rate_business_UK / 100
+
+UAE_high_income_churn (million) = UAE_high_income_addressable_market * Churn_rate_high_income_UAE / 100
+
+UAE_mid_income_churn (million) = UAE_mid_income_addressable_market * Churn_rate_mid_income_UAE / 100
+
+UAE_low_income_churn (million) = UAE_low_income_addressable_market * Churn_rate_low_income_UAE / 100
+
+UAE_business_churn (million) = UAE_business_addressable_market * Churn_rate_business_UAE / 100
+
+India_high_income_churn (million) = India_high_income_addressable_market * Churn_rate_high_income_India / 100
+
+India_mid_income_churn (million) = India_mid_income_addressable_market * Churn_rate_mid_income_India / 100
+
+India_low_income_churn (million) = India_low_income_addressable_market * Churn_rate_low_income_India / 100
+
+India_business_churn (million) = India_business_addressable_market * Churn_rate_business_India / 100
+
+Step 5: Total user base
+
+UK_high_income_net_market (million) = UK_high_income_addressable_market - UK_high_income_churn
+
+UK_mid_income_net_market (million) = UK_mid_income_addressable_market - UK_mid_income_churn
+
+UK_low_income_net_market (million) = UK_low_income_addressable_market - UK_low_income_churn
+
+UK_business_net_market (million) = UK_business_addressable_market - UK_business_churn
+
+UAE_high_income_net_market (million) = UAE_high_income_addressable_market - UAE_high_income_churn
+
+UAE_mid_income_net_market (million) = UAE_mid_income_addressable_market - UAE_mid_income_churn
+
+UAE_low_income_net_market (million) = UAE_low_income_addressable_market - UAE_low_income_churn
+
+UAE_business_net_market (million) = UAE_business_addressable_market - UAE_business_churn
+
+India_high_income_net_market (million) = India_high_income_addressable_market - India_high_income_churn
+
+India_mid_income_net_market (million) = India_mid_income_addressable_market - India_mid_income_churn
+
+India_low_income_net_market (million) = India_low_income_addressable_market - India_low_income_churn
+
+India_business_net_market (million) = India_business_addressable_market - India_business_churn
+
+UK_total_net_market (million) = UK_high_income_net_market + UK_mid_income_net_market + UK_low_income_net_market + UK_business_net_market
+
+UAE_total_net_market (million) = UAE_high_income_net_market + UAE_mid_income_net_market + UAE_low_income_net_market + UAE_business_net_market
+
+India_total_net_market (million) = India_high_income_net_market + India_mid_income_net_market + India_low_income_net_market + India_business_net_market
+
+Total_user_base (million) = UK_total_net_market + UAE_total_net_market + India_total_net_market
+
+
+
+
+
+
+
+
+
+
+
+#....................................................................................................................
+Revenue
+#....................................................................................................................
+Total_UK_users (thousand) = UK_total_net_market (thousand)
+
+Total_UAE_users (thousand) = UAE_total_net_market (thousand)
+
+Total_India_users (thousand) = India_total_net_market (thousand)
+
+UK_Basic_users (thousand) = Total_UK_users * (Basic_share + Basic_and_Standard_share/2) / 100
+
+UK_Standard_users (thousand) = Total_UK_users * (Standard_share + Basic_and_Standard_share/2) / 100
+
+UK_Premium_users (thousand) = Total_UK_users * (Premium_share + Premium_and_Enterprise_LLM_share/2) / 100
+
+UK_Enterprise_LLM_users (thousand) = Total_UK_users * (Enterprise_LLM_share + Premium_and_Enterprise_LLM_share/2) / 100
+
+UAE_Basic_users (thousand) = Total_UAE_users * (Basic_share + Basic_and_Standard_share/2) / 100
+
+UAE_Standard_users (thousand) = Total_UAE_users * (Standard_share + Basic_and_Standard_share/2) / 100
+
+UAE_Premium_users (thousand) = Total_UAE_users * (Premium_share + Premium_and_Enterprise_LLM_share/2) / 100
+
+UAE_Enterprise_LLM_users (thousand) = Total_UAE_users * (Enterprise_LLM_share + Premium_and_Enterprise_LLM_share/2) / 100
+
+India_Basic_users (thousand) = Total_India_users * (Basic_share + Basic_and_Standard_share/2) / 100
+
+India_Standard_users (thousand) = Total_India_users * (Standard_share + Basic_and_Standard_share/2) / 100
+
+India_Premium_users (thousand) = Total_India_users * (Premium_share + Premium_and_Enterprise_LLM_share/2) / 100
+
+India_Enterprise_LLM_users (thousand) = Total_India_users * (Enterprise_LLM_share + Premium_and_Enterprise_LLM_share/2) / 100
+
+Basic_quarterly_price_India_discounted (USD) = (Basic_quarterly_price_India (USD) * (3 - Basic_quarterly_discount_period) + Basic_quarterly_price_India (USD) * Basic_quarterly_discount_period * (100 - Basic_quarterly_discount) / 100) / 3
+
+Basic_halfyearly_price_India_discounted (USD) = (Basic_halfyearly_price_India (USD) * (6 - Basic_halfyearly_discount_period) + Basic_halfyearly_price_India (USD) * Basic_halfyearly_discount_period * (100 - Basic_halfyearly_discount) / 100) / 6
+
+Basic_quarterly_price_Dubai_discounted (USD) = (Basic_quarterly_price_Dubai (USD) * (3 - Basic_quarterly_discount_period) + Basic_quarterly_price_Dubai (USD) * Basic_quarterly_discount_period * (100 - Basic_quarterly_discount) / 100) / 3
+
+Basic_halfyearly_price_Dubai_discounted (USD) = (Basic_halfyearly_price_Dubai (USD) * (6 - Basic_halfyearly_discount_period) + Basic_halfyearly_price_Dubai (USD) * Basic_halfyearly_discount_period * (100 - Basic_halfyearly_discount) / 100) / 6
+
+Basic_quarterly_price_London_discounted (USD) = (Basic_quarterly_price_London (USD) * (3 - Basic_quarterly_discount_period) + Basic_quarterly_price_London (USD) * Basic_quarterly_discount_period * (100 - Basic_quarterly_discount) / 100) / 3
+
+Basic_halfyearly_price_London_discounted (USD) = (Basic_halfyearly_price_London (USD) * (6 - Basic_halfyearly_discount_period) + Basic_halfyearly_price_London (USD) * Basic_halfyearly_discount_period * (100 - Basic_halfyearly_discount) / 100) / 6
+
+Standard_monthly_price_India_discounted (USD) = (Standard_monthly_price_India (USD) * (1 - Standard_monthly_discount_period) + Standard_monthly_price_India (USD) * Standard_monthly_discount_period * (100 - Standard_monthly_discount) / 100) / 1
+
+Standard_quarterly_price_India_discounted (USD) = (Standard_quarterly_price_India (USD) * (3 - Standard_quarterly_discount_period) + Standard_quarterly_price_India (USD) * Standard_quarterly_discount_period * (100 - Standard_quarterly_discount) / 100) / 3
+
+Standard_monthly_price_Dubai_discounted (USD) = (Standard_monthly_price_Dubai (USD) * (1 - Standard_monthly_discount_period) + Standard_monthly_price_Dubai (USD) * Standard_monthly_discount_period * (100 - Standard_monthly_discount) / 100) / 1
+
+Standard_quarterly_price_Dubai_discounted (USD) = (Standard_quarterly_price_Dubai (USD) * (3 - Standard_quarterly_discount_period) + Standard_quarterly_price_Dubai (USD) * Standard_quarterly_discount_period * (100 - Standard_quarterly_discount) / 100) / 3
+
+Standard_monthly_price_London_discounted (USD) = (Standard_monthly_price_London (USD) * (1 - Standard_monthly_discount_period) + Standard_monthly_price_London (USD) * Standard_monthly_discount_period * (100 - Standard_monthly_discount) / 100) / 1
+
+Standard_quarterly_price_London_discounted (USD) = (Standard_quarterly_price_London (USD) * (3 - Standard_quarterly_discount_period) + Standard_quarterly_price_London (USD) * Standard_quarterly_discount_period * (100 - Standard_quarterly_discount) / 100) / 3
+
+India_Basic_Revenue (USD) = India_Basic_users * (Basic_quarterly_billing_share/100 * Basic_quarterly_effective_rate/100 * Basic_quarterly_price_India_discounted + Basic_halfyearly_billing_share/100 * Basic_halfyearly_effective_rate/100 * Basic_halfyearly_price_India_discounted)
+
+India_Standard_Revenue (USD) = India_Standard_users * (Standard_monthly_billing_share/100 * Standard_monthly_effective_rate/100 * Standard_monthly_price_India_discounted + Standard_quarterly_billing_share/100 * Standard_quarterly_effective_rate/100 * Standard_quarterly_price_India_discounted)
+
+India_Premium_Revenue (USD) = India_Premium_users * Premium_yearly_effective_rate/100 * Premium_yearly_price_India (USD)
+
+India_Enterprise_LLM_Revenue (USD) = India_Enterprise_LLM_users * Enterprise_LLM_yearly_effective_rate/100 * Enterprise_LLM_yearly_price_India (USD)
+
+UAE_Basic_Revenue (USD) = UAE_Basic_users * (Basic_quarterly_billing_share/100 * Basic_quarterly_effective_rate/100 * Basic_quarterly_price_Dubai_discounted + Basic_halfyearly_billing_share/100 * Basic_halfyearly_effective_rate/100 * Basic_halfyearly_price_Dubai_discounted)
+
+UAE_Standard_Revenue (USD) = UAE_Standard_users * (Standard_monthly_billing_share/100 * Standard_monthly_effective_rate/100 * Standard_monthly_price_Dubai_discounted + Standard_quarterly_billing_share/100 * Standard_quarterly_effective_rate/100 * Standard_quarterly_price_Dubai_discounted)
+
+UAE_Premium_Revenue (USD) = UAE_Premium_users * Premium_yearly_effective_rate/100 * Premium_yearly_price_Dubai (USD)
+
+UAE_Enterprise_LLM_Revenue (USD) = UAE_Enterprise_LLM_users * Enterprise_LLM_yearly_effective_rate/100 * Enterprise_LLM_yearly_price_Dubai (USD)
+
+UK_Basic_Revenue (USD) = UK_Basic_users * (Basic_quarterly_billing_share/100 * Basic_quarterly_effective_rate/100 * Basic_quarterly_price_London_discounted + Basic_halfyearly_billing_share/100 * Basic_halfyearly_effective_rate/100 * Basic_halfyearly_price_London_discounted)
+
+UK_Standard_Revenue (USD) = UK_Standard_users * (Standard_monthly_billing_share/100 * Standard_monthly_effective_rate/100 * Standard_monthly_price_London_discounted + Standard_quarterly_billing_share/100 * Standard_quarterly_effective_rate/100 * Standard_quarterly_price_London_discounted)
+
+UK_Premium_Revenue (USD) = UK_Premium_users * Premium_yearly_effective_rate/100 * Premium_yearly_price_London (USD)
+
+UK_Enterprise_LLM_Revenue (USD) = UK_Enterprise_LLM_users * Enterprise_LLM_yearly_effective_rate/100 * Enterprise_LLM_yearly_price_London (USD)
+
+Total_Basic_Revenue (USD) = India_Basic_Revenue + UAE_Basic_Revenue + UK_Basic_Revenue
+
+Total_Standard_Revenue (USD) = India_Standard_Revenue + UAE_Standard_Revenue + UK_Standard_Revenue
+
+Total_Premium_Revenue (USD) = India_Premium_Revenue + UAE_Premium_Revenue + UK_Premium_Revenue
+
+Total_Enterprise_LLM_Revenue (USD) = India_Enterprise_LLM_Revenue + UAE_Enterprise_LLM_Revenue + UK_Enterprise_LLM_Revenue
+
+Core_Revenue (USD) = Total_Basic_Revenue + Total_Standard_Revenue + Total_Premium_Revenue + Total_Enterprise_LLM_Revenue
+
+Additional_Revenue (USD) = Total_Enterprise_LLM_Revenue * Additional_LLM_Revenue_Contribution / 100
+
+Total_Revenue (USD) = Core_Revenue + Additional_Revenue
+
+
