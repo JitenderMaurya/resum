@@ -1,0 +1,405 @@
+cost_prompt_step1 = f"""You are successful investment banker, expert in Financial modeling. You have to write formula for cost in Financial model. Cost have five key costs buckets that typically comprise any cost tab in a financial model.
+    Company's user base is split across various services/product i.e {Revenue_sources_splits.keys()} is offered by it.
+    You will be provided with product user base as {Total_user.keys()} and its user base value across various segments as {Total_user}. You have to use this key names as it in wriiting formula.
+    we will be writing 5 step process to compute cost to a company. Your task is to write first step, In this we are computing personel cost user across various services/product.
+    you have to follow this directions for first Step of cost Estimation Framework to write formula for a {interval} duration. 
+    Step 1: In this step, we want to gauge the personel cost per product/service for company.
+
+    We have five key costs buckets that typically comprise any cost tab in a financial model. The goal is to replicate the following, with a slight customization across sectors and presented companies / business topics as required. Examples on optimizations will be provided in the below.
+    First step: would always be to size the personnel. Sizing the personnel can follow three different approaches. For the sake of getting a MVP up and running, only two would be presented for now, with the default being the first approach, however users would have the ability to switch to the alternative module.
+    Approach : 
+    -   If services/products are of same type add all user base across different product/services.
+    -	Take assumption on number of staff per demand available, split across two segments: production and back-office staff
+    -	Take assumption on the salary per staff available including benefits
+    -	Take assumption on any contractors or subject-matter-experts / SMEs onboarded 
+    -	Take assumption on the average cost per contractor and subject-matter-expert
+    -	Take assumption on other personnel costs
+    -	Take assumption on salary growth rate per annum
+    Example of Approach:
+    if services/products are of same type add all users across different product/services.
+    a)	Lets assume total demand across products is Users 1000 per year
+    b)	Assumption on staff per user: 
+    i.	1 staff for every 10 users on production side 
+    ii.	1 back-office staff for every 1 production side staff
+    c)	Assumption on salary per staff
+    i.	Production side – average per annum salary: USD 12,000
+    ii.	Back-office side – average per annum salary: USD 9,000
+    d)	Assumption on salary growth (2-3% per annum)
+    e)	Assumption on any contractors
+    i.	Total Contractors / SMEs onboarded: 10
+    ii.	Average Duration onboarded per SME: 0.5 months
+    iii.	Cost per SME: USD 3000/month
+    f)	Other personnel costs as a share of the above salaries: 2%
+    Therefore:
+    Personnel costs = [ (b.i * c.i + b.ii * c.ii) * (1+d)+ e.i * e.ii * e.iii ] * (1+f)
+    
+    ## Requirements
+    - Respond in JSON format and ensure to shows measurement units of each key values.
+    - When writing the step-by-step formula, please represent numbers without commas (e.g., use 1000000 instead of 1,000,000).
+    - Don't use year or month name in assigning any key names in formula 
+    - Make sure that the step names do not use keywords such as numeric year(eg: 2025, 2026 etc), "monthly", "explore", "calculate" or "apply."
+    - Make sure that the formula should be designed to compute for the entire period specified in one go, rather than breaking it into separate subperiods.
+    - Includes clear intermediate steps for calculating key values with proper units on the left hand side of the equations
+    - Follow the example output format provided below
+    - dont include "[]" bracket in formula, if required use "()" bracket
+    - If user base across various product/services is provided use it, as it is.
+    
+    Example Output format:
+        {{ "assumptions":{{
+            production_staff_per_user (%) = 10,
+            back_staff_per_proudction_staff (%) = 100,
+            production_staff_avaerage_salary (USD) = 12000, 
+            back_staff_avaerage_salary (USD) = 9000, 
+            Total_Subject_matter_expert_onboarded = 10,
+            Average_Duration_Subject_matter_expert (month) = 0.5,
+            Cost_per_SME (USD per month) = 3000,
+            Other_personnel_costs (%) = 2             
+        }}
+        "formula": {{
+            "Step 1: Identify personel cost across different product/services":["Total_users = Total_user_A + Total_user_B",
+            "production_staff = Total_user  * 100000 * (production_staff_per_user / 100)",
+            "back_staff = A_production_staff * (back_staff_per_proudction_staff / 100)",
+            "Production_staff_salary (USD) = production_staff * production_staff_avaerage_salary",
+            "Back_staff_salary (USD) = back_staff * back_staff_avaerage_salary",
+            "Subject_matter_expert_salary (USD) = Total_Subject_matter_expert_onboarded * Average_Duration_Subject_matter_expert * Cost_per_SME",
+            "cost (USD) = Production_staff_salary + Back_staff_salary + Subject_matter_expert_salary",
+            "Total_personel_cost (USD) = cost * (1 + Other_personnel_costs /100)"]
+        }}
+    }}
+    Let's think step-by-step. Do not solve equations, only write step-by-step formula. Keep the formula compact. Keep units on left side of equations
+    """
+
+cost_prompt_step2 = f"""You are successful investment banker, expert in Financial modeling. You have to write formula for cost in Financial model. Cost have five key costs buckets that typically comprise any cost tab in a financial model.
+    Company's user base is split across various services/product i.e {Revenue_sources_splits.keys()} is offered by it.
+    You will be provided with product user base as {Total_user.keys()} and its user base value across various segments as {Total_user}. You have to use this key names as it in writing formula.
+    Total revenue is {total_revenue}. you have use this key as it is and dont include this in assumptions.
+    We will be writing 5 step process to compute cost to a company. you will be provided with first step as {cost_step1}, Your task is to write second step and append to it as shown in example. In this we are computing raw material or resourse cost used for making product or providing various services.
+    you have to follow this directions for Second Step of cost Estimation Framework to write formula for a {interval} duration. 
+
+    We have five key costs buckets that typically comprise any cost tab in a financial model. The goal is to replicate the following, with a slight customization across sectors and presented companies / business topics as required. Examples on optimizations will be provided in the below.
+    Second step: In this step, we want to compute raw material cost or things which enable the service. Some calculations would differ on the industries. For example, a physical product would differ from the airline which would also differ from an LLM subscription service or a dog walking service.
+    For an LLM subscription:
+    Note: Assuming 12 in the calculations given it is annual modeling. If quarterly modeling or semi-annual, then per period of modeling *3 and *6 respectively.
+    -	LLM Costs: Number of users per subscription type * average cost per subscription type per month * 12 
+    -	Software Subscription Costs: Number of users per subscription type * average cost per subscription type per month * 12
+    -	Database Hosting Costs: Number of users per subscription type * average cost per subscription type per month * 12
+    -	Other Server Costs: Number of users per subscription type * average cost per subscription type per month * 12
+    -	Maintenance and repairs: share of total revenue * total revenue
+    For selling tires, it would be the cost to produce a tire including the material, the rubber, the steel, etc.
+
+    ## Requirements
+    - Respond in JSON format and ensure to shows measurement units of each key values.
+    - When writing the step-by-step formula, please represent numbers without commas (e.g., use 1000000 instead of 1,000,000).
+    - Don't use year or month name in assigning any key names in formula 
+    - Make sure that the step names do not use keywords such as numeric year(eg: 2025, 2026 etc), "monthly", "explore", "calculate" or "apply."
+    - Make sure that the formula should be designed to compute for the entire period specified in one go, rather than breaking it into separate subperiods.
+    - Includes clear intermediate steps for calculating key values with proper units on the left hand side of the equations
+    - Follow the example output format provided below
+    - dont include "[]" bracket in formula, if required use "()" bracket
+    - If user base across various product/services is provided use it, as it is.
+    - append step 2 assumption in step 1 assumptions
+    - append step 2 formula in step 1  formula as shown in Example Output format.
+    - **Do not** include extra details, explanations beyond the specified Example Output format.      
+    Example Output format:
+        {{ "assumptions":{{c
+            production_staff_per_user (%) = 10,
+            back_staff_per_proudction_staff (%) = 100,
+            production_staff_avaerage_salary (USD) = 12000, 
+            back_staff_avaerage_salary (USD) = 9000, 
+            Total_Subject_matter_expert_onboarded = 10,
+            Average_Duration_Subject_matter_expert (month) = 0.5,
+            Cost_per_SME (USD per month) = 3000,
+            Other_personnel_costs (%) = 2 
+            per_product_A_raw_material_cost (USD) = 4,
+            per_product_B_raw_material_cost (USD) = 3.5,
+            product_A_per_users = 2,
+            Product_B_per_users = 1.2,
+            Maintenance_and_repairs_share (%) = 5,             
+        }}
+        "formula": {{
+            "Step 1: Identify personel cost across different product/services":["Total_users = Total_user_A + Total_user_B",
+            "production_staff = Total_user  * 100000 * (production_staff_per_user / 100)",
+            "back_staff = A_production_staff * (back_staff_per_proudction_staff / 100)",
+            "Production_staff_salary (USD) = production_staff * production_staff_avaerage_salary",
+            "Back_staff_salary (USD) = back_staff * back_staff_avaerage_salary",
+            "Subject_matter_expert_salary (USD) = Total_Subject_matter_expert_onboarded * Average_Duration_Subject_matter_expert * Cost_per_SME",
+            "cost (USD) = Production_staff_salary + Back_staff_salary + Subject_matter_expert_salary",
+            "Total_personel_cost (USD) = cost * (1 + Other_personnel_costs /100)"],
+            "Step 2: Compute direct product-level costs":["product_A_raw_material_cost = Total_user_A * 100000 * product_A_per_users * per_product_A_raw_material_cost",
+            "product_B_raw_material_cost = Total_user_B * 100000 * product_B_per_users * per_product_B_raw_material_cost",
+            "Maintenance_and_repairs_cost = total_revenue * Maintenance_and_repairs_share / 100",
+            "product_level_cost = product_A_raw_material_cost + product_B_raw_material_cost + Maintenance_and_repairs_cost"]
+        }}
+    }}
+    Let's think step-by-step. Do not solve equations, only write step-by-step formula. Keep the formula compact. Keep units on left side of equations
+    """
+
+
+   cost_prompt_step3 = f"""You are successful investment banker, expert in Financial modeling. You have to write formula for cost in Financial model. Cost have five key costs buckets that typically comprise any cost tab in a financial model.
+    Company's user base is split across various services/product i.e {Revenue_sources_splits.keys()} is offered by it.
+    You will be provided with product user base as {Total_user.keys()} and its user base value across various segments as {Total_user}. You have to use this key names as it in writing formula.
+    Product/Service revenue is {product_revenue}. you have use this key as it is and don't include this in assumptions.
+    We will be writing 5 step process to compute cost to a company. you will be provided with first and second step as {cost_step2}, Your task is to write third step and append to it as shown in example. In this we will write formula to estimate Sales and Commission costs paid by company to sell its product/services.
+    you have to follow this directions for Third Step of cost Estimation Framework to write formula for a {interval} duration. 
+
+    We have five key costs buckets that typically comprise any cost tab in a financial model. The goal is to replicate the following, with a slight customization across sectors and presented companies / business topics as required. Examples on optimizations will be provided in the below.
+    Third step: In this step, we want to estimate of the Sales and Commission costs paid by company to sell its product/services. This cost is incurred to sell a product whether that was a physical product or subscription or airline seat or event seat or dog walking slot. This cost would be paid to third parties and would be consistent across sectors. Some calculations would differ on the industries. For example, a physical product would differ from the airline which would also differ from an LLM subscription service or a dog walking service.
+    
+    -	Commissions and incentives: number of users/subscriptions * (assumption of costs)
+        Assumption of costs = variable commission + fixed commission per subscription
+    -	Reservation systems: fixed fee per month assumption
+    -	Payment Costs: Percentage of product/subscription revenue, excluding other/additional revenue . To refer this revenue make sue to use term {product_revenue.keys()}
+
+    ## Requirements
+    - Respond in JSON format and ensure to shows measurement units of each key values.
+    - When writing the step-by-step formula, please represent numbers without commas (e.g., use 1000000 instead of 1,000,000).
+    - Don't use year or month name in assigning any key names in formula 
+    - Make sure that the step names do not use keywords such as numeric year(eg: 2025, 2026 etc), "monthly", "explore", "calculate" or "apply."
+    - Make sure that the formula should be designed to compute for the entire period specified in one go, rather than breaking it into separate subperiods.
+    - Includes clear intermediate steps for calculating key values with proper units on the left hand side of the equations
+    - Follow the example output format provided below
+    - dont include "[]" bracket in formula, if required use "()" bracket
+    - If user base across various product/services is provided use it, as it is.
+    - append step 3 assumption in step 1 and 2 assumptions
+    - Make sure use key product or service revenue in formula, never use "total reveue" key name in step 3 formula.
+    - append step 3 formula in step 1 and 2 formula as shown in Example Output format.
+    - **Do not** include extra details, explanations beyond the specified Example Output format.       
+    Example Output format:
+        {{ "assumptions":{{c
+            production_staff_per_user (%) = 10,
+            back_staff_per_proudction_staff (%) = 100,
+            production_staff_avaerage_salary (USD) = 12000, 
+            back_staff_avaerage_salary (USD) = 9000, 
+            Total_Subject_matter_expert_onboarded = 10,
+            Average_Duration_Subject_matter_expert (month) = 0.5,
+            Cost_per_SME (USD per month) = 3000,
+            Other_personnel_costs (%) = 2, 
+            per_product_A_raw_material_cost (USD) = 4,
+            per_product_B_raw_material_cost (USD) = 3.5,
+            product_A_per_users = 2,
+            Product_B_per_users = 1.2,
+            Maintenance_and_repairs_share (%) = 5,
+            A_Variable_commission_per_unit (USD) = 3,
+            A_Fixed_commission_per_unit (USD) = 2,
+            B_Variable_commission_per_unit (USD) = 4,
+            B_Fixed_commission_per_unit (USD) = 3,
+            Payment_gateway_fee_rate (%) = 2,
+        }}
+        "formula": {{
+            "Step 1: Identify personel cost across different product/services":["Total_users = Total_user_A + Total_user_B",
+            "production_staff = Total_user  * 100000 * (production_staff_per_user / 100)",
+            "back_staff = A_production_staff * (back_staff_per_proudction_staff / 100)",
+            "Production_staff_salary (USD) = production_staff * production_staff_avaerage_salary",
+            "Back_staff_salary (USD) = back_staff * back_staff_avaerage_salary",
+            "Subject_matter_expert_salary (USD) = Total_Subject_matter_expert_onboarded * Average_Duration_Subject_matter_expert * Cost_per_SME",
+            "cost (USD) = Production_staff_salary + Back_staff_salary + Subject_matter_expert_salary",
+            "Total_personel_cost (USD) = cost * (1 + Other_personnel_costs /100)"],
+            "Step 2: Compute direct product-level costs":["product_A_raw_material_cost = Total_user_A * 100000 * product_A_per_users * per_product_A_raw_material_cost",
+            "product_B_raw_material_cost = Total_user_B * 100000 * product_B_per_users * per_product_B_raw_material_cost",
+            "Maintenance_and_repairs_cost = total_revenue * Maintenance_and_repairs_share / 100",
+            "product_level_cost = product_A_raw_material_cost + product_B_raw_material_cost + Maintenance_and_repairs_cost"],
+            "Step 3: Sales and Commission costs" :["A_Commission_and_incentive_cost (USD) = Total_user_A * (A_Variable_commission_per_unit + A_Fixed_commission_per_unit) * 1000000",
+            "B_Commission_and_incentive_cost (USD) = Total_user_B * (B_Variable_commission_per_unit + B_Fixed_commission_per_unit) * 1000000"
+            "Payment_gateway_cost (USD) = Product_revenue * Payment_gateway_fee_rate / 100",
+            "Total_sales_and_commission_cost (USD) = A_Commission_and_incentive_cost + B_Commission_and_incentive_cost + Payment_gateway_cost"]
+        }}
+    }}
+    Let's think step-by-step. Do not solve equations, only write step-by-step formula. Keep the formula compact. Keep units on left side of equations
+    """
+
+
+cost_prompt_step4 = f"""You are successful investment banker, expert in Financial modeling. You have to write formula for cost in Financial model. Cost have five key costs buckets that typically comprise any cost tab in a financial model.
+    Company's user base is split across various services/product i.e {Revenue_sources_splits.keys()} is offered by it.
+    You will be provided with product user base as {Total_user.keys()} and its user base value across various segments as {Total_user}. You have to use this key names as it in writing formula.
+    Product/Service revenue is {product_revenue}. you have use this key as it is and don't include this in assumptions.
+    We will be writing 5 step process to compute cost to a company. you will be provided with first, second and third step as {cost_step3}, Your task is to write fourth step and append to it as shown in example. In this we will write formula to estimate other overhead costs paid by company to sell its product/services.
+    you have to follow this directions for fourth Step of cost Estimation Framework to write formula for a {interval} duration. 
+
+    We have five key costs buckets that typically comprise any cost tab in a financial model. The goal is to replicate the following, with a slight customization across sectors and presented companies / business topics as required. Examples on optimizations will be provided in the below.
+    Fourth step: In this step, we want to estimate Other Overhead paid by company to sell its product/services. This cost is incurred to sell a product whether that was a physical product or subscription or airline seat or event seat or dog walking slot. This cost would be paid to third parties and would be consistent across sectors. Some calculations would differ on the industries. For example, a physical product would differ from the airline which would also differ from an LLM subscription service or a dog walking service.
+    
+    The following are near common across all sectors
+    -	Marketing and Promotions: Marketing as a share of product revenue *  products/services revenue
+    -	Rent: Fixed fee per month * 12 (in case of yearly cost)
+    -	Office Supplies: Office Supplies as share of revenue * total revenue including other revenue
+    -	Utilities: Utilities as share of revenue * total revenue including other revenue
+    -	IT and Communications: IT and Communications as share of revenue * total revenue including other revenue
+    -	Professional Services: Fixed fee per month * 12 (in case of yearly cost)
+    -	Insurance cost: Insurance cost as share of revenue * total revenue including other revenue 
+ 
+    ## Requirements
+    - Respond in JSON format and ensure to shows measurement units of each key values.
+    - When writing the step-by-step formula, please represent numbers without commas (e.g., use 1000000 instead of 1,000,000).
+    - Don't use year or month name in assigning any key names in formula 
+    - Make sure that the step names do not use keywords such as numeric year(eg: 2025, 2026 etc), "monthly", "explore", "calculate" or "apply."
+    - Make sure that the formula should be designed to compute for the entire period specified in one go, rather than breaking it into separate subperiods.
+    - Includes clear intermediate steps for calculating key values with proper units on the left hand side of the equations
+    - Follow the example output format provided below
+    - dont include "[]" bracket in formula, if required use "()" bracket
+    - If user base across various product/services is provided use it, as it is.
+    - append step 4 assumption in step 1, 2 and 3 assumptions
+    - Make sure use key product or service revenue in formula, never use "total reveue" key name in step 3 formula.
+    - append step 4 formula in step 1, 2 and 3 formula as shown in Example Output format.
+    - **Do not** include extra details, explanations beyond the specified Example Output format.    
+    Example Output format:
+        {{ "assumptions":{{c
+            production_staff_per_user (%) = 10,
+            back_staff_per_proudction_staff (%) = 100,
+            production_staff_avaerage_salary (USD) = 12000, 
+            back_staff_avaerage_salary (USD) = 9000, 
+            Total_Subject_matter_expert_onboarded = 10,
+            Average_Duration_Subject_matter_expert (month) = 0.5,
+            Cost_per_SME (USD per month) = 3000,
+            Other_personnel_costs (%) = 2,
+            per_product_A_raw_material_cost (USD) = 4,
+            per_product_B_raw_material_cost (USD) = 3.5,
+            product_A_per_users = 2,
+            Product_B_per_users = 1.2,
+            Maintenance_and_repairs_share (%) = 5,
+            A_Variable_commission_per_unit (USD) = 3,
+            A_Fixed_commission_per_unit (USD) = 2,
+            B_Variable_commission_per_unit (USD) = 4,
+            B_Fixed_commission_per_unit (USD) = 3,
+            Payment_gateway_fee_rate (%) = 2,
+            Marketing_and_Promotions_share (%) = 3,
+            Monthly_rent_fee (USD) = 14000,
+            Monthly_prof_services_fee (USD) = 1300,
+            Office_supplies_share (%) = 2,
+            IT_communications_share (%) = 1,
+            Insurance_cost_share (%) = 1.75,  
+        }}
+        "formula": {{
+            "Step 1: Identify personel cost across different product/services":["Total_users = Total_user_A + Total_user_B",
+            "production_staff = Total_user  * 100000 * (production_staff_per_user / 100)",
+            "back_staff = A_production_staff * (back_staff_per_proudction_staff / 100)",
+            "Production_staff_salary (USD) = production_staff * production_staff_avaerage_salary",
+            "Back_staff_salary (USD) = back_staff * back_staff_avaerage_salary",
+            "Subject_matter_expert_salary (USD) = Total_Subject_matter_expert_onboarded * Average_Duration_Subject_matter_expert * Cost_per_SME",
+            "cost (USD) = Production_staff_salary + Back_staff_salary + Subject_matter_expert_salary",
+            "Total_personel_cost (USD) = cost * (1 + Other_personnel_costs /100)"],
+            "Step 2: Compute direct product-level costs":["product_A_raw_material_cost = Total_user_A * 100000 * product_A_per_users * per_product_A_raw_material_cost",
+            "product_B_raw_material_cost = Total_user_B * 100000 * product_B_per_users * per_product_B_raw_material_cost",
+            "Maintenance_and_repairs_cost = total_revenue * Maintenance_and_repairs_share / 100",
+            "product_level_cost = product_A_raw_material_cost + product_B_raw_material_cost + Maintenance_and_repairs_cost"],
+            "Step 3: Sales and Commission costs" :["A_Commission_and_incentive_cost (USD) = Total_user_A * (A_Variable_commission_per_unit + A_Fixed_commission_per_unit) * 1000000",
+            "B_Commission_and_incentive_cost (USD) = Total_user_B * (B_Variable_commission_per_unit + B_Fixed_commission_per_unit) * 1000000"
+            "Payment_gateway_cost (USD) = Product_revenue * Payment_gateway_fee_rate / 100",
+            "Total_sales_and_commission_cost (USD) = A_Commission_and_incentive_cost + B_Commission_and_incentive_cost + Payment_gateway_cost"],
+            "Step 4:" :["Marketing_cost (USD) = Product_revenue * Marketing_and_Promotions_share / 100",
+            "Rent_cost (USD) = Monthly_rent_fee * 12",
+            "Professional_services_cost (USD) = Monthly_prof_services_fee * 12",
+            "Office_supplies_cost (USD) = Product_revenue * Office_supplies_share / 100",
+            "Utilities_cost (USD) = Product_revenue * Utilities_share / 100",
+            "IT_communications_cost (USD) = Product_revenue * IT_communications_share / 100",
+            "Insurance_cost (USD) = Product_revenue * Insurance_cost_share / 100",
+            "Total_overhead_cost (USD) = Marketing_cost + Rent_cost + Professional_services_cost + Office_supplies_cost + Utilities_cost + IT_communications_cost + Insurance_cost"]
+        }}
+    }}
+    Let's think step-by-step. Do not solve equations, only write step-by-step formula. Keep the formula compact. Keep units on left side of equations
+    """
+
+cost_prompt_step5 = f"""You are successful investment banker, expert in Financial modeling. You have to write formula for cost in Financial model. Cost have five key costs buckets that typically comprise any cost tab in a financial model.
+    Company's user base is split across various services/product i.e {Revenue_sources_splits.keys()} is offered by it.
+    You will be provided with product user base as {Total_user.keys()} and its user base value across various segments as {Total_user}. You have to use this key names as it in writing formula.
+    Product/Service revenue is {product_revenue}. you have use this key as it is and don't include this in assumptions.
+    There is total revenue as {total_revenue}, it include product/service revenue plus additional any other revenue.
+    We will be writing 5 step process to compute cost to a company. you will be provided with first, second, third and fouth step as {cost_step4}, Your task is to write Fifth step and append to it as shown in example.
+    you have to follow this directions for Fifth Step of cost Estimation Framework to write formula for a {interval} duration. 
+
+    We have five key costs buckets that typically comprise any cost tab in a financial model. The goal is to replicate the following, with a slight customization across sectors and presented companies / business topics as required. Examples on optimizations will be provided in the below.
+    Fifth step: In this step, we add all cost to company for find total cost and also we want to estimate Other costs which might entail bad debt costs, new hiring and training costs, and other non-core activities which are always budgeted for by the entity at hand. This cost is incurred to sell a product whether that was a physical product or subscription or airline seat or event seat or dog walking slot. 
+
+    Other cost is calculated as a share of main costs in steps 1 to 4.
+    Approach:
+    -	Assumption: Share of costs as buffer (0.1%)
+    -	Costs: Step 1+ Step 2 + Step 3 + Step 4
+    -   Total_cost = (other_cost_share + 100)/100 * Costs
+
+    ## Requirements
+    - Respond in JSON format and ensure to shows measurement units of each key values.
+    - When writing the step-by-step formula, please represent numbers without commas (e.g., use 1000000 instead of 1,000,000).
+    - Don't use year or month name in assigning any key names in formula 
+    - Make sure that the step names do not use keywords such as numeric year(eg: 2025, 2026 etc), "monthly", "explore", "calculate" or "apply."
+    - Make sure that the formula should be designed to compute for the entire period specified in one go, rather than breaking it into separate subperiods.
+    - Includes clear intermediate steps for calculating key values with proper units on the left hand side of the equations
+    - Follow the example output format provided below
+    - dont include "[]" bracket in formula, if required use "()" bracket
+    - If user base across various product/services is provided use it, as it is.
+    - append step 5 assumption in step 1, 2, 3 and 4 assumptions
+    - append step 5 formula in step 1, 2, 3 and 4 formula as shown in Example Output format.
+    - Make sure use key product or service revenue in formula, never use "total reveue" key name in step 3 formula.
+    - **Do not** include extra details, explanations beyond the specified Example Output format.
+    Example Output format:
+        {{ "assumptions":{{c
+            production_staff_per_user (%) = 10,
+            back_staff_per_proudction_staff (%) = 100,
+            production_staff_avaerage_salary (USD) = 12000, 
+            back_staff_avaerage_salary (USD) = 9000, 
+            Total_Subject_matter_expert_onboarded = 10,
+            Average_Duration_Subject_matter_expert (month) = 0.5,
+            Cost_per_SME (USD per month) = 3000,
+            Other_personnel_costs (%) = 2,
+            per_product_A_raw_material_cost (USD) = 4,
+            per_product_B_raw_material_cost (USD) = 3.5,
+            product_A_per_users = 2,
+            Product_B_per_users = 1.2,
+            Maintenance_and_repairs_share (%) = 5,
+            A_Variable_commission_per_unit (USD) = 3,
+            A_Fixed_commission_per_unit (USD) = 2,
+            B_Variable_commission_per_unit (USD) = 4,
+            B_Fixed_commission_per_unit (USD) = 3,
+            Payment_gateway_fee_rate (%) = 2,
+            Marketing_and_Promotions_share (%) = 3,
+            Monthly_rent_fee (USD) = 14000,
+            Monthly_prof_services_fee (USD) = 1300,
+            Office_supplies_share (%) = 2,
+            IT_communications_share (%) = 1,
+            Insurance_cost_share (%) = 1.75, 
+            other_cost_share (%) = 0.02
+        }}
+        "formula": {{
+            "Step 1: Identify personel cost across different product/services":["Total_users = Total_user_A + Total_user_B",
+            "production_staff = Total_user  * 100000 * (production_staff_per_user / 100)",
+            "back_staff = A_production_staff * (back_staff_per_proudction_staff / 100)",
+            "Production_staff_salary (USD) = production_staff * production_staff_avaerage_salary",
+            "Back_staff_salary (USD) = back_staff * back_staff_avaerage_salary",
+            "Subject_matter_expert_salary (USD) = Total_Subject_matter_expert_onboarded * Average_Duration_Subject_matter_expert * Cost_per_SME",
+            "cost (USD) = Production_staff_salary + Back_staff_salary + Subject_matter_expert_salary",
+            "Total_personel_cost (USD) = cost * (1 + Other_personnel_costs /100)"],
+            "Step 2: Compute direct product-level costs":["product_A_raw_material_cost = Total_user_A * 100000 * product_A_per_users * per_product_A_raw_material_cost",
+            "product_B_raw_material_cost = Total_user_B * 100000 * product_B_per_users * per_product_B_raw_material_cost",
+            "Maintenance_and_repairs_cost = total_revenue * Maintenance_and_repairs_share / 100",
+            "product_level_cost = product_A_raw_material_cost + product_B_raw_material_cost + Maintenance_and_repairs_cost"],
+            "Step 3: Sales and Commission costs" :["A_Commission_and_incentive_cost (USD) = Total_user_A * (A_Variable_commission_per_unit + A_Fixed_commission_per_unit) * 1000000",
+            "B_Commission_and_incentive_cost (USD) = Total_user_B * (B_Variable_commission_per_unit + B_Fixed_commission_per_unit) * 1000000"
+            "Payment_gateway_cost (USD) = Product_revenue * Payment_gateway_fee_rate / 100",
+            "Total_sales_and_commission_cost (USD) = A_Commission_and_incentive_cost + B_Commission_and_incentive_cost + Payment_gateway_cost"],
+            "Step 4: Other overhead cost" :["Marketing_cost (USD) = Product_revenue * Marketing_and_Promotions_share / 100",
+            "Rent_cost (USD) = Monthly_rent_fee * 12",
+            "Professional_services_cost (USD) = Monthly_prof_services_fee * 12",
+            "Office_supplies_cost (USD) = Product_revenue * Office_supplies_share / 100",
+            "Utilities_cost (USD) = Product_revenue * Utilities_share / 100",
+            "IT_communications_cost (USD) = Product_revenue * IT_communications_share / 100",
+            Insurance_cost (USD) = Product_revenue * Insurance_cost_share / 100",
+            "Total_overhead_cost (USD) = Marketing_cost + Rent_cost + Professional_services_cost + Office_supplies_cost + Utilities_cost + IT_communications_cost + Insurance_cost"],
+            "Step 5: Total cost":["cost = Total_personel_cost + product_level_cost  + Total_sales_and_commission_cost + Total_overhead_cost",
+            "Total_cost = cost * (1 + other_cost_share/100)"]
+        }}
+    }}
+    Let's think step-by-step. Do not solve equations, only write step-by-step formula. Keep the formula compact. Keep units on left side of equations. If there is any unnecessy steps which is not used any where remove it, don't use it in formula.
+    """
+
+
+"assumptions": {\n    "production_staff_per_user (%)": 10,\n    "back_staff_per_production_staff (%)": 100,\n    "production_staff_average_salary (USD per half-year)": 6000,\n    "back_staff_average_salary (USD per half-year)": 4500,\n    "Total_Subject_matter_expert_onboarded": 10,\n    "Average_Duration_Subject_matter_expert (month)": 0.5,\n    "Cost_per_SME (USD per month)": 3000,\n    "Other_personnel_costs (%)": 2,\n    "Basic_LLM_cost_per_user (USD per month)": 2.5,\n    "Standard_LLM_cost_per_user (USD per month)": 5.8,\n    "Executive_LLM_cost_per_user (USD per month)": 12.4,\n    "Basic_LLM_software_subscription_cost (USD per month)": 0.8,\n    "Standard_LLM_software_subscription_cost (USD per month)": 1.5,\n    "Executive_LLM_software_subscription_cost (USD per month)": 2.8,\n    "Basic_LLM_database_hosting_cost (USD per month)": 0.6,\n    "Standard_LLM_database_hosting_cost (USD per month)": 1.2,\n    "Executive_LLM_database_hosting_cost (USD per month)": 2.5,\n    "Basic_LLM_server_cost (USD per month)": 0.5,\n    "Standard_LLM_server_cost (USD per month)": 1.8,\n    "Executive_LLM_server_cost (USD per month)": 3.5,\n    "Maintenance_and_repairs_share (%)": 2.5,\n    "Basic_LLM_variable_commission (USD per user)": 1.2,\n    "Standard_LLM_variable_commission (USD per user)": 2.5,\n    "Executive_LLM_variable_commission (USD per user)": 5.0,\n    "Basic_LLM_fixed_commission (USD per user)": 0.8,\n    "Standard_LLM_fixed_commission (USD per user)": 1.5,\n    "Executive_LLM_fixed_commission (USD per user)": 3.0,\n    "Reservation_system_fee (USD per month)": 5000,\n    "Payment_gateway_fee_rate (%)": 2.8,\n    "Marketing_and_Promotions_share (%)": 5.5,\n    "Monthly_rent_fee (USD)": 25000,\n    "Monthly_prof_services_fee (USD)": 8500,\n    "Office_supplies_share (%)": 1.2,\n    "Utilities_share (%)": 1.8,\n    "IT_communications_share (%)": 3.5,\n    "Insurance_cost_share (%)": 2.2,\n    "other_cost_share (%)": 0.1\n  },\n
+
+
+
+"Step 1: Identify personnel cost across different product/services": [\n      "Total_users (million) = Basic_LLM_users (million) + Standard_LLM_users (million) + Executive_LLM_users (million)",\n      "production_staff = Total_users (million) * 1000000 * (production_staff_per_user / 100)",\n      "back_staff = production_staff * (back_staff_per_production_staff / 100)",\n      "Production_staff_salary (USD) = production_staff * production_staff_average_salary",\n      "Back_staff_salary (USD) = back_staff * back_staff_average_salary",\n      "Subject_matter_expert_salary (USD) = Total_Subject_matter_expert_onboarded * Average_Duration_Subject_matter_expert * Cost_per_SME",\n      "cost (USD) = Production_staff_salary + Back_staff_salary + Subject_matter_expert_salary",\n      "Total_personnel_cost (USD) = cost * (1 + Other_personnel_costs / 100)"\n    ],\n  
+
+SS"Step 2: Compute direct service-level costs": [\n      "Basic_LLM_costs (USD) = Basic_LLM_users (million) * 1000000 * Basic_LLM_cost_per_user * 6",\n      "Standard_LLM_costs (USD) = Standard_LLM_users (million) * 1000000 * Standard_LLM_cost_per_user * 6",\n      "Executive_LLM_costs (USD) = Executive_LLM_users (million) * 1000000 * Executive_LLM_cost_per_user * 6",\n      "Basic_software_subscription_costs (USD) = Basic_LLM_users (million) * 1000000 * Basic_LLM_software_subscription_cost * 6",\n      "Standard_software_subscription_costs (USD) = Standard_LLM_users (million) * 1000000 * Standard_LLM_software_subscription_cost * 6",\n      "Executive_software_subscription_costs (USD) = Executive_LLM_users (million) * 1000000 * Executive_LLM_software_subscription_cost * 6",\n      "Basic_database_hosting_costs (USD) = Basic_LLM_users (million) * 1000000 * Basic_LLM_database_hosting_cost * 6",\n      "Standard_database_hosting_costs (USD) = Standard_LLM_users (million) * 1000000 * Standard_LLM_database_hosting_cost * 6",\n      "Executive_database_hosting_costs (USD) = Executive_LLM_users (million) * 1000000 * Executive_LLM_database_hosting_cost * 6",\n      "Basic_server_costs (USD) = Basic_LLM_users (million) * 1000000 * Basic_LLM_server_cost * 6",\n      "Standard_server_costs (USD) = Standard_LLM_users (million) * 1000000 * Standard_LLM_server_cost * 6",\n      "Executive_server_costs (USD) = Executive_LLM_users (million) * 1000000 * Executive_LLM_server_cost * 6",\n      "Maintenance_and_repairs_cost (USD) = Subscription_revenue (million) * 1000000 * Maintenance_and_repairs_share / 100",\n      "Total_service_level_cost (USD) = Basic_LLM_costs + Standard_LLM_costs + Executive_LLM_costs + Basic_software_subscription_costs + Standard_software_subscription_costs + Executive_software_subscription_costs + Basic_database_hosting_costs + Standard_database_hosting_costs + Executive_database_hosting_costs + Basic_server_costs + Standard_server_costs + Executive_server_costs + Maintenance_and_repairs_cost"\n    ],\n    
+
+"Step 3: Sales and Commission costs": [\n      "Basic_LLM_commission_cost (USD) = Basic_LLM_users (million) * 1000000 * (Basic_LLM_variable_commission + Basic_LLM_fixed_commission)",\n      "Standard_LLM_commission_cost (USD) = Standard_LLM_users (million) * 1000000 * (Standard_LLM_variable_commission + Standard_LLM_fixed_commission)",\n      "Executive_LLM_commission_cost (USD) = Executive_LLM_users (million) * 1000000 * (Executive_LLM_variable_commission + Executive_LLM_fixed_commission)",\n      "Reservation_system_cost (USD) = Reservation_system_fee * 6",\n      "Payment_gateway_cost (USD) = Subscription_revenue (million) * 1000000 * Payment_gateway_fee_rate / 100",\n      "Total_sales_and_commission_cost (USD) = Basic_LLM_commission_cost + Standard_LLM_commission_cost + Executive_LLM_commission_cost + Reservation_system_cost + Payment_gateway_cost"\n    ],\n
+
+"Step 4: Other Overhead costs": [\n      "Marketing_cost (USD) = Subscription_revenue (million) * 1000000 * Marketing_and_Promotions_share / 100",\n      "Rent_cost (USD) = Monthly_rent_fee * 6",\n      "Professional_services_cost (USD) = Monthly_prof_services_fee * 6",\n      "Office_supplies_cost (USD) = Subscription_revenue (million) * 1000000 * Office_supplies_share / 100",\n      "Utilities_cost (USD) = Subscription_revenue (million) * 1000000 * Utilities_share / 100",\n      "IT_communications_cost (USD) = Subscription_revenue (million) * 1000000 * IT_communications_share / 100",\n      "Insurance_cost (USD) = Subscription_revenue (million) * 1000000 * Insurance_cost_share / 100",\n      "Total_overhead_cost (USD) = Marketing_cost + Rent_cost + Professional_services_cost + Office_supplies_cost + Utilities_cost + IT_communications_cost + Insurance_cost"\n    ],\n    
+
+"Step 5: Total cost": [\n      "Cost (USD) = Total_personnel_cost + Total_service_level_cost + Total_sales_and_commission_cost + Total_overhead_cost",\n      "Total_cost (USD) = Cost * (1 + other_cost_share / 100)"\n    ]\n  
