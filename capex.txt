@@ -1,0 +1,326 @@
+    capex_step1_prompt = f"""You are a seasoned investment banker and an expert in financial modeling. Your task is to construct the capital expenditure (CapEx) estimation formulas within a comprehensive financial model. CapEx is typically categorized into five key buckets, and we will be building a five-step framework to model them.
+    This is the user description provided by the user: {user_description}. 
+    Company's user base is split across various services/product i.e {Revenue_sources_splits.keys()} is offered by it.
+    you have to utlize this given information for first Step of capital expenditure (Capex) Estimation Framework to write formula for a {interval} duration.    
+
+    We will be writing 5 step process to compute capital expenditure (Capex) of a company. In this prompt, you will only focus on Step 1. Your task is to write formula's first step along with assumptions, In this we are estimating the cost required to set-up the product/service industry.  This step captures all fixed costs and setup fees necessary to launch or establish the business's core infrastructure, systems, or services. The goal is to replicate the following, with a slight customization across sectors and presented companies / business topics as required.
+    you have to follow this directions for first Step of capital expenditure (Capex) Framework to write formula for a {interval} duration. 
+    Step 1: In this step, we want to estimate the cost required to set-up the product/service industry. This step is specific to the topic at hand and would differ massively between, for example, LLM subscription business and Airline per say
+    Example A - Platform Development for LLM Subscription
+    -	Front-end and Back-end of Website
+    	Assumption: Platform Front-end and Back-end Fee 
+    	Formula = Platform Front-end + Back-end Fee
+    -	Integrations with APIs and Data Sources
+    	Assumption: Set-up and Integration Fee for Platform APIs and Data Sources 
+    	Formula = Set-up and Integration Fee for Platform APIs and Data Sources
+    -	Model Training AND FINE-TUNING COST
+    	Assumption:
+     	1) LLM1 
+            •	Model Development Training and Fine-tuning Cost (e.g., 1000USD)
+            •	Model Development Time (e.g., January 2025, March 2027)
+        2)	LLM2 
+            •	Model Development Training and Fine-tuning Cost (e.g., 1000USD)
+            •	Model Development Time (e.g., January 2025, March 2027)
+        3)	LLM3 
+            •	Model Development Training and Fine-tuning Cost (e.g., 1000USD)
+            •	Model Development Time (e.g., January 2025, March 2027)
+        4)	LLM4 
+            •	Model Development Training and Fine-tuning Cost (e.g., 1000USD)
+            •	Model Development Time (e.g., January 2025, March 2027)
+    	Formula 
+    	If curremt_Year == Year (Model Development Time LLMX), Model Development Training Cost ELSE 0
+    
+    Example B - Airline Set-up Costs
+    -	Aircraft Spare Engine CapEx
+        Assumption:
+        	Number of Aircraft last year
+        	Number of Aircraft increase between this year and last year
+        	Number of Engines per new Aircraft 
+        	Cost per new Engine
+        	Replacement for Older Aircraft as a share of new CapEx
+    	Formula
+        Airline_Setup_Costs = Aircraft Increase * Number of Engines * Cost per engine + Aircraft last year * Number of Engines * Cost per engine * older as a share of new (10%)
+    Note: we can keep 10% flat
+
+    ## Requirements
+    - Respond in JSON format and ensure to shows measurement units of each key values.
+    - When writing the step-by-step formula, please represent numbers without commas (e.g., use 1000000 instead of 1,000,000).
+    - Don't use year or month name in assigning any key names in formula 
+    - Make sure that the step names do not use keywords such as numeric year(eg: 2025, 2026 etc), "monthly", "explore", "calculate" or "apply."
+    - Make sure that the formula should be designed to compute for the entire period specified in one go, rather than breaking it into separate subperiods.
+    - Includes clear intermediate steps for calculating key values with proper units on the left hand side of the equations
+    - Follow the example output format provided below
+    - dont include "[]" bracket in formula, if required use "()" bracket
+    
+    
+    Example Output format:
+        {{ "assumptions":{{
+            Number_of_Aircraft_last_year = 678,
+	        Number_of_Aircraft_increase_this_year = 24,
+        	Number_of_Engines_per_Aircraft = 2,
+        	Cost_per_Engine (USD) = 2340990,
+        	Replacement_for_Older_Aircraft_share (%) = 10 ,            
+        }}
+        "formula": {{
+            "Step 1: Estimate the cost required to set-up the product/service industry":["Airline_Setup_Costs = Number_of_Aircraft_increase_this_year * Number_of_Engines_per_Aircraft * Cost_per_Engine + Number_of_Aircraft_last_year * Number_of_Engines_per_Aircraft * Cost_per_Engine * Replacement_for_Older_Aircraft_share"]
+        }}
+    }}
+    Let's think step-by-step. Do not solve equations, only write step-by-step formula. Keep the formula compact. Keep units on left side of equations
+    """
+    return prompt
+
+
+
+
+    capex_step2_prompt = f"""You are a seasoned investment banker and an expert in financial modeling. Your task is to construct the capital expenditure (CapEx) estimation formulas within a comprehensive financial model. CapEx is typically categorized into five key buckets, and we will be building a five-step framework to model them.
+    This is the user description provided by the user: {user_description}. 
+    Company's user base is split across various services/product i.e {Revenue_sources_splits.keys()} is offered by it.
+    you will be provided with first step of capaex formula as {capex_step1}.
+    In this prompt, you will focus on Step 2 — estimating the budget required to set up systems necessary to launch and operate the project or service. This includes the setup of digital, IT, and operational systems that enhance execution and efficiency.   
+    you have to utlize this given information for second Step of capital expenditure (Capex) Estimation Framework to write formula for a {interval} duration.    
+
+    We will be writing 5 step process to compute capital expenditure (Capex) of a company. Your task is to write formula's second step along with assumptions, In this we are estimating budget to set-up the systems required to launch the project/service, it would be the set of systems required to improve operations, etc.. The goal is to replicate the following, with a slight customization across sectors and presented companies / business topics as required.
+    you have to follow this directions for second Step of capital expenditure (Capex) Framework to write formula for a {interval} duration. 
+        
+    In Step 2, your goal is to estimate the cost of systems setup — including digital platforms, IT tools, and data systems — tailored to the sector or business. For example:
+    In an LLM business, this could include API analytics dashboards or user-facing analytics.
+    For an airline, this may include fleet optimization software or ground crew coordination tools.
+    For a services business, this may include scheduling, billing, and CRM systems.
+
+    Second step: In this step, we want to estimating budget to set-up the systems required to launch the project/service, it would be the set of systems required to improve operations, etc. The goal is to replicate the following, with a slight customization across sectors and presented companies / business topics as required. Some calculations would differ on the industries. For example, a physical product would differ from the airline which would also differ from an LLM subscription service or a dog walking service.
+    Each company would have a budget to set-up the systems required to launch the project or for an airline, it would be the set of systems required to improve operations, etc.
+    -	Digital, Data and IT Systems
+    	Assumption:
+            Fixed fee per system 
+            number of systems
+    	Alternative: Assumption: Digital, Data and IT Budget
+    	cost_improve_operations = Fixed fee * number of systems | Digital, Data and IT Budget
+
+    ## Requirements
+    - Respond in JSON format and ensure to shows measurement units of each key values.
+    - When writing the step-by-step formula, please represent numbers without commas (e.g., use 1000000 instead of 1,000,000).
+    - Don't use year or month name in assigning any key names in formula 
+    - Make sure that the step names do not use keywords such as numeric year(eg: 2025, 2026 etc), "monthly", "explore", "calculate" or "apply."
+    - Make sure that the formula should be designed to compute for the entire period specified in one go, rather than breaking it into separate subperiods.
+    - Includes clear intermediate steps for calculating key values with proper units on the left hand side of the equations
+    - Follow the example output format provided below
+    - dont include "[]" bracket in formula, if required use "()" bracket
+    - If user base across various product/services is provided use it, as it is.
+    - append step 2 assumption in step 1 assumptions
+    - append step 2 formula in step 1  formula as shown in Example Output format.
+    - **Do not** include extra details, explanations beyond the specified Example Output format.      
+    Example Output format:
+        {{ "assumptions":{{
+            Number_of_Aircraft_last_year = 678,
+	        Number_of_Aircraft_increase_this_year = 24,
+        	Number_of_Engines_per_Aircraft = 2,
+        	Cost_per_Engine (USD) = 2340990 ,
+        	Replacement_for_Older_Aircraft_share (%) = 10 , 
+            number_of_desktop =  1200,
+            desktop_fee (USD) = 300 ,       
+        }}
+        "formula": {{
+            "Step 1: Estimate the cost required to set-up the product/service industry":["Airline_Setup_Costs = Number_of_Aircraft_increase_this_year * Number_of_Engines_per_Aircraft * Cost_per_Engine + Number_of_Aircraft_last_year * Number_of_Engines_per_Aircraft * Cost_per_Engine * Replacement_for_Older_Aircraft_share"],
+            "Step 2: Estimate the cost required to improve operations":["Cost_to_improve_operations = Fixed fee * number of systems "]
+        }}
+    }}
+    Let's think step-by-step. Do not solve equations, only write step-by-step formula. Keep the formula compact. Keep units on left side of equations
+
+
+
+    capex_step3_prompt = You are a seasoned investment banker and an expert in financial modeling. Your task is to construct the capital expenditure (CapEx) estimation formulas within a comprehensive financial model. CapEx is typically categorized into five key buckets, and we will be building a five-step framework to model them.
+    This is the user description provided by the user: {user_description}. 
+    Company's user base is split across various services/product i.e {Revenue_sources_splits.keys()} is offered by it.
+    you will be provided with first and second step of capaex formula as {capex_step2}.
+    you have to utlize this given information for second Step of capital expenditure (Capex) Estimation Framework to write formula for a {interval} duration.    
+
+    We will be writing 5 step process to compute capital expenditure (Capex) of a company. you will be provided with first and second step as {capex_step2}, Your task is to write third step and append to it as shown in example.  Your task is to write formula's third step along with assumptions, In this we are estimating CapEx to set-up the office furniture and the networking infrastructure of an office – this includes the initial one-time costs of routers, etc. The goal is to replicate the following, with a slight customization across sectors and presented companies / business topics as required.
+    you have to follow this directions for second Step of capital expenditure (Capex) Framework to write formula for a {interval} duration. 
+
+    In this task, you will focus on Step 3 — estimating the CapEx required to set up office furniture and networking infrastructure. This includes one-time costs related to furnishing and basic IT setup (e.g., routers, wiring, etc.).
+        
+    We have five key capital expenditure (Capex) buckets that typically comprise any capital expenditure (Capex) tab in a financial model. The goal is to replicate the following, with a slight customization across sectors and presented companies / business topics as required. Examples on optimizations will be provided in the below.
+    Third step: In this step, we want to estimate CapEx to set-up the office furniture and the networking infrastructure of an office – this includes the initial one-time costs of routers, etc. The goal is to replicate the following, with a slight customization across sectors and presented companies / business topics as required.
+    Each company unless set-up fully remote, would have a CapEx to set-up the office furniture and the networking infrastructure of an office – this includes the initial one-time costs of routers, etc.
+    -	Office Furniture
+    o	One-time cost of office furniture budget
+    -	Networking Infrastructure
+    o	One-time cost of office furniture budget
+
+    ## Requirements
+    - Respond in JSON format and ensure to shows measurement units of each key values.
+    - When writing the step-by-step formula, please represent numbers without commas (e.g., use 1000000 instead of 1,000,000).
+    - Don't use year or month name in assigning any key names in formula 
+    - Make sure that the step names do not use keywords such as numeric year(eg: 2025, 2026 etc), "monthly", "explore", "calculate" or "apply."
+    - Make sure that the formula should be designed to compute for the entire period specified in one go, rather than breaking it into separate subperiods.
+    - Includes clear intermediate steps for calculating key values with proper units on the left hand side of the equations
+    - Follow the example output format provided below
+    - dont include "[]" bracket in formula, if required use "()" bracket
+    - If user base across various product/services is provided use it, as it is.
+    - append step 3 assumption in step 1 and 2 assumptions
+    - Make sure use key product or service revenue in formula, never use "total reveue" key name in step 3 formula.
+    - append step 3 formula in step 1 and 2 formula as shown in Example Output format.
+    - **Do not** include extra details, explanations beyond the specified Example Output format.       
+    Example Output format:
+        {{ "assumptions":{{
+            Number_of_Aircraft_last_year = 678,
+	        Number_of_Aircraft_increase_this_year = 24,
+        	Number_of_Engines_per_Aircraft = 2,
+        	Cost_per_Engine (USD) = 2340990 ,
+        	Replacement_for_Older_Aircraft_share (%) = 10 , 
+            number_of_desktop =  1200,
+            desktop_fee (USD) = 300 ,
+            office_furnitue_cost (USD) = 15000,
+            Networking_Infrastructure_cost (USD) = 25000,       
+        }}
+        "formula": {{
+            "Step 1: Estimate the capex required to set-up the product/service industry":["Airline_Setup_Costs (USD) = Number_of_Aircraft_increase_this_year * Number_of_Engines_per_Aircraft * Cost_per_Engine + Number_of_Aircraft_last_year * Number_of_Engines_per_Aircraft * Cost_per_Engine * Replacement_for_Older_Aircraft_share"],
+            "Step 2: Estimate the capex required to improve operations":["Cost_to_improve_operations (USD)= Fixed fee * number of systems "],
+            "Step 3: Estimate the capEx to set-up the office furniture/infrastructure": [""Office_setup_cost (USD) = office_furnitue_cost  + Networking_Infrastructure_cost"]
+        }}
+    }}
+    Let's think step-by-step. Do not solve equations, only write step-by-step formula. Keep the formula compact. Keep units on left side of equations
+
+
+
+    capex_step4_prompt = You are a seasoned investment banker and an expert in financial modeling. Your task is to construct the capital expenditure (CapEx) estimation formulas within a comprehensive financial model. CapEx is typically categorized into five key buckets, and we will be building a five-step framework to model them.
+    This is the user description provided by the user: {user_description}.
+        
+    You will be provided with previous period Total_staff and current period increase in staff as {Total_staff}. You have to use this key names as it in writing step 4 of formula.
+    Product/Service revenue is {product_revenue}. you have use this key as it is and don't include this in assumptions.
+    We will be writing 5 step process to compute capital expenditure (Capex) of the company. you will be provided with first, second and third step as {capex_step3}, Your task is to write fourth step and append to it as shown in example. In this we will write formula to estimate IT-Staff's laptop, mobiles & needs cost to smoothly provide product/services to users.
+    you have to follow this directions for fourth Step of  capital expenditure (Capex) Estimation Framework to write formula for a {interval} duration. 
+
+    We have five key  capital expenditure (Capex) buckets that typically comprise any  capital expenditure (Capex) tab in a financial model. The goal is to replicate the following, with a slight customization across sectors and presented companies / business topics as required. Examples on optimizations will be provided in the below.
+    Fourth step: In this step, we want to estimate capital expenditure (Capex) for IT-Staff to smoothly provide product/services. The cost is for Laptops, licenses, and phones used by IT-Staff to run smooth operations.
+
+	Assumption:
+	A = Fixed Cost Budget per staff 
+	B = Number of Staff last year
+	C = Number of Staff increase between this year and last year
+	D = Laptop, License, and Phones Budget
+	E = Replacement for Older staff as a share of new staff capex 
+	Formula
+	Total staff cost = B * D + A * D * E (10%)
+	Note: we can keep 10% flat, 
+
+    ## Requirements
+    - Respond in JSON format and ensure to shows measurement units of each key values.
+    - When writing the step-by-step formula, please represent numbers without commas (e.g., use 1000000 instead of 1,000,000).
+    - Don't use year or month name in assigning any key names in formula 
+    - Make sure that the step names do not use keywords such as numeric year(eg: 2025, 2026 etc), "monthly", "explore", "calculate" or "apply."
+    - Make sure that the formula should be designed to compute for the entire period specified in one go, rather than breaking it into separate subperiods.
+    - Includes clear intermediate steps for calculating key values with proper units on the left hand side of the equations
+    - Follow the example output format provided below
+    - dont include "[]" bracket in formula, if required use "()" bracket
+    - If user base across various product/services is provided use it, as it is.
+    - append step 4 assumption in step 1, 2 and 3 assumptions
+    - Make sure use key product or service revenue in formula, never use "total reveue" key name in step 3 formula.
+    - append step 4 formula in step 1, 2 and 3 formula as shown in Example Output format.
+    - **Do not** include extra details, explanations beyond the specified Example Output format.    
+ 
+    Example Output format:
+        {{ "assumptions":{{
+            Number_of_Aircraft_last_year = 678,
+	        Number_of_Aircraft_increase_this_year = 24,
+        	Number_of_Engines_per_Aircraft = 2,
+        	Cost_per_Engine (USD) = 2340990 ,
+        	Replacement_for_Older_Aircraft_share (%) = 10 , 
+            number_of_desktop =  1200,
+            desktop_fee (USD) = 300 ,
+            office_furnitue_cost (USD) = 15000,
+            Networking_Infrastructure_cost (USD) = 25000,
+            previous_period_Total_staff = 1800,
+            Current_period_Increase_in_staff = 700,
+            Laptop_License_and_Phones_Budget_per_staff (USD) = 800, 
+            Older_staff_replacement_share (%) = 10     
+        }}
+        "formula": {{
+            "Step 1: Estimate the capex required to set-up the product/service industry":["Airline_Setup_Costs (USD) = Number_of_Aircraft_increase_this_year * Number_of_Engines_per_Aircraft * Cost_per_Engine + Number_of_Aircraft_last_year * Number_of_Engines_per_Aircraft * Cost_per_Engine * Replacement_for_Older_Aircraft_share"],
+            "Step 2: Estimate the capex required to improve operations":["Cost_to_improve_operations (USD)= Fixed fee * number of systems "],
+            "Step 3: Estimate the capex to set-up the office furniture/infrastructure": ["Office_setup_cost (USD) = office_furnitue_cost  + Networking_Infrastructure_cost"],
+            "Step 4: Estimate the capex for IT-staff": ["Total_IT_staff_cost  = Current_period_Increase_in_staff * Laptop_License_and_Phones_Budget_per_staff + previous_period_Total_staff * Laptop_License_and_Phones_Budget_per_staff * Older_staff_replacement_share /100"]
+        }}
+    }}
+    Let's think step-by-step. Do not solve equations, only write step-by-step formula. Keep the formula compact. Keep units on left side of equations
+
+
+    capex_step5_prompt = f"""You are a seasoned investment banker and an expert in financial modeling. Your task is to construct the capital expenditure (CapEx) estimation formulas within a comprehensive financial model. CapEx is typically categorized into five key buckets, and we will be building a five-step framework to model them.
+    This is the user description provided by the user: {user_description}. 
+    Company's user base is split across various services/product i.e {Revenue_sources_splits.keys()} is offered by it.
+    
+    There is total revenue as {total_revenue}, it include product/service revenue plus additional any other revenue. Use the key term as it to write step 5 formula.
+    We will be writing 5 step process to compute capital expenditure (Capex) need to be done by company. you will be provided with first, second, third and fouth step as {capex_step4}, Your task is to write Fifth step and append to it as shown in example.
+    you have to follow this directions for Fifth Step of cost Estimation Framework to write formula for a {interval} duration. 
+
+    We have five key capital expenditure (Capex) buckets that typically comprise any capital expenditure (Capex) tab in a financial model. The goal is to replicate the following, with a slight customization across sectors and presented companies / business topics as required. Examples on optimizations will be provided in the below.
+    Fifth step: In this step, we add all capital expenditure (Capex) done by company for find total capital expenditure (Capex) and also we want to estimate Other capital expenditure (Capex) which might need to done by company to soothen its operations. This cost is incurred to sell a product whether that was a physical product or subscription or airline seat or event seat or dog walking slot. 
+
+    Other capex is calculated as a share of Total revenue {total_revenue}.
+    Approach:
+    -	Assumption: other_capex_Share (0.1%)
+    -	Total_capex: Step 1+ Step 2 + Step 3 + Step 4 + Total_revenue * other_capex_Share/100
+
+    ## Requirements
+    - Respond in JSON format and ensure to shows measurement units of each key values.
+    - When writing the step-by-step formula, please represent numbers without commas (e.g., use 1000000 instead of 1,000,000).
+    - Don't use year or month name in assigning any key names in formula 
+    - Make sure that the step names do not use keywords such as numeric year(eg: 2025, 2026 etc), "monthly", "explore", "calculate" or "apply."
+    - Make sure that the formula should be designed to compute for the entire period specified in one go, rather than breaking it into separate subperiods.
+    - Includes clear intermediate steps for calculating key values with proper units on the left hand side of the equations
+    - Follow the example output format provided below
+    - dont include "[]" bracket in formula, if required use "()" bracket
+    - If user base across various product/services is provided use it, as it is.
+    - append step 5 assumption in step 1, 2, 3 and 4 assumptions
+    - append step 5 formula in step 1, 2, 3 and 4 formula as shown in Example Output format.
+    - Make sure use key product or service revenue in formula, never use "total reveue" key name in step 3 formula.
+    - **Do not** include extra details, explanations beyond the specified Example Output format.
+    Example Output format:
+        {{ "assumptions":{{
+            Number_of_Aircraft_last_year = 678,
+	        Number_of_Aircraft_increase_this_year = 24,
+        	Number_of_Engines_per_Aircraft = 2,
+        	Cost_per_Engine (USD) = 2340990 ,
+        	Replacement_for_Older_Aircraft_share (%) = 10 , 
+            number_of_desktop =  1200,
+            desktop_fee (USD) = 300 ,
+            office_furnitue_cost (USD) = 15000,
+            Networking_Infrastructure_cost (USD) = 25000,
+            previous_period_Total_staff = 1800,
+            Current_period_Increase_in_staff = 700,
+            Laptop_License_and_Phones_Budget_per_staff (USD) = 800, 
+            Older_staff_replacement_share (%) = 10 ,            
+            other_capex_Share (%)= 0.5       
+        }}
+        "formula": {{
+            "Step 1: Estimate the capex required to set-up the product/service industry":["Airline_Setup_Costs (USD) = Number_of_Aircraft_increase_this_year * Number_of_Engines_per_Aircraft * Cost_per_Engine + Number_of_Aircraft_last_year * Number_of_Engines_per_Aircraft * Cost_per_Engine * Replacement_for_Older_Aircraft_share"],
+            "Step 2: Estimate the capex required to improve operations":["Cost_to_improve_operations (USD)= Fixed fee * number of systems "],
+            "Step 3: Estimate the capEx to set-up the office furniture/infrastructure": ["Office_setup_cost (USD) = office_furnitue_cost  + Networking_Infrastructure_cost"],
+            "Step 4: Estimate the capex for IT-staff": ["Total_IT_staff_cost  = Current_period_Increase_in_staff * Laptop_License_and_Phones_Budget_per_staff + previous_period_Total_staff * Laptop_License_and_Phones_Budget_per_staff * Older_staff_replacement_share /100"],
+            "Step 5: Total_capex_by company": ["Total_capex = Airline_Setup_Costs + Cost_to_improve_operations + Office_setup_cost + Total_IT_staff_cost + Total_revenue * other_capex_Share/100"]
+        }}
+    }}
+    Let's think step-by-step. Do not solve equations, only write step-by-step formula. Keep the formula compact. Keep units on left side of equations. If there is any unnecessy steps which is not used any where remove it, don't use it in formula.
+
+
+#>..........................................................................................................................................................
+                                    ############ Ouptput Example ################
+#...........................................................................................................................................................
+
+
+
+ "assumptions": {\n    "Platform_Frontend_Development_Cost (USD)": 150000,\n    "Platform_Backend_Development_Cost (USD)": 250000,\n    "API_Setup_Fee (USD)": 75000,\n    "Data_Source_Integration_Fee (USD)": 100000,\n    "Basic_LLM_Training_Cost (USD)": 500000,\n    "Basic_LLM_Fine_Tuning_Cost (USD)": 250000,\n    "Basic_LLM_Development_Period": "H1_2026",\n    "Standard_LLM_Training_Cost (USD)": 850000,\n    "Standard_LLM_Fine_Tuning_Cost (USD)": 350000,\n    "Standard_LLM_Development_Period": "H1_2026",\n    "Executive_LLM_Training_Cost (USD)": 1200000,\n    "Executive_LLM_Fine_Tuning_Cost (USD)": 500000,\n    "Executive_LLM_Development_Period": "H2_2026",\n    "Customer_Analytics_Dashboard_Cost (USD)": 120000,\n    "User_Billing_System_Cost (USD)": 85000,\n    "LLM_Performance_Monitoring_System_Cost (USD)": 140000,\n    "Security_Compliance_System_Cost (USD)": 180000,\n    "Customer_Support_System_Cost (USD)": 95000,\n    "API_Management_Dashboard_Cost (USD)": 110000,\n    "Systems_Deployment_Period": "H1_2026",\n    "System_Upgrade_Frequency_Per_Year": 1,\n    "System_Upgrade_Cost_Percentage (%)": 15,\n    "Initial_Office_Location": "H1_2026",\n    "Number_of_Employees_at_Start": 25,\n    "Office_Space_per_Employee (sq ft)": 150,\n    "Furniture_Cost_per_Employee (USD)": 1200,\n    "General_Office_Furniture_Cost (USD)": 15000,\n    "Server_Room_Setup_Cost (USD)": 35000,\n    "Network_Equipment_Cost_per_Employee (USD)": 800,\n    "Core_Network_Infrastructure_Cost (USD)": 45000,\n    "Office_Expansion_Period": "H2_2027",\n    "Employee_Growth_for_Expansion (%)": 40,\n    "Laptop_License_and_Phones_Budget_per_staff (USD)": 3000,\n    "Older_staff_replacement_share (%)": 10,\n    "Other_CapEx_Share (%)": 0.1\n  },\n 
+
+
+
+ "formula": {\n   
+
+ "Step 1: Estimate the cost required to set-up the product/service industry": [\n      "Platform_Development_Cost (USD) = Platform_Frontend_Development_Cost + Platform_Backend_Development_Cost",\n      "Integration_Cost (USD) = API_Setup_Fee + Data_Source_Integration_Fee",\n      "Basic_LLM_Development_Cost (USD) = IF(Current_Period == Basic_LLM_Development_Period, Basic_LLM_Training_Cost + Basic_LLM_Fine_Tuning_Cost, 0)",\n      "Standard_LLM_Development_Cost (USD) = IF(Current_Period == Standard_LLM_Development_Period, Standard_LLM_Training_Cost + Standard_LLM_Fine_Tuning_Cost, 0)",\n      "Executive_LLM_Development_Cost (USD) = IF(Current_Period == Executive_LLM_Development_Period, Executive_LLM_Training_Cost + Executive_LLM_Fine_Tuning_Cost, 0)",\n      "Total_LLM_Setup_Cost (USD) = Basic_LLM_Development_Cost + Standard_LLM_Development_Cost + Executive_LLM_Development_Cost",\n      "Total_Setup_CapEx (USD) = Platform_Development_Cost + Integration_Cost + Total_LLM_Setup_Cost"\n    ],\n
+
+"Step 2: Estimate the cost required to improve operations": [\n      "Initial_Systems_Cost (USD) = Customer_Analytics_Dashboard_Cost + User_Billing_System_Cost + LLM_Performance_Monitoring_System_Cost + Security_Compliance_System_Cost + Customer_Support_System_Cost + API_Management_Dashboard_Cost",\n      "Operational_Systems_CapEx (USD) = IF(Current_Period == Systems_Deployment_Period, Initial_Systems_Cost, 0)",\n      "System_Upgrade_Cost_Per_Period (USD) = IF(Current_Period > Systems_Deployment_Period, (System_Upgrade_Frequency_Per_Year / 2) * (Initial_Systems_Cost * System_Upgrade_Cost_Percentage / 100), 0)",\n      "Total_Operational_Systems_CapEx (USD) = Operational_Systems_CapEx + System_Upgrade_Cost_Per_Period"\n    ],\n    
+
+"Step 3: Estimate the capEx to set-up the office furniture/infrastructure": [\n      "Initial_Employee_Furniture_Cost (USD) = IF(Current_Period == Initial_Office_Location, Number_of_Employees_at_Start * Furniture_Cost_per_Employee, 0)",\n      "Initial_Office_Common_Furniture_Cost (USD) = IF(Current_Period == Initial_Office_Location, General_Office_Furniture_Cost, 0)",\n      "Total_Initial_Furniture_Cost (USD) = Initial_Employee_Furniture_Cost + Initial_Office_Common_Furniture_Cost",\n      "Initial_Network_Equipment_Employee_Cost (USD) = IF(Current_Period == Initial_Office_Location, Number_of_Employees_at_Start * Network_Equipment_Cost_per_Employee, 0)",\n      "Initial_Core_Network_Cost (USD) = IF(Current_Period == Initial_Office_Location, Core_Network_Infrastructure_Cost + Server_Room_Setup_Cost, 0)",\n      "Total_Initial_Network_Cost (USD) = Initial_Network_Equipment_Employee_Cost + Initial_Core_Network_Cost",\n      "Expansion_Employee_Count (USD) = IF(Current_Period == Office_Expansion_Period, ROUND(Number_of_Employees_at_Start * Employee_Growth_for_Expansion / 100, 0), 0)",\n      "Expansion_Furniture_Cost (USD) = IF(Current_Period == Office_Expansion_Period, Expansion_Employee_Count * Furniture_Cost_per_Employee, 0)",\n      "Expansion_Network_Cost (USD) = IF(Current_Period == Office_Expansion_Period, Expansion_Employee_Count * Network_Equipment_Cost_per_Employee, 0)",\n      "Total_Office_Infrastructure_CapEx (USD) = Total_Initial_Furniture_Cost + Total_Initial_Network_Cost + Expansion_Furniture_Cost + Expansion_Network_Cost"\n    ],\n    
+
+"Step 4: Estimate the capEx for IT-staff": [\n      "New_Staff_IT_Equipment_Cost (USD) = Increase_in_staff * Laptop_License_and_Phones_Budget_per_staff",\n      "Replacement_IT_Equipment_Cost (USD) = Total_staff * Laptop_License_and_Phones_Budget_per_staff * Older_staff_replacement_share / 100",\n      "Total_IT_Staff_CapEx (USD) = New_Staff_IT_Equipment_Cost + Replacement_IT_Equipment_Cost"\n    ],\n    
+
+"Step 5: Total_capex_by company": [\n      "Other_CapEx (USD) = Total_revenue * Other_CapEx_Share / 100",\n      "Total_CapEx (USD) = Total_Setup_CapEx + Total_Operational_Systems_CapEx + Total_Office_Infrastructure_CapEx + Total_IT_Staff_CapEx + Other_CapEx"\n    ]\n  }\n}\n`
