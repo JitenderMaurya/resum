@@ -1,3 +1,22 @@
+
+
+[17/05, 10:39 am] Yahya El Ali: Here you go the steps to finalize this:
+0. Step 0: assumption of equity sale in data frame 4 on row 3: please link it to row 22 in data frame 3, as well as row 18 for share capital in data frame 2 - kind reminder that for data frame 2, it is incremental. in other words: if the first year you have equity issuance of 10, then second year equity issuance of 20 and assuming start from 0, then first year equity is 10, second year equity is 10+20 = 30
+1. Step 1: row 22 in data frame 4: please link it to row 7 in data frame 1
+2. Step 2: row 10 in data frame 4: please link it to row 15 in data frame 2 
+3. Step 3: row 22 in data frame 4: please link it to row 26 in data frame 3
+4. Step 4: row 18 in data frame 4: please link it to row 25 in data frame 3
+5. Step 5: row 13 in data frame 4: please link it to row 24 in data frame 3
+6. Step 6: Make sure row 22 of data frame 2 is reading the net profit (row 13) from data frame ; again here assuming we are starting from 0; first year would be 39-dividendsY1, then 39+46-dividendsY2, then 39+46-dividendsY2+53-dividendsY3
+
+on dividendsY1 / Y2 / Y3; keep it 0 for now; we can model it later
+[17/05, 10:39 am] Yahya El Ali: once you link all of those, all numbers would be updated across the sheets
+[17/05, 10:39 am] Yahya El Ali: and then we would be in action
+[17/05, 10:39 am] Yahya El Ali: the only thing not here is the employee end of service benefits which we discussed before
+[17/05, 10:49 am] Yahya El Ali: everything here in the above - would be good to enable iterative calculatiosn on it
+
+
+
 https://email.recsolu.com/ss/c/u001.Chpd23Jcl9TUIOD5PUEcwwUGJDAY4NOZr0lNU-KRFKlKuAJh1GYCv-zvkEB-JKFZBlKEAdrcGtraYrAczZ_gUR7ZtAftNS7cuYnoHMNRg1E-6PwpyT-2TyJkPffyjbEnNUZF7X1FfQQzjhYFeQ-2VVCOkCTcZZZTOlvBie0-9XtKwc5Q432Jn0SR5Q1DRrNPoM0YCND3zLXC1tWBc1xRIhQqdbzthWIqU7ssA8IYl1KRg7N38kobHaV6BvXsZB2MmWerIyC_zzB5Wj30AAkjdjjNbwnvLpB1l2UCfVvjJP7u0JBP0F6umh6wDm5dO16STGg-jIvPL2oFb8xQXLgfXA/4fm/pCQ66ypkTmi3T9fmELq4Yg/h1/h001.azNsYgP_KRpLCkLyfFJLU4pmrPrpbZ5adxzdRiHi0Ck
 
 
