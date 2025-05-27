@@ -1,0 +1,155 @@
+Revenue = {"2025": "1089208", "2026": "20189208", "2027": "20589805"}
+C_opex = {"2025": "5029208", "2026": "5069308", "2027": "5127208"}
+D_and_A = {"2025": "5204", "2026": "6301", "2027": "6903"}
+analysis_time_frame, period_ranges = generate_analysis_timeframe('yearly', [2025,2027], start_month = 'March', end_month='November')  
+currency ="USD"
+interval = "yearly"
+Interest_Expense = {"2025": "19208", "2026": "15000", "2027": "12400"}
+
+# P & L Assumptions
+tax_rate_assumption = 12
+Impairment_Share = 0.01
+non_operational_income_Share = 0.23
+non_operational_costs_Share = 0.42
+
+# Balancesheet Assumptions
+trade_and_other_receivables_share = 3  
+prepaid_expenses_share = 2
+inventory_share = 3
+long_term_receivables_share = 5
+trade_and_other_payables_share = 3
+unearned_revenue_share = 2
+legal_reserve_Fixed_assumption ={"2025": 25000, "2026": 0, "2027": 0}
+Revaluation_Reserve_Fixed_assumption ={"2025": 25000, "2026": 0, "2027": 0}
+Sale_of_Asset = {"2025": "5204", "2026": "2301", "2027": "1103"}
+capex = {"2025": "98398", "2026": "68468", "2027": "64804"}
+initial_PPE = 300
+dividend_share = 10
+dividend = 0
+employe_personel_cost =  {"2025": "1000000", "2026": "1500000", "2027": "2000000"} #
+
+# Cashflow Assumptions
+depriciation = {"2025":5900, "2026":7878, "2027":6436}
+capex = {"2025":23034, "2026":12831, "2027":3500}
+
+# Debt_financing Assumptions
+Market_Interest_rates  = 10 # %
+Debt_Payback_period = 3 #year
+Minimum_Desired_Cash = 25000  
+Opening_Cash_Balance = 0
+Equity_Sale = {"2025":"0", "2026":"43322", "2027":"51422"}
+
+
+DataFrame 1:
+                            PNL Overview Unit        2025         2026         2027
+0                          Total Revenue  USD  1089208.00  20189208.00  20589805.00
+1                             Total Cost  USD  5029208.00   5069308.00   5127208.00
+2                                 EBITDA  USD -3940000.00  15119900.00  15462597.00
+3                          EBITDA Margin    %     -361.73        74.89        75.10
+4          Depreciation and Amortization  USD     5204.00      6301.00      6903.00
+5                                   EBIT  USD -3945204.00  15113599.00  15455694.00
+6                            EBIT Margin    %     -362.21        74.86        75.06
+7                   Net Interest Expense  USD  -674274.00   -470566.00   -246487.00
+8                                    Tax  USD        0.00  -1757163.96  -1825104.84
+9                             Net Income  USD -4619478.00  12885869.04  13384102.16
+10                            Net Margin    %     -424.11        63.83        65.00
+11                            Impairment  USD     -108.92     -2018.92     -2058.98
+12  Other non-operational income / costs  USD   -18617.50     25144.08     25822.28
+13               Full Income of the year  USD -4638204.42  12908994.20  13407865.46
+14                         Income Margin    %     -425.83        63.94        65.12
+
+----------------------------------------
+
+DataFrame 2:
+                       Balance Sheet Unit        2025         2026         2027
+0                             Assets  USD   376222.90  11515972.02  22565199.40
+1                     Current Assets  USD   309136.50  10489656.62  21523360.15
+2          Cash and cash equivalents  USD    24999.86   9630514.98  20649305.60
+3        Trade and other receivables  USD    32676.24    605676.24    617694.15
+4                   Prepaid expenses  USD   100584.16    101386.16    102544.16
+5                          Inventory  USD   150876.24    152079.24    153816.24
+6                 Non-current Assets  USD    67086.40   1026315.40   1041839.25
+7     Property, Plant, and Equipment  USD    12626.00     16855.00     12349.00
+8              Long-term receivables  USD    54460.40   1009460.40   1029490.25
+9             Liabilities and Equity  USD   376222.90  11515972.02  22565199.40
+10                       Liabilities  USD  4964318.40   3149732.40    737613.34
+11               Current Liabilities  USD   172660.40    555863.40    565612.34
+12          Trade and Other Payables  USD   150876.24    152079.24    153816.24
+13                  Unearned Revenue  USD    21784.16    403784.16    411796.10
+14           Non-current Liabilities  USD  4791658.00   2593869.00    172001.00
+15              Long-term Borrowings  USD  4705658.00   2464869.00         1.00
+16  Employee end of service benefits  USD    86000.00    129000.00    172000.00
+17                            Equity  USD -4588095.50   8366239.62  21827586.06
+18                     Share Capital  USD        0.00     43322.00     94744.00
+19                            Grants  USD        0.00         0.00         0.00
+20                     Legal Reserve  USD    25000.00     25000.00     25000.00
+21               Revaluation Reserve  USD    25000.00     25000.00     25000.00
+22          Accumulated Gains/Losses  USD -4638095.50   8272917.62  21682842.06
+
+----------------------------------------
+
+DataFrame 3:
+                                  Cashflow  Unit        2025         2026         2027
+0                       Operating Cashflow   USD -4038554.14  12284078.12  13681120.62
+1                       Investing Cashflow   USD    -17830.0     -10530.0      -2397.0
+2                       Financing Cashflow   USD   4081384.0   -2668033.0   -2659933.0
+3                          YoY Cash Change   USD    24999.86   9605515.12  11018790.62
+4                       Cash Balance by YE   USD    24999.86   9630514.98   20649305.6
+5                                                                                     
+6                                 Cashflow  Unit        2025         2026         2027
+7                       Operating Cashflow   USD -4038554.14  12284078.12  13681120.62
+8   Earnings (NOPLAT - excluding interest)   USD  -3963821.5  13381579.12  13656411.44
+9                         (+) Depreciation   USD        5204         6301         6903
+10                                   Other   USD     86000.0      43000.0      43000.0
+11          (+) Changes in Working Capital   USD  -165936.64   -1146802.0    -25193.82
+12             Trade and other receivables   USD    87136.64    1528000.0     32047.76
+13                        Prepaid expenses   USD   100584.16        802.0       1158.0
+14                               Inventory   USD   150876.24       1203.0       1737.0
+15                Trade and Other Payables   USD   150876.24       1203.0       1737.0
+16                        Unearned Revenue   USD    21784.16     382000.0      8011.94
+17                      Investing Cashflow   USD    -17830.0     -10530.0      -2397.0
+18          Cashflow from CapEx Activities   USD           0            0            0
+19                               (-) CapEx   USD      -23034       -12831        -3500
+20      Cashflow from non-CapEx Activities   USD           0            0            0
+21       Sales or disposal of other assets   USD        5204         2301         1103
+22                      Financing Cashflow   USD   4081384.0   -2668033.0   -2659933.0
+23                       (+) Equity Raised   USD           0        43322        51422
+24                  (+) Change in Reserves   USD     50000.0          0.0          0.0
+25                              (+) Grants   USD           0            0            0
+26                         (+) Debt issued   USD     6742739            0            0
+27            (-) Debt principal repayment   USD    -2037081     -2240789     -2464868
+28                    (-) Interest payment   USD     -674274      -470566      -246487
+
+----------------------------------------
+
+DataFrame 4:
+               Funding Requirement  Unit        2025         2026         2027
+0             Opening Cash Balance   USD           0        24999      9630514
+1                              FCF   USD -4056384.14  12273548.12  13678723.62
+2              Grants and Reserves   USD     50000.0          0.0          0.0
+3                      Equity Sale   USD           0        43322        51422
+4             Minimum Desired Cash   USD       25000        25000        25000
+5             Cash Surplus/Deficit   USD    -4031384     12316869     23335659
+6                 Outstanding Debt  Unit        2025         2026         2027
+7                         Debt BOP   USD           0      4705658      2464869
+8                       Debt Added   USD     6742739            0            0
+9              Debt Principal Paid   USD    -2037081     -2240789     -2464868
+10                        Debt EOP   USD     4705658      2464869            1
+11                  Debt Financing  Unit        2025         2026         2027
+12  Debt Issued for Cash financing                                            
+13                   Debt Issuance   USD     6742739            0            0
+14               Full Debt Payment   USD    -2711355     -2711355     -2711355
+15                            2025   USD    -2711355     -2711355     -2711355
+16                            2026   USD           0            0            0
+17                            2027   USD           0            0            0
+18               Principle Payment   USD    -2037081     -2240789     -2464868
+19                            2025   USD    -2037081     -2240789     -2464868
+20                            2026   USD           0            0            0
+21                            2027   USD           0            0            0
+22                Interest Payment   USD     -674274      -470566      -246487
+23                            2025   USD     -674274      -470566      -246487
+24                            2026   USD           0            0            0
+25                            2027   USD           0            0            0
+
+----------------------------------------
+
