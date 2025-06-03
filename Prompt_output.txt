@@ -1,4 +1,4 @@
-
+https://morganstanley.zoom.us/j/93508794488
 
 [17/05, 10:39 am] Yahya El Ali: Here you go the steps to finalize this:
 0. Step 0: assumption of equity sale in data frame 4 on row 3: please link it to row 22 in data frame 3, as well as row 18 for share capital in data frame 2 - kind reminder that for data frame 2, it is incremental. in other words: if the first year you have equity issuance of 10, then second year equity issuance of 20 and assuming start from 0, then first year equity is 10, second year equity is 10+20 = 30
