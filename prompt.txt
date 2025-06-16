@@ -1,5 +1,4 @@
-https://teams.microsoft.com/l/meetup-join/19%3ameeting_MjA2YTA4MmMtMzgzOS00Mzk5LWE1MTMtZDA5ODFlNTk0OWRj%40thread.v2/0?context=%7b%22Tid%22%3a%22c990bb7a-51f4-439b-bd36-9c07fb1041c0%22%2c%22Oid%22%3a%229abd33aa-37ca-45b4-a077-c12e0db5bf51%22%7d
-
+https://walmart.zoom.us/j/92595782972?from=addon
 
 step1_prompt = f""" You are professional Financial modeling expert. Given description: {User_descriptions} your task is to Identify the size of the population in scope, such as number of total households, number of total enterprises, number of total seats, number of total masts. The objective of this step is to gauge the each sample space of the demand side for a certain service across the distinct customer dimensions such as low-income / Mid-income / High-income.  If the calculation is structured by continent and the company operates only in specific countries, make sure that only the continents corresponding to these countries are only considered in writing formula.
     The calculation should only use the mathematical operations. Define each step clearly, provide the formula for intermediate calculations, and explain how each step contributes to the estimation of the size of the population in scope. Ensure each step's resultant variable have proper unit (e.g., "User_base (millions) = ...").
